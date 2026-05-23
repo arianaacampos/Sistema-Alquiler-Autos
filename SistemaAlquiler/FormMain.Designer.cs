@@ -30,14 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonSeguridad = new System.Windows.Forms.Button();
-            this.buttonOperaciones = new System.Windows.Forms.Button();
-            this.buttonEntidades = new System.Windows.Forms.Button();
-            this.buttonReportes = new System.Windows.Forms.Button();
-            this.buttonSalir = new System.Windows.Forms.Button();
-            this.buttonAyuda = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonAyuda = new System.Windows.Forms.Button();
+            this.buttonSalir = new System.Windows.Forms.Button();
+            this.buttonReportes = new System.Windows.Forms.Button();
+            this.buttonEntidades = new System.Windows.Forms.Button();
+            this.buttonOperaciones = new System.Windows.Forms.Button();
+            this.buttonSeguridad = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonUsuarios = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -45,6 +46,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkRed;
+            this.panel1.Controls.Add(this.buttonUsuarios);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.buttonAyuda);
             this.panel1.Controls.Add(this.buttonSalir);
@@ -58,41 +60,24 @@
             this.panel1.Size = new System.Drawing.Size(341, 814);
             this.panel1.TabIndex = 1;
             // 
-            // buttonSeguridad
+            // label1
             // 
-            this.buttonSeguridad.Location = new System.Drawing.Point(71, 307);
-            this.buttonSeguridad.Name = "buttonSeguridad";
-            this.buttonSeguridad.Size = new System.Drawing.Size(202, 68);
-            this.buttonSeguridad.TabIndex = 0;
-            this.buttonSeguridad.Text = "Seguridad";
-            this.buttonSeguridad.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(118, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Bienvenido!";
             // 
-            // buttonOperaciones
+            // buttonAyuda
             // 
-            this.buttonOperaciones.Location = new System.Drawing.Point(71, 136);
-            this.buttonOperaciones.Name = "buttonOperaciones";
-            this.buttonOperaciones.Size = new System.Drawing.Size(202, 68);
-            this.buttonOperaciones.TabIndex = 1;
-            this.buttonOperaciones.Text = "Operaciones";
-            this.buttonOperaciones.UseVisualStyleBackColor = true;
-            // 
-            // buttonEntidades
-            // 
-            this.buttonEntidades.Location = new System.Drawing.Point(71, 222);
-            this.buttonEntidades.Name = "buttonEntidades";
-            this.buttonEntidades.Size = new System.Drawing.Size(202, 68);
-            this.buttonEntidades.TabIndex = 2;
-            this.buttonEntidades.Text = "Entidades";
-            this.buttonEntidades.UseVisualStyleBackColor = true;
-            // 
-            // buttonReportes
-            // 
-            this.buttonReportes.Location = new System.Drawing.Point(71, 390);
-            this.buttonReportes.Name = "buttonReportes";
-            this.buttonReportes.Size = new System.Drawing.Size(202, 68);
-            this.buttonReportes.TabIndex = 4;
-            this.buttonReportes.Text = "Reportes";
-            this.buttonReportes.UseVisualStyleBackColor = true;
+            this.buttonAyuda.Location = new System.Drawing.Point(71, 502);
+            this.buttonAyuda.Name = "buttonAyuda";
+            this.buttonAyuda.Size = new System.Drawing.Size(202, 68);
+            this.buttonAyuda.TabIndex = 6;
+            this.buttonAyuda.Text = "Ayuda";
+            this.buttonAyuda.UseVisualStyleBackColor = true;
             // 
             // buttonSalir
             // 
@@ -103,24 +88,41 @@
             this.buttonSalir.Text = "Salir";
             this.buttonSalir.UseVisualStyleBackColor = true;
             // 
-            // buttonAyuda
+            // buttonReportes
             // 
-            this.buttonAyuda.Location = new System.Drawing.Point(71, 479);
-            this.buttonAyuda.Name = "buttonAyuda";
-            this.buttonAyuda.Size = new System.Drawing.Size(202, 68);
-            this.buttonAyuda.TabIndex = 6;
-            this.buttonAyuda.Text = "Ayuda";
-            this.buttonAyuda.UseVisualStyleBackColor = true;
+            this.buttonReportes.Location = new System.Drawing.Point(71, 428);
+            this.buttonReportes.Name = "buttonReportes";
+            this.buttonReportes.Size = new System.Drawing.Size(202, 68);
+            this.buttonReportes.TabIndex = 4;
+            this.buttonReportes.Text = "Reportes";
+            this.buttonReportes.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // buttonEntidades
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(116, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Bienvenido!";
+            this.buttonEntidades.Location = new System.Drawing.Point(71, 280);
+            this.buttonEntidades.Name = "buttonEntidades";
+            this.buttonEntidades.Size = new System.Drawing.Size(202, 68);
+            this.buttonEntidades.TabIndex = 2;
+            this.buttonEntidades.Text = "Entidades";
+            this.buttonEntidades.UseVisualStyleBackColor = true;
+            // 
+            // buttonOperaciones
+            // 
+            this.buttonOperaciones.Location = new System.Drawing.Point(71, 206);
+            this.buttonOperaciones.Name = "buttonOperaciones";
+            this.buttonOperaciones.Size = new System.Drawing.Size(202, 68);
+            this.buttonOperaciones.TabIndex = 1;
+            this.buttonOperaciones.Text = "Operaciones";
+            this.buttonOperaciones.UseVisualStyleBackColor = true;
+            // 
+            // buttonSeguridad
+            // 
+            this.buttonSeguridad.Location = new System.Drawing.Point(71, 354);
+            this.buttonSeguridad.Name = "buttonSeguridad";
+            this.buttonSeguridad.Size = new System.Drawing.Size(202, 68);
+            this.buttonSeguridad.TabIndex = 0;
+            this.buttonSeguridad.Text = "Seguridad";
+            this.buttonSeguridad.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
@@ -133,6 +135,15 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // buttonUsuarios
+            // 
+            this.buttonUsuarios.Location = new System.Drawing.Point(71, 132);
+            this.buttonUsuarios.Name = "buttonUsuarios";
+            this.buttonUsuarios.Size = new System.Drawing.Size(202, 68);
+            this.buttonUsuarios.TabIndex = 8;
+            this.buttonUsuarios.Text = "Usuarios";
+            this.buttonUsuarios.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -163,6 +174,7 @@
         private System.Windows.Forms.Button buttonAyuda;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonUsuarios;
     }
 }
 
