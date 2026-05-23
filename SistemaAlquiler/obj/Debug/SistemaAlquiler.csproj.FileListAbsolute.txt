@@ -1,0 +1,11 @@
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\bin\Debug\SistemaAlquiler.exe.config
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\bin\Debug\SistemaAlquiler.exe
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\bin\Debug\SistemaAlquiler.pdb
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.csproj.AssemblyReference.cache
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.FormMain.resources
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.Properties.Resources.resources
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.csproj.GenerateResource.cache
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.csproj.CoreCompileInputs.cache
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.exe
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.pdb
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.exe.config

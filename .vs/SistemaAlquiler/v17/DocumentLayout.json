@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9C4E7590-EBBF-4B2A-BDEE-921C473E9448}|Services\\Services.csproj|c:\\users\\aru\\onedrive\\desktop\\sistemaalquiler\\services\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C4E7590-EBBF-4B2A-BDEE-921C473E9448}|Services\\Services.csproj|solutionrelative:services\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{903ECFEA-2933-4EBB-B9EE-DD64592D6B60}|BE\\BE.csproj|C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\be\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{903ECFEA-2933-4EBB-B9EE-DD64592D6B60}|BE\\BE.csproj|solutionrelative:be\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8C2D196A-3B6C-4F3A-B7BA-128015563A42}|DAL\\DAL.csproj|C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C2D196A-3B6C-4F3A-B7BA-128015563A42}|DAL\\DAL.csproj|solutionrelative:dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{691E4CAD-7817-4877-9BD5-D188D7A3A433}|BLL\\BLL.csproj|C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{691E4CAD-7817-4877-9BD5-D188D7A3A433}|BLL\\BLL.csproj|solutionrelative:bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D02F0F04-C2C7-4410-89DF-77F241117AFD}|SistemaAlquiler\\SistemaAlquiler.csproj|C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\sistemaalquiler\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{D02F0F04-C2C7-4410-89DF-77F241117AFD}|SistemaAlquiler\\SistemaAlquiler.csproj|solutionrelative:sistemaalquiler\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D02F0F04-C2C7-4410-89DF-77F241117AFD}|SistemaAlquiler\\SistemaAlquiler.csproj|c:\\users\\aru\\onedrive\\desktop\\sistemaalquiler\\sistemaalquiler\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D02F0F04-C2C7-4410-89DF-77F241117AFD}|SistemaAlquiler\\SistemaAlquiler.csproj|solutionrelative:sistemaalquiler\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,62 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\Services\\Class1.cs",
-              "RelativeDocumentMoniker": "Services\\Class1.cs",
-              "ToolTip": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\Services\\Class1.cs",
-              "RelativeToolTip": "Services\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Title": "FormMain.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\SistemaAlquiler\\FormMain.cs",
+              "RelativeDocumentMoniker": "SistemaAlquiler\\FormMain.cs",
+              "ToolTip": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\SistemaAlquiler\\FormMain.cs [Dise\u00F1o]",
+              "RelativeToolTip": "SistemaAlquiler\\FormMain.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T19:20:28.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\BE\\Class1.cs",
-              "RelativeDocumentMoniker": "BE\\Class1.cs",
-              "ToolTip": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\BE\\Class1.cs",
-              "RelativeToolTip": "BE\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T19:20:08.555Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\DAL\\Class1.cs",
-              "RelativeDocumentMoniker": "DAL\\Class1.cs",
-              "ToolTip": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\DAL\\Class1.cs",
-              "RelativeToolTip": "DAL\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T19:20:01.071Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\BLL\\Class1.cs",
-              "RelativeDocumentMoniker": "BLL\\Class1.cs",
-              "ToolTip": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\BLL\\Class1.cs",
-              "RelativeToolTip": "BLL\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T19:19:52.181Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form1.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\SistemaAlquiler\\Form1.cs",
-              "RelativeDocumentMoniker": "SistemaAlquiler\\Form1.cs",
-              "ToolTip": "C:\\Users\\Aru\\OneDrive\\Desktop\\SistemaAlquiler\\SistemaAlquiler\\Form1.cs [Dise\u00F1o]",
-              "RelativeToolTip": "SistemaAlquiler\\Form1.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-14T19:19:40.3Z"
+              "WhenOpened": "2026-05-14T19:19:40.3Z",
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }
