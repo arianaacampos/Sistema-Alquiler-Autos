@@ -11,3 +11,5 @@ C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaA
 C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.exe.config
 C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.Seguridad.FormLogin.resources
 C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.Seguridad.FormUsuarios.resources
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.Seguridad.FormCambiarClave.resources
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\SistemaAlquiler\obj\Debug\SistemaAlquiler.Seguridad.Logout.resources

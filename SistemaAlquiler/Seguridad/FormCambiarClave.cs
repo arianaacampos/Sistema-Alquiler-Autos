@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Seguridad
 {
-    public partial class FormUsuarios : Form
+    public partial class FormCambiarClave : Form
     {
-        public FormUsuarios()
+        public FormCambiarClave()
         {
             InitializeComponent();
-        }
-
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
