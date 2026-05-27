@@ -26,32 +26,41 @@ namespace SistemaAlquiler.Seguridad
                 string usuario = textBoxUsuario.Text;
                 string clave = textBoxPassword.Text;
 
-
                 if (!string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(clave))
                 {
+                    UsuarioBLL gestorUsuario = new UsuarioBLL();
+                    string resultado = gestorUsuario.ValidarLogin(usuario, clave);
 
-                    Sesion.Instancia.UsuarioActual = usuario;
-                    BitacoraBLL gestorBitacora = new BitacoraBLL();
-                    gestorBitacora.Registrar(usuario, "Usuario", "Inicio de Sesión Exitoso", "Baja");
+                    if (resultado == "OK")
+                    {
 
-                    MessageBox.Show("¡Bienvenido al sistema, " + usuario + "!");
+                        Sesion.Instancia.UsuarioActual = usuario;
 
- 
-                    FormMain menu = new FormMain();
-                    menu.Show();
-                    this.Hide(); 
+                        BitacoraBLL gestorBitacora = new BitacoraBLL();
+                        gestorBitacora.Registrar(usuario, "Seguridad", "Inicio de sesión exitoso", "Baja");
+
+                        FormMain menu = new FormMain();
+                        menu.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+
+                        BitacoraBLL gestorBitacora = new BitacoraBLL();
+                        gestorBitacora.Registrar(usuario, "Seguridad", "Intento de login fallido", "Alta");
+
+
+                        MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Por favor, ingrese usuario y contraseña.");
-
-                    BitacoraBLL gestorBitacora = new BitacoraBLL();
-                    gestorBitacora.Registrar("Desconocido", "Usuario", "Intento de Sesión Fallido", "Alta");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al iniciar sesión: " + ex.Message);
+                MessageBox.Show("Error en el sistema: " + ex.Message);
             }
         }
 
