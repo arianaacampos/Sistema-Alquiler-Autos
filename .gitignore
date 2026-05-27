@@ -1,0 +1,14 @@
+# Carpetas de compilación 
+bin/
+obj/
+
+# Archivos de configuración local de Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+*.pdb
+
+# Bases de datos locales de prueba
+*.mdf
+*.ldf
