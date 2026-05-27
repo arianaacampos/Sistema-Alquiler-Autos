@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonUsuarios = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAyuda = new System.Windows.Forms.Button();
             this.buttonSalir = new System.Windows.Forms.Button();
@@ -38,7 +40,6 @@
             this.buttonOperaciones = new System.Windows.Forms.Button();
             this.buttonSeguridad = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonUsuarios = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -46,6 +47,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkRed;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.buttonUsuarios);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.buttonAyuda);
@@ -60,6 +62,25 @@
             this.panel1.Size = new System.Drawing.Size(341, 814);
             this.panel1.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(71, 481);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(202, 68);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Reporte";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // buttonUsuarios
+            // 
+            this.buttonUsuarios.Location = new System.Drawing.Point(71, 111);
+            this.buttonUsuarios.Name = "buttonUsuarios";
+            this.buttonUsuarios.Size = new System.Drawing.Size(202, 68);
+            this.buttonUsuarios.TabIndex = 8;
+            this.buttonUsuarios.Text = "Admin";
+            this.buttonUsuarios.UseVisualStyleBackColor = true;
+            this.buttonUsuarios.Click += new System.EventHandler(this.buttonUsuarios_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -72,7 +93,7 @@
             // 
             // buttonAyuda
             // 
-            this.buttonAyuda.Location = new System.Drawing.Point(71, 502);
+            this.buttonAyuda.Location = new System.Drawing.Point(71, 555);
             this.buttonAyuda.Name = "buttonAyuda";
             this.buttonAyuda.Size = new System.Drawing.Size(202, 68);
             this.buttonAyuda.TabIndex = 6;
@@ -87,41 +108,42 @@
             this.buttonSalir.TabIndex = 5;
             this.buttonSalir.Text = "Salir";
             this.buttonSalir.UseVisualStyleBackColor = true;
+            this.buttonSalir.Click += new System.EventHandler(this.buttonSalir_Click);
             // 
             // buttonReportes
             // 
-            this.buttonReportes.Location = new System.Drawing.Point(71, 428);
+            this.buttonReportes.Location = new System.Drawing.Point(71, 407);
             this.buttonReportes.Name = "buttonReportes";
             this.buttonReportes.Size = new System.Drawing.Size(202, 68);
             this.buttonReportes.TabIndex = 4;
-            this.buttonReportes.Text = "Reportes";
+            this.buttonReportes.Text = "Mantenimiento";
             this.buttonReportes.UseVisualStyleBackColor = true;
             // 
             // buttonEntidades
             // 
-            this.buttonEntidades.Location = new System.Drawing.Point(71, 280);
+            this.buttonEntidades.Location = new System.Drawing.Point(71, 259);
             this.buttonEntidades.Name = "buttonEntidades";
             this.buttonEntidades.Size = new System.Drawing.Size(202, 68);
             this.buttonEntidades.TabIndex = 2;
-            this.buttonEntidades.Text = "Entidades";
+            this.buttonEntidades.Text = "Usuario";
             this.buttonEntidades.UseVisualStyleBackColor = true;
             // 
             // buttonOperaciones
             // 
-            this.buttonOperaciones.Location = new System.Drawing.Point(71, 206);
+            this.buttonOperaciones.Location = new System.Drawing.Point(71, 185);
             this.buttonOperaciones.Name = "buttonOperaciones";
             this.buttonOperaciones.Size = new System.Drawing.Size(202, 68);
             this.buttonOperaciones.TabIndex = 1;
-            this.buttonOperaciones.Text = "Operaciones";
+            this.buttonOperaciones.Text = "Maestros";
             this.buttonOperaciones.UseVisualStyleBackColor = true;
             // 
             // buttonSeguridad
             // 
-            this.buttonSeguridad.Location = new System.Drawing.Point(71, 354);
+            this.buttonSeguridad.Location = new System.Drawing.Point(71, 333);
             this.buttonSeguridad.Name = "buttonSeguridad";
             this.buttonSeguridad.Size = new System.Drawing.Size(202, 68);
             this.buttonSeguridad.TabIndex = 0;
-            this.buttonSeguridad.Text = "Seguridad";
+            this.buttonSeguridad.Text = "Operaciones";
             this.buttonSeguridad.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
@@ -129,21 +151,12 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(1212, 525);
+            this.pictureBox1.Location = new System.Drawing.Point(1175, 502);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(361, 289);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
-            // 
-            // buttonUsuarios
-            // 
-            this.buttonUsuarios.Location = new System.Drawing.Point(71, 132);
-            this.buttonUsuarios.Name = "buttonUsuarios";
-            this.buttonUsuarios.Size = new System.Drawing.Size(202, 68);
-            this.buttonUsuarios.TabIndex = 8;
-            this.buttonUsuarios.Text = "Usuarios";
-            this.buttonUsuarios.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -175,6 +188,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonUsuarios;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -1,0 +1,6 @@
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\Services\bin\Debug\Services.dll
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\Services\bin\Debug\Services.pdb
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\Services\obj\Debug\Services.csproj.AssemblyReference.cache
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\Services\obj\Debug\Services.csproj.CoreCompileInputs.cache
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\Services\obj\Debug\Services.dll
+C:\Users\Aru\OneDrive\Desktop\SistemaAlquiler\Services\obj\Debug\Services.pdb

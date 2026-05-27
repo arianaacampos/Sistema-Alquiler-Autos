@@ -1,0 +1,8 @@
+CREATE TABLE Bitacora (
+    ID_Bitacora INT IDENTITY(1,1) PRIMARY KEY,
+    FechaHora DATETIME NOT NULL,
+    Usuario VARCHAR(50) NOT NULL,
+    Modulo VARCHAR(50) NOT NULL,
+    Criticidad VARCHAR(50) NOT NULL,
+    Evento VARCHAR(255) NOT NULL
+);

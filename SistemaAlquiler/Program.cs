@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaAlquiler.Seguridad;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace SistemaAlquiler
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Seguridad.FormLogin());
+            Application.Run(new FormLogin());
         }
     }
 }

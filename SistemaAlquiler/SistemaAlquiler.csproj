@@ -54,28 +54,34 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Seguridad\FormCambiarClave.cs">
+    <Compile Include="Admin\FormBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Seguridad\FormCambiarClave.Designer.cs">
+    <Compile Include="Admin\FormBitacora.Designer.cs">
+      <DependentUpon>FormBitacora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\FormCambiarClave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuario\FormCambiarClave.Designer.cs">
       <DependentUpon>FormCambiarClave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Seguridad\FormLogin.cs">
+    <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Seguridad\FormLogin.Designer.cs">
+    <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Seguridad\FormUsuarios.cs">
+    <Compile Include="Admin\FormUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Seguridad\FormUsuarios.Designer.cs">
+    <Compile Include="Admin\FormUsuarios.Designer.cs">
       <DependentUpon>FormUsuarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="Seguridad\Logout.cs">
+    <Compile Include="Logout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Seguridad\Logout.Designer.cs">
+    <Compile Include="Logout.Designer.cs">
       <DependentUpon>Logout.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
@@ -90,16 +96,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Seguridad\FormCambiarClave.resx">
+    <EmbeddedResource Include="Admin\FormBitacora.resx">
+      <DependentUpon>FormBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuario\FormCambiarClave.resx">
       <DependentUpon>FormCambiarClave.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Seguridad\FormLogin.resx">
+    <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Seguridad\FormUsuarios.resx">
+    <EmbeddedResource Include="Admin\FormUsuarios.resx">
       <DependentUpon>FormUsuarios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Seguridad\Logout.resx">
+    <EmbeddedResource Include="Logout.resx">
       <DependentUpon>Logout.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -114,6 +123,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Maestros\" />
+    <Folder Include="Mantenimiento\" />
+    <Folder Include="Operaciones\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BE\BE.csproj">
+      <Project>{903ecfea-2933-4ebb-b9ee-dd64592d6b60}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{691e4cad-7817-4877-9bd5-d188d7a3a433}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{9c4e7590-ebbf-4b2a-bdee-921c473e9448}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
