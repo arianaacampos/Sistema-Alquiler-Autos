@@ -37,7 +37,7 @@ namespace SistemaAlquiler.Seguridad
                         Sesion.Instancia.UsuarioActual = usuario;
 
                         BitacoraBLL gestorBitacora = new BitacoraBLL();
-                        gestorBitacora.Registrar(usuario, "Seguridad", "Inicio de sesión exitoso", "Baja");
+                        gestorBitacora.Registrar(usuario, "Usuario", "Login", "Baja");
 
                         FormMain menu = new FormMain();
                         menu.Show();
@@ -47,7 +47,7 @@ namespace SistemaAlquiler.Seguridad
                     {
 
                         BitacoraBLL gestorBitacora = new BitacoraBLL();
-                        gestorBitacora.Registrar(usuario, "Seguridad", "Intento de login fallido", "Alta");
+                        gestorBitacora.Registrar(usuario, "Usuario", "Login Fallido", "Alta");
 
 
                         MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -70,6 +70,11 @@ namespace SistemaAlquiler.Seguridad
         }
 
         private void textBoxUsuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
         {
 
         }

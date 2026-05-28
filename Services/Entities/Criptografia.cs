@@ -11,14 +11,11 @@ namespace Services.Entities
     {
         public static string EncriptarHash(string textoPlano)
         {
-            // Instanciamos el algoritmo SHA256
             using (SHA256 sha256 = SHA256.Create())
             {
-                // convertimos el texto a un arreglo de Bytes
                 byte[] bytesOriginales = Encoding.UTF8.GetBytes(textoPlano);
                 byte[] bytesHasheados = sha256.ComputeHash(bytesOriginales);
 
-                // Convertimos esos números a un texto legible 
                 StringBuilder resultado = new StringBuilder();
                 for (int i = 0; i < bytesHasheados.Length; i++)
                 {

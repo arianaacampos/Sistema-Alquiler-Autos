@@ -25,7 +25,7 @@ namespace SistemaAlquiler.Seguridad
             {
    
                 BitacoraBLL gestorBitacora = new BitacoraBLL();
-                gestorBitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Cierre de Sesión", "Baja");
+                gestorBitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Logout", "Baja");
                 Sesion.Instancia.FinalizarSesion();
                FormLogin login = new FormLogin();
                 login.Show();
@@ -41,6 +41,12 @@ namespace SistemaAlquiler.Seguridad
         {
            FormMain main = new FormMain(); main.ShowDialog();
             this.Close();
+        }
+
+        private void Logout_Load(object sender, EventArgs e)
+        {
+            string comprobacion = "Instancia hash: " + Sesion.Instancia.GetHashCode().ToString();
+            label2.Text = comprobacion;
         }
     }
 }

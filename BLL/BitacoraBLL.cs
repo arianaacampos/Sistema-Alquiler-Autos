@@ -14,13 +14,7 @@ namespace BLL
 
         public void Registrar(string usuario, string modulo, string evento, string criticidad)
         {
-            if (string.IsNullOrEmpty(usuario))
-            {
-                usuario = "SISTEMA";
-            }
-
             Bitacora nuevaBitacora = new Bitacora(usuario, modulo, evento, criticidad);
-
             dal.RegistrarEvento(nuevaBitacora);
         }
 
@@ -28,5 +22,10 @@ namespace BLL
         {
             return dal.ConsultarBitacora();
         }
+        public List<Bitacora> ConsultarFiltrado(DateTime desde, DateTime hasta, string usuario, string modulo, string evento, string criticidad)
+        {
+            return dal.ConsultarConFiltros(desde, hasta, usuario, modulo, evento, criticidad);
+        }
+
     }
 }

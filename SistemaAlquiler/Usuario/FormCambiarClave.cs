@@ -46,7 +46,7 @@ namespace SistemaAlquiler.Seguridad
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("¡Contraseña cambiada con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("¡Contraseña cambiada con exito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close(); 
                 }
                 else
@@ -63,6 +63,11 @@ namespace SistemaAlquiler.Seguridad
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FormCambiarClave_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

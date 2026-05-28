@@ -19,13 +19,11 @@ namespace BLL
 
             if (usu == null)
             {
-                return "El usuario ingresado no existe.";
+                return "El usuario ingresado no existe";
             }
-
-
             if (usu.Bloqueado)
             {
-                return "Su cuenta se encuentra bloqueada por superar el límite de intentos. Contacte al administrador.";
+                return "Su cuenta se encuentra bloqueada por superar el limite";
             }
 
             string claveHasheada = Criptografia.EncriptarHash(claveIngresada);
@@ -47,7 +45,7 @@ namespace BLL
                 {
                     usu.Bloqueado = true;
                     _usuarioDAL.ActualizarIntentos(usu);
-                    return "Contraseña incorrecta. Su cuenta ha sido bloqueada tras 3 intentos fallidos.";
+                    return "Contraseña incorrecta. Su cuenta ha sido bloqueada tras 3 intentos";
                 }
 
                 _usuarioDAL.ActualizarIntentos(usu);
@@ -63,11 +61,15 @@ namespace BLL
         {
             
             _usuarioDAL.Alta(usuario);
+            BitacoraBLL bitacora = new BitacoraBLL();
+            bitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Alta Usuario", "Media");
         }
 
         public void Modificar(Usuario usuario)
         {
             _usuarioDAL.Modificar(usuario);
+            BitacoraBLL bitacora = new BitacoraBLL();
+            bitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Modificación Usuario", "Media");
         }
         public string CambiarClave(string nombreUsuario, string claveActual, string nuevaClave)
         {
@@ -75,22 +77,27 @@ namespace BLL
 
             if (usu == null)
             {
-                return "Error: No se encontró el usuario.";
+                return "Error: No se encontro el usuario";
             }
 
             string hashActual = Criptografia.EncriptarHash(claveActual);
             if (usu.Clave != hashActual)
             {
-                return "La clave actual ingresada es incorrecta.";
+                return "La clave es incorrecta";
             }
 
             string nuevaClaveHash = Criptografia.EncriptarHash(nuevaClave);
             _usuarioDAL.CambiarClave(nombreUsuario, nuevaClaveHash);
 
             BitacoraBLL bitacora = new BitacoraBLL();
-            bitacora.Registrar(nombreUsuario, "Seguridad", "Cambio de clave exitoso", "Media");
+            bitacora.Registrar(nombreUsuario, "Usuario", "Cambiar Clave", "Media");
 
             return "OK";
         }
+        public Services.Entities.Usuario ObtenerPorNombre(string nombreUsuario)
+        {
+            return _usuarioDAL.ObtenerPorNombre(nombreUsuario);
+        }
+
     }
 }

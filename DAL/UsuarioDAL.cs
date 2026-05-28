@@ -26,14 +26,18 @@ namespace DAL
                     {
                         Usuario usuario = new Usuario();
                         usuario.ID_Usuario = Convert.ToInt32(mDt["ID_Usuario"]);
-                        usuario.DNI = mDt["DNI"].ToString();
-                        usuario.Apellido = mDt["Apellido"].ToString(); 
-                        usuario.Nombre = mDt["Nombre"].ToString(); 
-                        usuario.NombreUsuario = mDt["NombreUsuario"].ToString();
-                        usuario.Rol = mDt["Rol"].ToString();
-                        usuario.Email = mDt["Email"].ToString();
-                        usuario.Bloqueado = Convert.ToBoolean(mDt["Bloqueado"]);
-                        usuario.Activo = Convert.ToBoolean(mDt["Activo"]);
+
+                        usuario.DNI = Convert.ToString(mDt["DNI"] == DBNull.Value ? "" : mDt["DNI"]);
+                        usuario.Apellido = Convert.ToString(mDt["Apellido"] == DBNull.Value ? "" : mDt["Apellido"]);
+                        usuario.Nombre = Convert.ToString(mDt["Nombre"] == DBNull.Value ? "" : mDt["Nombre"]);
+                        usuario.NombreUsuario = Convert.ToString(mDt["NombreUsuario"]);
+                        usuario.Rol = Convert.ToString(mDt["Rol"] == DBNull.Value ? "" : mDt["Rol"]);
+                        usuario.Email = Convert.ToString(mDt["Email"] == DBNull.Value ? "" : mDt["Email"]);
+
+                        // Convertimos el booleano solo si no es nulo
+                        usuario.Bloqueado = mDt["Bloqueado"] != DBNull.Value && Convert.ToBoolean(mDt["Bloqueado"]);
+                        usuario.Activo = mDt["Activo"] != DBNull.Value && Convert.ToBoolean(mDt["Activo"]);
+
                         lista.Add(usuario);
                     }
                 }
@@ -89,9 +93,10 @@ namespace DAL
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT ID_Usuario, NombreUsuario, Clave, IntentosFallidos, Bloqueado FROM Usuarios WHERE NombreUsuario = @Usuario";
+                // 1. Agregamos Nombre y Apellido al SELECT
+                string query = "SELECT ID_Usuario, NombreUsuario, Clave, IntentosFallidos, Bloqueado, Rol, Nombre, Apellido FROM Usuarios WHERE NombreUsuario = @Usuario";
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Usuario", nombreUsuario);
+                cmd.Parameters.AddWithValue("@Usuario", nombreUsuario.Trim());
 
                 con.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -104,12 +109,19 @@ namespace DAL
                         usu.Clave = dr["Clave"].ToString();
                         usu.IntentosFallidos = Convert.ToInt32(dr["IntentosFallidos"]);
                         usu.Bloqueado = Convert.ToBoolean(dr["Bloqueado"]);
+                        usu.Rol = dr["Rol"].ToString();
+
+                        // 2. Asignamos Nombre y Apellido, protegiendo con el DBNull
+                        usu.Nombre = dr["Nombre"] != DBNull.Value ? dr["Nombre"].ToString() : "";
+                        usu.Apellido = dr["Apellido"] != DBNull.Value ? dr["Apellido"].ToString() : "";
+
                         return usu;
                     }
                     return null;
                 }
             }
         }
+        
 
         public void ActualizarIntentos(Usuario usu)
         {

@@ -1,4 +1,5 @@
-﻿using SistemaAlquiler.Seguridad;
+﻿using Services.Entities;
+using SistemaAlquiler.Seguridad;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,18 @@ namespace SistemaAlquiler
             FormUsuarios usuarios = new FormUsuarios();
             usuarios.Show();
             this.Hide();
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FormLogin loginExtra = new FormLogin();
+            loginExtra.ShowDialog();
+            MessageBox.Show("El usuario en sesión actual es: " + Sesion.Instancia.UsuarioActual);
         }
     }
 }

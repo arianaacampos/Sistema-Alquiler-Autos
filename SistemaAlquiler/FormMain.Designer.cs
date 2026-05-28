@@ -40,6 +40,7 @@
             this.buttonOperaciones = new System.Windows.Forms.Button();
             this.buttonSeguridad = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +48,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkRed;
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.buttonUsuarios);
             this.panel1.Controls.Add(this.label1);
@@ -58,27 +60,24 @@
             this.panel1.Controls.Add(this.buttonSeguridad);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 529);
+            this.panel1.Size = new System.Drawing.Size(340, 814);
             this.panel1.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(47, 313);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(70, 482);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 44);
+            this.button1.Size = new System.Drawing.Size(202, 68);
             this.button1.TabIndex = 9;
             this.button1.Text = "Reporte";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // buttonUsuarios
             // 
-            this.buttonUsuarios.Location = new System.Drawing.Point(47, 72);
-            this.buttonUsuarios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonUsuarios.Location = new System.Drawing.Point(70, 111);
             this.buttonUsuarios.Name = "buttonUsuarios";
-            this.buttonUsuarios.Size = new System.Drawing.Size(135, 44);
+            this.buttonUsuarios.Size = new System.Drawing.Size(202, 68);
             this.buttonUsuarios.TabIndex = 8;
             this.buttonUsuarios.Text = "Admin";
             this.buttonUsuarios.UseVisualStyleBackColor = true;
@@ -88,29 +87,26 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(79, 47);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(118, 72);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(102, 20);
             this.label1.TabIndex = 7;
             this.label1.Text = "Bienvenido!";
             // 
             // buttonAyuda
             // 
-            this.buttonAyuda.Location = new System.Drawing.Point(47, 361);
-            this.buttonAyuda.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAyuda.Location = new System.Drawing.Point(70, 555);
             this.buttonAyuda.Name = "buttonAyuda";
-            this.buttonAyuda.Size = new System.Drawing.Size(135, 44);
+            this.buttonAyuda.Size = new System.Drawing.Size(202, 68);
             this.buttonAyuda.TabIndex = 6;
             this.buttonAyuda.Text = "Ayuda";
             this.buttonAyuda.UseVisualStyleBackColor = true;
             // 
             // buttonSalir
             // 
-            this.buttonSalir.Location = new System.Drawing.Point(47, 447);
-            this.buttonSalir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSalir.Location = new System.Drawing.Point(70, 723);
             this.buttonSalir.Name = "buttonSalir";
-            this.buttonSalir.Size = new System.Drawing.Size(135, 44);
+            this.buttonSalir.Size = new System.Drawing.Size(202, 68);
             this.buttonSalir.TabIndex = 5;
             this.buttonSalir.Text = "Salir";
             this.buttonSalir.UseVisualStyleBackColor = true;
@@ -118,20 +114,18 @@
             // 
             // buttonReportes
             // 
-            this.buttonReportes.Location = new System.Drawing.Point(47, 265);
-            this.buttonReportes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonReportes.Location = new System.Drawing.Point(70, 408);
             this.buttonReportes.Name = "buttonReportes";
-            this.buttonReportes.Size = new System.Drawing.Size(135, 44);
+            this.buttonReportes.Size = new System.Drawing.Size(202, 68);
             this.buttonReportes.TabIndex = 4;
             this.buttonReportes.Text = "Mantenimiento";
             this.buttonReportes.UseVisualStyleBackColor = true;
             // 
             // buttonEntidades
             // 
-            this.buttonEntidades.Location = new System.Drawing.Point(47, 168);
-            this.buttonEntidades.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonEntidades.Location = new System.Drawing.Point(70, 258);
             this.buttonEntidades.Name = "buttonEntidades";
-            this.buttonEntidades.Size = new System.Drawing.Size(135, 44);
+            this.buttonEntidades.Size = new System.Drawing.Size(202, 68);
             this.buttonEntidades.TabIndex = 2;
             this.buttonEntidades.Text = "Usuario";
             this.buttonEntidades.UseVisualStyleBackColor = true;
@@ -139,20 +133,18 @@
             // 
             // buttonOperaciones
             // 
-            this.buttonOperaciones.Location = new System.Drawing.Point(47, 120);
-            this.buttonOperaciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonOperaciones.Location = new System.Drawing.Point(70, 185);
             this.buttonOperaciones.Name = "buttonOperaciones";
-            this.buttonOperaciones.Size = new System.Drawing.Size(135, 44);
+            this.buttonOperaciones.Size = new System.Drawing.Size(202, 68);
             this.buttonOperaciones.TabIndex = 1;
             this.buttonOperaciones.Text = "Maestros";
             this.buttonOperaciones.UseVisualStyleBackColor = true;
             // 
             // buttonSeguridad
             // 
-            this.buttonSeguridad.Location = new System.Drawing.Point(47, 216);
-            this.buttonSeguridad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSeguridad.Location = new System.Drawing.Point(70, 332);
             this.buttonSeguridad.Name = "buttonSeguridad";
-            this.buttonSeguridad.Size = new System.Drawing.Size(135, 44);
+            this.buttonSeguridad.Size = new System.Drawing.Size(202, 68);
             this.buttonSeguridad.TabIndex = 0;
             this.buttonSeguridad.Text = "Operaciones";
             this.buttonSeguridad.UseVisualStyleBackColor = true;
@@ -162,26 +154,35 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(783, 326);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(1174, 502);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(241, 188);
+            this.pictureBox1.Size = new System.Drawing.Size(362, 289);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(70, 629);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(202, 68);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "RE LOGIN";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(1049, 529);
+            this.ClientSize = new System.Drawing.Size(1574, 814);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormMain";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -202,6 +203,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonUsuarios;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

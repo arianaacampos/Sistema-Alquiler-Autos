@@ -26,28 +26,14 @@ namespace SistemaAlquiler.Seguridad
 
         private void FormUsuarios_Load(object sender, EventArgs e)
         {
-            rdbActivos.CheckedChanged -= rdbActivos_CheckedChanged;
-            rdbActivos.CheckedChanged += rdbActivos_CheckedChanged;
-
-            rdbTodos.CheckedChanged -= rdbTodos_CheckedChanged;
-            rdbTodos.CheckedChanged += rdbTodos_CheckedChanged;
-
-            btnDesbloquear.Click -= btnDesbloquear_Click;
-            btnDesbloquear.Click += btnDesbloquear_Click;
-
-            btnActDesact.Click -= btnActDesact_Click;
-            btnActDesact.Click += btnActDesact_Click;
-
-            btnCancelar.Click -= btnCancelar_Click;
-            btnCancelar.Click += btnCancelar_Click;
-
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
 
+
             cbRol.Items.Clear();
-            cbRol.Items.AddRange(new string[] { "Gerente", "Recepcionista"});
+            cbRol.Items.AddRange(new string[] { "Gerente", "Recepcionista" });
             cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
 
             rdbActivos.Checked = true;
