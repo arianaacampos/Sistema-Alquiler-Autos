@@ -12,13 +12,86 @@ namespace DAL
     {
         private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;";
 
+        public List<Usuario> Listar()
+        {
+            List<Usuario> lista = new List<Usuario>();
+            using (SqlConnection mCon = new SqlConnection(connectionString))
+            {
+                string mCommandText = "SELECT * FROM Usuarios";
+                SqlCommand mCom = new SqlCommand(mCommandText, mCon);
+                mCon.Open();
+                using (SqlDataReader mDt = mCom.ExecuteReader())
+                {
+                    while (mDt.Read())
+                    {
+                        Usuario usuario = new Usuario();
+                        usuario.ID_Usuario = Convert.ToInt32(mDt["ID_Usuario"]);
+                        usuario.DNI = mDt["DNI"].ToString();
+                        usuario.Apellido = mDt["Apellido"].ToString(); 
+                        usuario.Nombre = mDt["Nombre"].ToString(); 
+                        usuario.NombreUsuario = mDt["NombreUsuario"].ToString();
+                        usuario.Rol = mDt["Rol"].ToString();
+                        usuario.Email = mDt["Email"].ToString();
+                        usuario.Bloqueado = Convert.ToBoolean(mDt["Bloqueado"]);
+                        usuario.Activo = Convert.ToBoolean(mDt["Activo"]);
+                        lista.Add(usuario);
+                    }
+                }
+            }
+            return lista;
+        }
+
+        public void Alta(Usuario usuario)
+        {
+            using (SqlConnection mCon = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Usuarios (DNI, Apellido, Nombre, NombreUsuario, Clave, Rol, Email, IntentosFallidos, Bloqueado, Activo) VALUES (@DNI, @Apellido, @Nombre, @NombreUsuario, @Clave, @Rol, @Email, 0, 0, 1)"; SqlCommand mCom = new SqlCommand(query, mCon);
+                mCom.Parameters.AddWithValue("@DNI", usuario.DNI);
+                mCom.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                mCom.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                mCom.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                mCom.Parameters.AddWithValue("@Clave", usuario.Clave);
+                mCom.Parameters.AddWithValue("@Rol", usuario.Rol);
+                mCom.Parameters.AddWithValue("@Email", usuario.Email);
+
+                mCon.Open();
+                mCom.ExecuteNonQuery();
+            }
+        }
+
+        public void Modificar(Usuario usuario)
+        {
+            using (SqlConnection mCon = new SqlConnection(connectionString))
+            {
+                string mCommandText = "UPDATE Usuarios SET DNI = @DNI, Apellido = @Apellido, Nombre = @Nombre, NombreUsuario = @NombreUsuario, Rol = @Rol, Email = @Email, Activo = @Activo, Bloqueado = @Bloqueado, IntentosFallidos = @IntentosFallidos WHERE ID_Usuario = @ID";
+                SqlCommand mCom = new SqlCommand(mCommandText, mCon);
+
+                mCom.Parameters.AddWithValue("@DNI", usuario.DNI);
+                mCom.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                mCom.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                mCom.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                mCom.Parameters.AddWithValue("@Rol", usuario.Rol);
+                mCom.Parameters.AddWithValue("@Email", usuario.Email);
+                mCom.Parameters.AddWithValue("@Activo", usuario.Activo);
+                mCom.Parameters.AddWithValue("@Bloqueado", usuario.Bloqueado);
+
+                mCom.Parameters.AddWithValue("@IntentosFallidos", usuario.IntentosFallidos);
+
+                mCom.Parameters.AddWithValue("@ID", usuario.ID_Usuario);
+
+                mCon.Open();
+                mCom.ExecuteNonQuery();
+            }
+        }
+
+
         public Usuario ObtenerPorNombre(string nombreUsuario)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string query = "SELECT ID_Usuario, NombreUsuario, Clave, IntentosFallidos, Bloqueado FROM Usuarios WHERE NombreUsuario = @Usuario";
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Usuario", nombreUsuario); 
+                cmd.Parameters.AddWithValue("@Usuario", nombreUsuario);
 
                 con.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -33,7 +106,7 @@ namespace DAL
                         usu.Bloqueado = Convert.ToBoolean(dr["Bloqueado"]);
                         return usu;
                     }
-                    return null; 
+                    return null;
                 }
             }
         }
@@ -47,6 +120,20 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Intentos", usu.IntentosFallidos);
                 cmd.Parameters.AddWithValue("@Bloqueado", usu.Bloqueado);
                 cmd.Parameters.AddWithValue("@ID", usu.ID_Usuario);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public void CambiarClave(string nombreUsuario, string nuevaClaveHasheada)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Usuarios SET Clave = @NuevaClave WHERE NombreUsuario = @Usuario";
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@NuevaClave", nuevaClaveHasheada);
+                cmd.Parameters.AddWithValue("@Usuario", nombreUsuario);
 
                 con.Open();
                 cmd.ExecuteNonQuery();

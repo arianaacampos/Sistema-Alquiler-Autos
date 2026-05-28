@@ -54,5 +54,43 @@ namespace BLL
                 return "Contraseña incorrecta. Le quedan " + (3 - usu.IntentosFallidos) + " intentos.";
             }
         }
+        public List<Usuario> Listar()
+        {
+            return _usuarioDAL.Listar();
+        }
+
+        public void Alta(Usuario usuario)
+        {
+            
+            _usuarioDAL.Alta(usuario);
+        }
+
+        public void Modificar(Usuario usuario)
+        {
+            _usuarioDAL.Modificar(usuario);
+        }
+        public string CambiarClave(string nombreUsuario, string claveActual, string nuevaClave)
+        {
+            Usuario usu = _usuarioDAL.ObtenerPorNombre(nombreUsuario);
+
+            if (usu == null)
+            {
+                return "Error: No se encontró el usuario.";
+            }
+
+            string hashActual = Criptografia.EncriptarHash(claveActual);
+            if (usu.Clave != hashActual)
+            {
+                return "La clave actual ingresada es incorrecta.";
+            }
+
+            string nuevaClaveHash = Criptografia.EncriptarHash(nuevaClave);
+            _usuarioDAL.CambiarClave(nombreUsuario, nuevaClaveHash);
+
+            BitacoraBLL bitacora = new BitacoraBLL();
+            bitacora.Registrar(nombreUsuario, "Seguridad", "Cambio de clave exitoso", "Media");
+
+            return "OK";
+        }
     }
 }

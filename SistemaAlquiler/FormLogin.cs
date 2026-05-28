@@ -68,5 +68,10 @@ namespace SistemaAlquiler.Seguridad
         {
             Application.Exit();
         }
+
+        private void textBoxUsuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

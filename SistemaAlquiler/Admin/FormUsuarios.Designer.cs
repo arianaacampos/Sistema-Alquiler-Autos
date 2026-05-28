@@ -30,25 +30,29 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUsuarios));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.buttonEstado = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btnCrear = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnActDesact = new System.Windows.Forms.Button();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.txtDNI = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.cbRol = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnDesbloquear = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.rdbActivos = new System.Windows.Forms.RadioButton();
+            this.rdbTodos = new System.Windows.Forms.RadioButton();
+            this.txtLogin = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
+            this.btnCambiarClave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -58,101 +62,105 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(21, 57);
+            this.dataGridView1.Location = new System.Drawing.Point(14, 37);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1149, 328);
+            this.dataGridView1.Size = new System.Drawing.Size(766, 213);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
-            // button1
+            // btnCrear
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(1215, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(223, 82);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Crear ";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCrear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrear.Location = new System.Drawing.Point(810, 37);
+            this.btnCrear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCrear.Name = "btnCrear";
+            this.btnCrear.Size = new System.Drawing.Size(149, 53);
+            this.btnCrear.TabIndex = 1;
+            this.btnCrear.Text = "Crear ";
+            this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
-            // button2
+            // btnModificar
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(1215, 180);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(223, 82);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Modificar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificar.Location = new System.Drawing.Point(810, 94);
+            this.btnModificar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(149, 53);
+            this.btnModificar.TabIndex = 2;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // buttonEstado
+            // btnActDesact
             // 
-            this.buttonEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEstado.Location = new System.Drawing.Point(1215, 303);
-            this.buttonEstado.Name = "buttonEstado";
-            this.buttonEstado.Size = new System.Drawing.Size(223, 82);
-            this.buttonEstado.TabIndex = 3;
-            this.buttonEstado.Text = "Activar";
-            this.buttonEstado.UseVisualStyleBackColor = true;
+            this.btnActDesact.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActDesact.Location = new System.Drawing.Point(810, 151);
+            this.btnActDesact.Margin = new System.Windows.Forms.Padding(2);
+            this.btnActDesact.Name = "btnActDesact";
+            this.btnActDesact.Size = new System.Drawing.Size(149, 53);
+            this.btnActDesact.TabIndex = 3;
+            this.btnActDesact.Text = "Activar / Desactivar";
+            this.btnActDesact.UseVisualStyleBackColor = true;
+            this.btnActDesact.Click += new System.EventHandler(this.btnActDesact_Click);
             // 
-            // textBox1
+            // txtNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(21, 456);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(211, 50);
-            this.textBox1.TabIndex = 4;
+            this.txtNombre.Location = new System.Drawing.Point(14, 296);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombre.Multiline = true;
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(142, 34);
+            this.txtNombre.TabIndex = 4;
             // 
-            // textBox2
+            // txtApellido
             // 
-            this.textBox2.Location = new System.Drawing.Point(266, 602);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(211, 50);
-            this.textBox2.TabIndex = 5;
+            this.txtApellido.Location = new System.Drawing.Point(177, 296);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(2);
+            this.txtApellido.Multiline = true;
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(142, 34);
+            this.txtApellido.TabIndex = 6;
             // 
-            // textBox3
+            // txtDNI
             // 
-            this.textBox3.Location = new System.Drawing.Point(266, 456);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(211, 50);
-            this.textBox3.TabIndex = 6;
+            this.txtDNI.Location = new System.Drawing.Point(8, 391);
+            this.txtDNI.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDNI.Multiline = true;
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.Size = new System.Drawing.Size(142, 34);
+            this.txtDNI.TabIndex = 7;
             // 
-            // textBox4
+            // txtEmail
             // 
-            this.textBox4.Location = new System.Drawing.Point(12, 602);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(211, 50);
-            this.textBox4.TabIndex = 7;
+            this.txtEmail.Location = new System.Drawing.Point(343, 296);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEmail.Multiline = true;
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(142, 34);
+            this.txtEmail.TabIndex = 8;
             // 
-            // textBox5
+            // cbRol
             // 
-            this.textBox5.Location = new System.Drawing.Point(515, 456);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(211, 50);
-            this.textBox5.TabIndex = 8;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(515, 602);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(211, 45);
-            this.comboBox1.TabIndex = 9;
+            this.cbRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRol.FormattingEnabled = true;
+            this.cbRol.Location = new System.Drawing.Point(343, 391);
+            this.cbRol.Margin = new System.Windows.Forms.Padding(2);
+            this.cbRol.Name = "cbRol";
+            this.cbRol.Size = new System.Drawing.Size(142, 33);
+            this.cbRol.TabIndex = 9;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 428);
+            this.label1.Location = new System.Drawing.Point(11, 278);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 25);
+            this.label1.Size = new System.Drawing.Size(58, 17);
             this.label1.TabIndex = 10;
             this.label1.Text = "Nombre";
             // 
@@ -160,40 +168,32 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(261, 428);
+            this.label2.Location = new System.Drawing.Point(174, 278);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 25);
+            this.label2.Size = new System.Drawing.Size(58, 17);
             this.label2.TabIndex = 11;
             this.label2.Text = "Apellido";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(510, 428);
+            this.label3.Location = new System.Drawing.Point(340, 278);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 25);
+            this.label3.Size = new System.Drawing.Size(42, 17);
             this.label3.TabIndex = 12;
             this.label3.Text = "Email";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(261, 574);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 25);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "Correo";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(510, 574);
+            this.label5.Location = new System.Drawing.Point(340, 373);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 25);
+            this.label5.Size = new System.Drawing.Size(29, 17);
             this.label5.TabIndex = 14;
             this.label5.Text = "Rol";
             // 
@@ -201,82 +201,164 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(7, 574);
+            this.label6.Location = new System.Drawing.Point(5, 373);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 25);
+            this.label6.Size = new System.Drawing.Size(31, 17);
             this.label6.TabIndex = 15;
             this.label6.Text = "DNI";
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(1215, 428);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(223, 82);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "Desactivar";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(791, 428);
+            this.pictureBox1.Location = new System.Drawing.Point(527, 278);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(361, 289);
+            this.pictureBox1.Size = new System.Drawing.Size(241, 188);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
             // 
-            // button4
+            // btnDesbloquear
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(1215, 556);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(223, 82);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "Desbloquear";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnDesbloquear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDesbloquear.Location = new System.Drawing.Point(810, 208);
+            this.btnDesbloquear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDesbloquear.Name = "btnDesbloquear";
+            this.btnDesbloquear.Size = new System.Drawing.Size(149, 53);
+            this.btnDesbloquear.TabIndex = 18;
+            this.btnDesbloquear.Text = "Desbloquear";
+            this.btnDesbloquear.UseVisualStyleBackColor = true;
+            this.btnDesbloquear.Click += new System.EventHandler(this.btnDesbloquear_Click);
             // 
-            // button5
+            // btnAceptar
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(266, 712);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(223, 82);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "Aceptar";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Location = new System.Drawing.Point(810, 265);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(149, 53);
+            this.btnAceptar.TabIndex = 19;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAplicar_Click);
+            // 
+            // rdbActivos
+            // 
+            this.rdbActivos.AutoSize = true;
+            this.rdbActivos.Location = new System.Drawing.Point(177, 458);
+            this.rdbActivos.Name = "rdbActivos";
+            this.rdbActivos.Size = new System.Drawing.Size(60, 17);
+            this.rdbActivos.TabIndex = 20;
+            this.rdbActivos.TabStop = true;
+            this.rdbActivos.Text = "Activos";
+            this.rdbActivos.UseVisualStyleBackColor = true;
+            this.rdbActivos.CheckedChanged += new System.EventHandler(this.rdbActivos_CheckedChanged_1);
+            // 
+            // rdbTodos
+            // 
+            this.rdbTodos.AutoSize = true;
+            this.rdbTodos.Location = new System.Drawing.Point(264, 458);
+            this.rdbTodos.Name = "rdbTodos";
+            this.rdbTodos.Size = new System.Drawing.Size(55, 17);
+            this.rdbTodos.TabIndex = 21;
+            this.rdbTodos.TabStop = true;
+            this.rdbTodos.Text = "Todos";
+            this.rdbTodos.UseVisualStyleBackColor = true;
+            this.rdbTodos.CheckedChanged += new System.EventHandler(this.rdbTodos_CheckedChanged_1);
+            // 
+            // txtLogin
+            // 
+            this.txtLogin.Location = new System.Drawing.Point(177, 391);
+            this.txtLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.txtLogin.Multiline = true;
+            this.txtLogin.Name = "txtLogin";
+            this.txtLogin.Size = new System.Drawing.Size(142, 34);
+            this.txtLogin.TabIndex = 22;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(174, 373);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(131, 17);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Nombre de Usuario";
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(810, 322);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(149, 53);
+            this.btnCancelar.TabIndex = 24;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.Location = new System.Drawing.Point(810, 472);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(149, 53);
+            this.btnSalir.TabIndex = 25;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // btnCambiarClave
+            // 
+            this.btnCambiarClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiarClave.Location = new System.Drawing.Point(810, 379);
+            this.btnCambiarClave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCambiarClave.Name = "btnCambiarClave";
+            this.btnCambiarClave.Size = new System.Drawing.Size(149, 53);
+            this.btnCambiarClave.TabIndex = 26;
+            this.btnCambiarClave.Text = "Cambiar Clave";
+            this.btnCambiarClave.UseVisualStyleBackColor = true;
+            this.btnCambiarClave.Click += new System.EventHandler(this.btnCambiarClave_Click);
             // 
             // FormUsuarios
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(1470, 825);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.ClientSize = new System.Drawing.Size(980, 536);
+            this.Controls.Add(this.btnCambiarClave);
+            this.Controls.Add(this.btnSalir);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtLogin);
+            this.Controls.Add(this.rdbTodos);
+            this.Controls.Add(this.rdbActivos);
+            this.Controls.Add(this.btnAceptar);
+            this.Controls.Add(this.btnDesbloquear);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.buttonEstado);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cbRol);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.txtDNI);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.btnActDesact);
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.dataGridView1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormUsuarios";
             this.Text = "FormUsuarios";
+            this.Load += new System.EventHandler(this.FormUsuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -287,24 +369,28 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button buttonEstado;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnActDesact;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.TextBox txtDNI;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.ComboBox cbRol;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnDesbloquear;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.RadioButton rdbActivos;
+        private System.Windows.Forms.RadioButton rdbTodos;
+        private System.Windows.Forms.TextBox txtLogin;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.Button btnCambiarClave;
     }
 }

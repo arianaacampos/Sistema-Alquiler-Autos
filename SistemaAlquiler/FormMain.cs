@@ -31,5 +31,12 @@ namespace SistemaAlquiler
             FormBitacora bit = new FormBitacora(); bit.ShowDialog();
             this.Close();
         }
+
+        private void buttonEntidades_Click(object sender, EventArgs e)
+        {
+            FormUsuarios usuarios = new FormUsuarios();
+            usuarios.Show();
+            this.Hide();
+        }
     }
 }
