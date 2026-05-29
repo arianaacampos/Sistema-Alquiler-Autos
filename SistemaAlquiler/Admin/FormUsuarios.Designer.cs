@@ -53,6 +53,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnCambiarClave = new System.Windows.Forms.Button();
+            this.txtMensaje = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -213,10 +214,10 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(527, 278);
+            this.pictureBox1.Location = new System.Drawing.Point(539, 278);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(241, 188);
+            this.pictureBox1.Size = new System.Drawing.Size(241, 154);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
@@ -248,26 +249,26 @@
             // rdbActivos
             // 
             this.rdbActivos.AutoSize = true;
-            this.rdbActivos.Location = new System.Drawing.Point(177, 458);
+            this.rdbActivos.Location = new System.Drawing.Point(14, 12);
             this.rdbActivos.Name = "rdbActivos";
             this.rdbActivos.Size = new System.Drawing.Size(60, 17);
             this.rdbActivos.TabIndex = 20;
             this.rdbActivos.TabStop = true;
             this.rdbActivos.Text = "Activos";
             this.rdbActivos.UseVisualStyleBackColor = true;
-            this.rdbActivos.CheckedChanged += new System.EventHandler(this.rdbActivos_CheckedChanged_1);
+            this.rdbActivos.CheckedChanged += new System.EventHandler(this.rdbActivos_CheckedChanged);
             // 
             // rdbTodos
             // 
             this.rdbTodos.AutoSize = true;
-            this.rdbTodos.Location = new System.Drawing.Point(264, 458);
+            this.rdbTodos.Location = new System.Drawing.Point(101, 12);
             this.rdbTodos.Name = "rdbTodos";
             this.rdbTodos.Size = new System.Drawing.Size(55, 17);
             this.rdbTodos.TabIndex = 21;
             this.rdbTodos.TabStop = true;
             this.rdbTodos.Text = "Todos";
             this.rdbTodos.UseVisualStyleBackColor = true;
-            this.rdbTodos.CheckedChanged += new System.EventHandler(this.rdbTodos_CheckedChanged_1);
+            this.rdbTodos.CheckedChanged += new System.EventHandler(this.rdbTodos_CheckedChanged);
             // 
             // txtLogin
             // 
@@ -299,7 +300,7 @@
             this.btnCancelar.TabIndex = 24;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnSalir
             // 
@@ -325,12 +326,24 @@
             this.btnCambiarClave.UseVisualStyleBackColor = true;
             this.btnCambiarClave.Click += new System.EventHandler(this.btnCambiarClave_Click);
             // 
+            // txtMensaje
+            // 
+            this.txtMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMensaje.Location = new System.Drawing.Point(539, 472);
+            this.txtMensaje.Multiline = true;
+            this.txtMensaje.Name = "txtMensaje";
+            this.txtMensaje.ReadOnly = true;
+            this.txtMensaje.Size = new System.Drawing.Size(241, 53);
+            this.txtMensaje.TabIndex = 27;
+            this.txtMensaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FormUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(980, 536);
+            this.ClientSize = new System.Drawing.Size(980, 538);
+            this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.btnCambiarClave);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCancelar);
@@ -392,5 +405,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnCambiarClave;
+        private System.Windows.Forms.TextBox txtMensaje;
     }
 }

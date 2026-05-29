@@ -31,7 +31,6 @@ namespace SistemaAlquiler.Seguridad
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
 
-
             cbRol.Items.Clear();
             cbRol.Items.AddRange(new string[] { "Gerente", "Recepcionista" });
             cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -42,20 +41,20 @@ namespace SistemaAlquiler.Seguridad
             ModoConsulta();
         }
 
-
         private void ModoConsulta()
         {
             TipoOperacion = TiposOperacion.Consulta;
+            txtMensaje.Text = "Modo Consulta";
 
-            txtDNI.Enabled = false;
-            txtApellido.Enabled = false;
-            txtNombre.Enabled = false;
-            txtEmail.Enabled = false;
-            txtLogin.Enabled = false;
-            cbRol.Enabled = false;
+            txtDNI.Enabled = true;
+            txtApellido.Enabled = true;
+            txtNombre.Enabled = true;
+            txtEmail.Enabled = true;
+            txtLogin.Enabled = true;
+            cbRol.Enabled = true;
 
+            btnAceptar.Enabled = true;
             btnCancelar.Enabled = false;
-            btnAceptar.Enabled = false;
 
             btnCrear.Enabled = true;
             btnModificar.Enabled = true;
@@ -72,6 +71,7 @@ namespace SistemaAlquiler.Seguridad
         private void PrepararOperacion(TiposOperacion tipoOp, string mensaje, bool habilitarCajas)
         {
             TipoOperacion = tipoOp;
+            txtMensaje.Text = mensaje;
 
             txtDNI.Enabled = habilitarCajas;
             txtApellido.Enabled = habilitarCajas;
@@ -90,19 +90,18 @@ namespace SistemaAlquiler.Seguridad
 
             rdbActivos.Enabled = false;
             rdbTodos.Enabled = false;
-            dataGridView1.Enabled = false; 
+            dataGridView1.Enabled = false;
         }
 
         private void Limpiar()
         {
-            txtDNI.Clear();
-            txtApellido.Clear();
-            txtNombre.Clear();
-            txtEmail.Clear();
-            txtLogin.Clear();
+            txtDNI.Text = "";
+            txtApellido.Text = "";
+            txtNombre.Text = "";
+            txtEmail.Text = "";
+            txtLogin.Text = "";
             cbRol.SelectedIndex = -1;
         }
-
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
@@ -115,7 +114,6 @@ namespace SistemaAlquiler.Seguridad
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 PrepararOperacion(TiposOperacion.Modificacion, "Modo Modificar", true);
-
                 CargarDatosEnCajas();
             }
             else
@@ -141,7 +139,7 @@ namespace SistemaAlquiler.Seguridad
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                PrepararOperacion(TiposOperacion.ActivarDesactivar, "Modo Activar/Desactivar", false);
+                PrepararOperacion(TiposOperacion.ActivarDesactivar, "Modo Eliminar", false);
                 CargarDatosEnCajas();
             }
             else
@@ -159,65 +157,74 @@ namespace SistemaAlquiler.Seguridad
         {
             try
             {
-                Usuario usuarioOperacion = new Usuario();
+                Usuario usuario = new Usuario();
 
                 switch (TipoOperacion)
                 {
+                    case TiposOperacion.Consulta:
+                        ActualizarGrilla();
+                        return;
+
                     case TiposOperacion.Alta:
-                        usuarioOperacion.DNI = txtDNI.Text;
-                        usuarioOperacion.Nombre = txtNombre.Text;
-                        usuarioOperacion.Apellido = txtApellido.Text;
-                        usuarioOperacion.Email = txtEmail.Text;
-                        usuarioOperacion.Rol = cbRol.Text;
+                        usuario.DNI = txtDNI.Text;
+                        usuario.Nombre = txtNombre.Text;
+                        usuario.Apellido = txtApellido.Text;
+                        usuario.Email = txtEmail.Text;
+                        usuario.Rol = cbRol.Text;
 
-                        usuarioOperacion.NombreUsuario = string.IsNullOrWhiteSpace(txtLogin.Text) ? txtEmail.Text : txtLogin.Text;
-                        usuarioOperacion.Clave = Criptografia.EncriptarHash(txtDNI.Text);
+                        usuario.NombreUsuario = (txtLogin.Text == "") ? txtEmail.Text : txtLogin.Text;
+                        usuario.Clave = Criptografia.EncriptarHash(txtDNI.Text);
 
-                        usuarioOperacion.Activo = true;
-                        usuarioOperacion.Bloqueado = false;
+                        usuario.Activo = true;
+                        usuario.Bloqueado = false;
 
-                        gestorUsuario.Alta(usuarioOperacion);
+                        gestorUsuario.Alta(usuario);
                         MessageBox.Show("Operación Añadir Exitosa.");
                         break;
 
                     case TiposOperacion.Modificacion:
-                        usuarioOperacion = ArmarUsuarioDesdeGrilla();
-                        usuarioOperacion.DNI = txtDNI.Text;
-                        usuarioOperacion.Nombre = txtNombre.Text;
-                        usuarioOperacion.Apellido = txtApellido.Text;
-                        usuarioOperacion.Email = txtEmail.Text;
-                        usuarioOperacion.NombreUsuario = txtLogin.Text;
-                        usuarioOperacion.Rol = cbRol.Text;
+                        usuario = ArmarUsuarioDesdeGrilla();
+                        usuario.DNI = txtDNI.Text;
+                        usuario.Nombre = txtNombre.Text;
+                        usuario.Apellido = txtApellido.Text;
+                        usuario.Email = txtEmail.Text;
+                        usuario.NombreUsuario = txtLogin.Text;
+                        usuario.Rol = cbRol.Text;
 
-                        gestorUsuario.Modificar(usuarioOperacion);
+                        gestorUsuario.Modificar(usuario);
                         MessageBox.Show("Operación Modificar Exitosa.");
                         break;
 
                     case TiposOperacion.Desbloqueo:
-                        usuarioOperacion = ArmarUsuarioDesdeGrilla();
-                        usuarioOperacion.Bloqueado = false;
-                        usuarioOperacion.IntentosFallidos = 0;
+                        usuario = ArmarUsuarioDesdeGrilla();
+                        usuario.Bloqueado = false;
+                        usuario.IntentosFallidos = 0;
 
-                        gestorUsuario.Modificar(usuarioOperacion);
+                        gestorUsuario.Modificar(usuario);
                         MessageBox.Show("Usuario Desbloqueado con éxito.");
                         break;
 
                     case TiposOperacion.ActivarDesactivar:
-                        usuarioOperacion = ArmarUsuarioDesdeGrilla();
-                        usuarioOperacion.Activo = !usuarioOperacion.Activo;
+                        usuario = ArmarUsuarioDesdeGrilla();
+                        if (usuario.Activo == true)
+                        {
+                            usuario.Activo = false;
+                            MessageBox.Show("Usuario Desactivado.");
+                        }
+                        else
+                        {
+                            usuario.Activo = true;
+                            MessageBox.Show("Usuario Activado.");
+                        }
 
-                        gestorUsuario.Modificar(usuarioOperacion);
-                        MessageBox.Show(usuarioOperacion.Activo ? "Usuario Activado." : "Usuario Desactivado.");
+                        gestorUsuario.Modificar(usuario);
                         break;
                 }
 
                 ActualizarGrilla();
                 ModoConsulta();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al Aplicar: " + ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show("Error al Aplicar: " + ex.Message);}
         }
 
         private void ActualizarGrilla()
@@ -226,9 +233,14 @@ namespace SistemaAlquiler.Seguridad
             {
                 List<Usuario> listaCompleta = gestorUsuario.Listar();
 
-                dataGridView1.DataSource = rdbActivos.Checked
-                    ? listaCompleta.Where(u => u.Activo == true).ToList()
-                    : listaCompleta;
+                if (rdbActivos.Checked == true)
+                {
+                    dataGridView1.DataSource = listaCompleta.Where(u => u.Activo == true).ToList();
+                }
+                else
+                {
+                    dataGridView1.DataSource = listaCompleta;
+                }
 
                 if (dataGridView1.Columns.Count > 0)
                 {
@@ -244,10 +256,7 @@ namespace SistemaAlquiler.Seguridad
                     dataGridView1.Columns["NombreUsuario"].HeaderText = "Login";
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de BD: " + ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show("Error de BD: " + ex.Message); }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -262,50 +271,16 @@ namespace SistemaAlquiler.Seguridad
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                txtNombre.Text = dataGridView1.SelectedRows[0].Cells["Nombre"].Value?.ToString();
-                txtApellido.Text = dataGridView1.SelectedRows[0].Cells["Apellido"].Value?.ToString();
-                txtDNI.Text = dataGridView1.SelectedRows[0].Cells["DNI"].Value?.ToString();
-                txtEmail.Text = dataGridView1.SelectedRows[0].Cells["Email"].Value?.ToString();
-                cbRol.Text = dataGridView1.SelectedRows[0].Cells["Rol"].Value?.ToString();
-                txtLogin.Text = dataGridView1.SelectedRows[0].Cells["NombreUsuario"].Value?.ToString();
-            }
-        }
-
-        private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
-        {
-            if (dataGridView1.Rows[e.RowIndex].Cells["Activo"].Value != null)
-            {
-                bool activo = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Activo"].Value);
-                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = activo ? Color.White : Color.LightCoral;
+                txtNombre.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Nombre"].Value);
+                txtApellido.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Apellido"].Value);
+                txtDNI.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["DNI"].Value);
+                txtEmail.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Email"].Value);
+                cbRol.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Rol"].Value);
+                txtLogin.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["NombreUsuario"].Value);
             }
         }
 
         private void rdbActivos_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbActivos.Checked) { ActualizarGrilla(); ModoConsulta(); }
-        }
-
-        private void rdbTodos_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbTodos.Checked) { ActualizarGrilla(); ModoConsulta(); }
-        }
-
-        private Usuario ArmarUsuarioDesdeGrilla()
-        {
-            Usuario usuario = new Usuario();
-            usuario.ID_Usuario = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["ID_Usuario"].Value);
-            usuario.DNI = dataGridView1.SelectedRows[0].Cells["DNI"].Value?.ToString();
-            usuario.Nombre = dataGridView1.SelectedRows[0].Cells["Nombre"].Value?.ToString();
-            usuario.Apellido = dataGridView1.SelectedRows[0].Cells["Apellido"].Value?.ToString();
-            usuario.NombreUsuario = dataGridView1.SelectedRows[0].Cells["NombreUsuario"].Value?.ToString();
-            usuario.Email = dataGridView1.SelectedRows[0].Cells["Email"].Value?.ToString();
-            usuario.Rol = dataGridView1.SelectedRows[0].Cells["Rol"].Value?.ToString();
-            usuario.Activo = Convert.ToBoolean(dataGridView1.SelectedRows[0].Cells["Activo"].Value);
-            usuario.Bloqueado = Convert.ToBoolean(dataGridView1.SelectedRows[0].Cells["Bloqueado"].Value);
-            return usuario;
-        }
-
-        private void rdbActivos_CheckedChanged_1(object sender, EventArgs e)
         {
             if (rdbActivos.Checked)
             {
@@ -314,7 +289,7 @@ namespace SistemaAlquiler.Seguridad
             }
         }
 
-        private void rdbTodos_CheckedChanged_1(object sender, EventArgs e)
+        private void rdbTodos_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbTodos.Checked)
             {
@@ -323,9 +298,19 @@ namespace SistemaAlquiler.Seguridad
             }
         }
 
-        private void btnCancelar_Click_1(object sender, EventArgs e)
+        private Usuario ArmarUsuarioDesdeGrilla()
         {
-            ModoConsulta();
+            Usuario usuario = new Usuario();
+            usuario.ID_Usuario = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["ID_Usuario"].Value);
+            usuario.DNI = Convert.ToString(dataGridView1.SelectedRows[0].Cells["DNI"].Value);
+            usuario.Nombre = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Nombre"].Value);
+            usuario.Apellido = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Apellido"].Value);
+            usuario.NombreUsuario = Convert.ToString(dataGridView1.SelectedRows[0].Cells["NombreUsuario"].Value);
+            usuario.Email = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Email"].Value);
+            usuario.Rol = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Rol"].Value);
+            usuario.Activo = Convert.ToBoolean(dataGridView1.SelectedRows[0].Cells["Activo"].Value);
+            usuario.Bloqueado = Convert.ToBoolean(dataGridView1.SelectedRows[0].Cells["Bloqueado"].Value);
+            return usuario;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
