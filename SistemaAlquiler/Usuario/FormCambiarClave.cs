@@ -29,13 +29,20 @@ namespace SistemaAlquiler.Seguridad
 
                 if (string.IsNullOrWhiteSpace(claveActual) || string.IsNullOrWhiteSpace(nuevaClave) || string.IsNullOrWhiteSpace(confirmar))
                 {
-                    MessageBox.Show("Por favor, complete todos los campos.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Completa todos los campos", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (nuevaClave != confirmar)
                 {
-                    MessageBox.Show("Las contraseñas nuevas no coinciden. Vuelva a intentarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Las contraseñas no coinciden", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                DialogResult respuesta = MessageBox.Show("¿Desea confirmar?","Confirmar cambio",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                {
                     return;
                 }
 
@@ -46,8 +53,8 @@ namespace SistemaAlquiler.Seguridad
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("¡Contraseña cambiada con exito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close(); 
+                    MessageBox.Show("Contraseña cambiada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 else
                 {
@@ -67,7 +74,8 @@ namespace SistemaAlquiler.Seguridad
 
         private void FormCambiarClave_Load(object sender, EventArgs e)
         {
-
+            txtUsuario.Text = Sesion.Instancia.UsuarioActual; 
+            txtUsuario.Enabled = false;
         }
     }
 }

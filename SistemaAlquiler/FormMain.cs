@@ -20,36 +20,57 @@ namespace SistemaAlquiler
             InitializeComponent();
         }
 
-        private void buttonSalir_Click(object sender, EventArgs e)
-        {
-            Logout salir= new Logout();
-            salir.Show();
-            this.Hide();
-        }
-
-        private void buttonUsuarios_Click(object sender, EventArgs e)
-        {
-            FormBitacora bit = new FormBitacora(); bit.ShowDialog();
-            this.Close();
-        }
-
-        private void buttonEntidades_Click(object sender, EventArgs e)
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormUsuarios usuarios = new FormUsuarios();
-            usuarios.Show();
-            this.Hide();
+            this.Hide();           
+            usuarios.ShowDialog(); 
+            this.Show();
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FormBitacora bit = new FormBitacora();
+            this.Hide();           
+            bit.ShowDialog();      
+            this.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cambiarClaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormCambiarClave cambiarClave = new FormCambiarClave();
+            this.Hide();               
+            cambiarClave.ShowDialog(); 
+            this.Show();
+        }
+
+        private void reLoginToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormLogin loginExtra = new FormLogin();
-            loginExtra.ShowDialog();
-            MessageBox.Show("El usuario en sesión actual es: " + Sesion.Instancia.UsuarioActual);
+            this.Hide();               
+            loginExtra.ShowDialog();   
+            this.Show();
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logout salir = new Logout();
+            this.Hide();           
+            salir.ShowDialog();    
+
+            if (Sesion.Instancia.UsuarioActual != null)
+            {
+                this.Show();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

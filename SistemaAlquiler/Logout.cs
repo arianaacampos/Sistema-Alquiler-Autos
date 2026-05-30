@@ -23,13 +23,16 @@ namespace SistemaAlquiler.Seguridad
         {
             try
             {
-   
+                MessageBox.Show("Se cerro la sesion de: " + Sesion.Instancia.UsuarioActual , "Sesión Finalizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 BitacoraBLL gestorBitacora = new BitacoraBLL();
                 gestorBitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Logout", "Baja");
+
                 Sesion.Instancia.FinalizarSesion();
-               FormLogin login = new FormLogin();
+
+                FormLogin login = new FormLogin();
                 login.Show();
-                this.Close(); 
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -39,14 +42,7 @@ namespace SistemaAlquiler.Seguridad
 
         private void button2_Click(object sender, EventArgs e)
         {
-           FormMain main = new FormMain(); main.ShowDialog();
             this.Close();
-        }
-
-        private void Logout_Load(object sender, EventArgs e)
-        {
-            string comprobacion = "Instancia hash: " + Sesion.Instancia.GetHashCode().ToString();
-            label2.Text = comprobacion;
         }
     }
 }

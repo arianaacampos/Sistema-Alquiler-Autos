@@ -93,7 +93,6 @@ namespace DAL
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // 1. Agregamos Nombre y Apellido al SELECT
                 string query = "SELECT ID_Usuario, NombreUsuario, Clave, IntentosFallidos, Bloqueado, Rol, Nombre, Apellido FROM Usuarios WHERE NombreUsuario = @Usuario";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Usuario", nombreUsuario.Trim());
@@ -111,7 +110,6 @@ namespace DAL
                         usu.Bloqueado = Convert.ToBoolean(dr["Bloqueado"]);
                         usu.Rol = dr["Rol"].ToString();
 
-                        // 2. Asignamos Nombre y Apellido, protegiendo con el DBNull
                         usu.Nombre = dr["Nombre"] != DBNull.Value ? dr["Nombre"].ToString() : "";
                         usu.Apellido = dr["Apellido"] != DBNull.Value ? dr["Apellido"].ToString() : "";
 

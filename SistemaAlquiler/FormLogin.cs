@@ -33,10 +33,8 @@ namespace SistemaAlquiler.Seguridad
 
                     if (resultado == "OK")
                     {
-
-                        Sesion.Instancia.UsuarioActual = usuario;
-
                         BitacoraBLL gestorBitacora = new BitacoraBLL();
+                        Sesion.Instancia.UsuarioActual = usuario;
                         gestorBitacora.Registrar(usuario, "Usuario", "Login", "Baja");
 
                         FormMain menu = new FormMain();
@@ -45,11 +43,6 @@ namespace SistemaAlquiler.Seguridad
                     }
                     else
                     {
-
-                        BitacoraBLL gestorBitacora = new BitacoraBLL();
-                        gestorBitacora.Registrar(usuario, "Usuario", "Login Fallido", "Alta");
-
-
                         MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
@@ -66,17 +59,16 @@ namespace SistemaAlquiler.Seguridad
 
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
-
-        private void textBoxUsuario_TextChanged(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-
+            if (Sesion.Instancia.UsuarioActual != null)
+            {
+                MessageBox.Show("Error: ya hay una sesión iniciada.", "Error de Sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }
