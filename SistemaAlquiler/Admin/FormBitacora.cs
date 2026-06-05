@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace SistemaAlquiler.Seguridad
 {
@@ -41,7 +44,7 @@ namespace SistemaAlquiler.Seguridad
             dateTimePickerDesde.Value = DateTime.Now.AddDays(-3);
             dateTimePickerHasta.Value = DateTime.Now;
 
-            ActualizarGrilla();
+            button1_Click(null, null);
 
             comboBoxLogin.Items.Clear();
             UsuarioBLL gestorUsuario = new UsuarioBLL();
@@ -128,7 +131,80 @@ namespace SistemaAlquiler.Seguridad
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "PDF (*.pdf)|*.pdf";
+                sfd.FileName = "Reporte_Bitacora_" + DateTime.Now.ToString("ddMMyyyy") + ".pdf";
 
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("No se puede reemplazar el archivo. Puede que este abierto. " + ex.Message);
+                        }
+                    }
+
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            PdfPTable pdfTable = new PdfPTable(dataGridView1.Columns.Count);
+                            pdfTable.DefaultCell.Padding = 3;
+                            pdfTable.WidthPercentage = 100;
+                            pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                            foreach (DataGridViewColumn column in dataGridView1.Columns)
+                            {
+                                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+                                cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+                                pdfTable.AddCell(cell);
+                            }
+
+                            foreach (DataGridViewRow row in dataGridView1.Rows)
+                            {
+                                if (!row.IsNewRow) 
+                                {
+                                    foreach (DataGridViewCell cell in row.Cells)
+                                    {
+                                        pdfTable.AddCell(cell.Value != null ? cell.Value.ToString() : "");
+                                    }
+                                }
+                            }
+
+                            using (FileStream stream = new FileStream(sfd.FileName, FileMode.Create))
+                            {
+                                Document pdfDoc = new Document(PageSize.A4, 10f, 20f, 20f, 10f);
+                                PdfWriter.GetInstance(pdfDoc, stream);
+                                pdfDoc.Open();
+
+                                pdfDoc.Add(new Paragraph("Reporte de Auditoria\n\n"));
+                                pdfDoc.Add(pdfTable);
+
+                                pdfDoc.Close();
+                                stream.Close();
+                            }
+
+                            MessageBox.Show("Reporte exportado exitosamente!", "Exportacion PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Ocurrio un error al crear el PDF: " + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("La grilla está vacia, no hay nada para exportar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void FormBitacora_FormClosed(object sender, FormClosedEventArgs e)
