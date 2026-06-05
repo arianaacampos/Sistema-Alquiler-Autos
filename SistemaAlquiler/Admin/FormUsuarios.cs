@@ -50,7 +50,6 @@ namespace SistemaAlquiler.Seguridad
             txtApellido.Enabled = true;
             txtNombre.Enabled = true;
             txtEmail.Enabled = true;
-            txtLogin.Enabled = true;
             cbRol.Enabled = true;
 
             btnAceptar.Enabled = true;
@@ -77,7 +76,6 @@ namespace SistemaAlquiler.Seguridad
             txtApellido.Enabled = habilitarCajas;
             txtNombre.Enabled = habilitarCajas;
             txtEmail.Enabled = habilitarCajas;
-            txtLogin.Enabled = habilitarCajas;
             cbRol.Enabled = habilitarCajas;
 
             btnAceptar.Enabled = true;
@@ -92,14 +90,12 @@ namespace SistemaAlquiler.Seguridad
             rdbTodos.Enabled = false;
             dataGridView1.Enabled = false;
         }
-
         private void Limpiar()
         {
             txtDNI.Text = "";
             txtApellido.Text = "";
             txtNombre.Text = "";
             txtEmail.Text = "";
-            txtLogin.Text = "";
             cbRol.SelectedIndex = -1;
         }
 
@@ -166,20 +162,32 @@ namespace SistemaAlquiler.Seguridad
                         return;
 
                     case TiposOperacion.Alta:
-                        usuario.DNI = txtDNI.Text;
-                        usuario.Nombre = txtNombre.Text;
-                        usuario.Apellido = txtApellido.Text;
-                        usuario.Email = txtEmail.Text;
+
+                        var listaUsuarios = gestorUsuario.Listar();
+
+                        bool dniRepetido = listaUsuarios.Any(u => u.DNI == txtDNI.Text.Trim());
+
+                        if (dniRepetido)
+                        {
+                            MessageBox.Show("Error: El DNI ya se encuentra registrado en el sistema.", "DNI Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return; 
+                        }
+
+                        usuario.DNI = txtDNI.Text.Trim();
+                        usuario.Nombre = txtNombre.Text.Trim();
+                        usuario.Apellido = txtApellido.Text.Trim();
+                        usuario.Email = txtEmail.Text.Trim();
                         usuario.Rol = cbRol.Text;
 
-                        usuario.NombreUsuario = (txtLogin.Text == "") ? txtEmail.Text : txtLogin.Text;
-                        usuario.Clave = Criptografia.EncriptarHash(txtDNI.Text);
+                        string loginDinamico = (txtNombre.Text.Trim() + txtApellido.Text.Trim()).ToLower().Replace(" ", "");
+                        usuario.NombreUsuario = loginDinamico;
 
+                        usuario.Clave = Criptografia.EncriptarHash(txtDNI.Text.Trim());
                         usuario.Activo = true;
                         usuario.Bloqueado = false;
 
                         gestorUsuario.Alta(usuario);
-                        MessageBox.Show("Operación Añadir Exitosa.");
+                        MessageBox.Show($"Operación Añadir Exitosa. El usuario creado es: {loginDinamico}");
                         break;
 
                     case TiposOperacion.Modificacion:
@@ -188,7 +196,6 @@ namespace SistemaAlquiler.Seguridad
                         usuario.Nombre = txtNombre.Text;
                         usuario.Apellido = txtApellido.Text;
                         usuario.Email = txtEmail.Text;
-                        usuario.NombreUsuario = txtLogin.Text;
                         usuario.Rol = cbRol.Text;
 
                         gestorUsuario.Modificar(usuario);
@@ -276,7 +283,6 @@ namespace SistemaAlquiler.Seguridad
                 txtDNI.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["DNI"].Value);
                 txtEmail.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Email"].Value);
                 cbRol.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["Rol"].Value);
-                txtLogin.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells["NombreUsuario"].Value);
             }
         }
 
@@ -315,15 +321,7 @@ namespace SistemaAlquiler.Seguridad
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            Logout salir = new Logout();
-            salir.Show();
-            this.Hide();
-        }
-
-        private void btnCambiarClave_Click(object sender, EventArgs e)
-        {
-            FormCambiarClave CambiarClave = new FormCambiarClave();
-            CambiarClave.Show();
+            this.Close();
         }
     }
 }

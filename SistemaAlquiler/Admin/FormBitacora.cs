@@ -38,29 +38,21 @@ namespace SistemaAlquiler.Seguridad
 
         private void FormBitacora_Load(object sender, EventArgs e)
         {
-            button2_Click(null, null);
             dateTimePickerDesde.Value = DateTime.Now.AddDays(-3);
             dateTimePickerHasta.Value = DateTime.Now;
+
             ActualizarGrilla();
+
             comboBoxLogin.Items.Clear();
-            foreach (DataGridViewRow fila in dataGridView1.Rows)
+            UsuarioBLL gestorUsuario = new UsuarioBLL();
+            foreach (var usu in gestorUsuario.Listar())
             {
-                string nombre = fila.Cells["Usuario"].Value?.ToString();
-                if (!string.IsNullOrEmpty(nombre) && !comboBoxLogin.Items.Contains(nombre))
-                {
-                    comboBoxLogin.Items.Add(nombre);
-                }
+                comboBoxLogin.Items.Add(usu.NombreUsuario);
             }
-            if (dataGridView1.Rows.Count > 0)
-            {
-                dataGridView1.Rows[0].Selected = true;
-            }
-        
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            FormMain main = new FormMain(); main.ShowDialog();
             this.Close();
         }
 
@@ -135,6 +127,52 @@ namespace SistemaAlquiler.Seguridad
             catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
         }
         private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormBitacora_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private void comboBoxModulo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxTipo.Items.Clear();
+            comboBoxTipo.Text = "";
+
+            switch (comboBoxModulo.Text)
+            {
+                case "Admin":
+                    comboBoxTipo.Items.AddRange(new string[] { "Usuarios", "Perfiles", "Backup", "Restore", "BitacoraEventos", "Digito verificador" });
+                    break;
+                case "Maestros":
+                    comboBoxTipo.Items.AddRange(new string[] { "Vehiculo", "Cliente", "Taller" });
+                    break;
+                case "Usuario":
+                    comboBoxTipo.Items.AddRange(new string[] { "Login", "ReLogin", "Cambiar clave", "Logout", "Cambiar idioma" });
+                    break;
+                case "Operaciones":
+                    comboBoxTipo.Items.AddRange(new string[] { "Registrar alquiler", "Registrar devolución", "Cancelar reserva", "Consultar disponibilidad" });
+                    break;
+                case "Mantenimiento":
+                    comboBoxTipo.Items.AddRange(new string[] { "Enviar a taller", "Registrar servicio mecánico" });
+                    break;
+                case "Reporte":
+                    comboBoxTipo.Items.AddRange(new string[] { "Rentabilidad por vehiculo", "Historial de gastos por unidad", "Estadísticas de alquileres" });
+                    break;
+                case "Ayuda":
+                    comboBoxTipo.Items.AddRange(new string[] { "Manual de usuario" });
+                    break;
+            }
+        }
+
+        private void comboBoxTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void FormBitacora_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }

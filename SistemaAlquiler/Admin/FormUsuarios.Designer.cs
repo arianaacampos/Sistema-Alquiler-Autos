@@ -48,11 +48,8 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.rdbActivos = new System.Windows.Forms.RadioButton();
             this.rdbTodos = new System.Windows.Forms.RadioButton();
-            this.txtLogin = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.btnCambiarClave = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -148,7 +145,7 @@
             // 
             this.cbRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRol.FormattingEnabled = true;
-            this.cbRol.Location = new System.Drawing.Point(343, 391);
+            this.cbRol.Location = new System.Drawing.Point(177, 392);
             this.cbRol.Margin = new System.Windows.Forms.Padding(2);
             this.cbRol.Name = "cbRol";
             this.cbRol.Size = new System.Drawing.Size(142, 33);
@@ -191,7 +188,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(340, 373);
+            this.label5.Location = new System.Drawing.Point(174, 374);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 17);
@@ -270,26 +267,6 @@
             this.rdbTodos.UseVisualStyleBackColor = true;
             this.rdbTodos.CheckedChanged += new System.EventHandler(this.rdbTodos_CheckedChanged);
             // 
-            // txtLogin
-            // 
-            this.txtLogin.Location = new System.Drawing.Point(177, 391);
-            this.txtLogin.Margin = new System.Windows.Forms.Padding(2);
-            this.txtLogin.Multiline = true;
-            this.txtLogin.Name = "txtLogin";
-            this.txtLogin.Size = new System.Drawing.Size(142, 34);
-            this.txtLogin.TabIndex = 22;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(174, 373);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(131, 17);
-            this.label4.TabIndex = 23;
-            this.label4.Text = "Nombre de Usuario";
-            // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -314,18 +291,6 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // btnCambiarClave
-            // 
-            this.btnCambiarClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCambiarClave.Location = new System.Drawing.Point(810, 379);
-            this.btnCambiarClave.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCambiarClave.Name = "btnCambiarClave";
-            this.btnCambiarClave.Size = new System.Drawing.Size(149, 53);
-            this.btnCambiarClave.TabIndex = 26;
-            this.btnCambiarClave.Text = "Cambiar Clave";
-            this.btnCambiarClave.UseVisualStyleBackColor = true;
-            this.btnCambiarClave.Click += new System.EventHandler(this.btnCambiarClave_Click);
-            // 
             // txtMensaje
             // 
             this.txtMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -344,11 +309,8 @@
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(980, 538);
             this.Controls.Add(this.txtMensaje);
-            this.Controls.Add(this.btnCambiarClave);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtLogin);
             this.Controls.Add(this.rdbTodos);
             this.Controls.Add(this.rdbActivos);
             this.Controls.Add(this.btnAceptar);
@@ -400,11 +362,8 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.RadioButton rdbActivos;
         private System.Windows.Forms.RadioButton rdbTodos;
-        private System.Windows.Forms.TextBox txtLogin;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.Button btnCambiarClave;
         private System.Windows.Forms.TextBox txtMensaje;
     }
 }
