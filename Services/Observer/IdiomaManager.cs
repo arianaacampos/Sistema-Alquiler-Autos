@@ -22,11 +22,11 @@ namespace Services.Observer
 
         private List<IObserverIdioma> _observadores = new List<IObserverIdioma>();
         private Dictionary<string, string> _traducciones = new Dictionary<string, string>();
-        public string IdiomaActual { get; private set; } = "es-AR"; 
+        public string IdiomaActual { get; private set; } = "es-AR";
 
         private IdiomaManager()
         {
-            CargarTraducciones(); 
+            CargarTraducciones();
         }
         public void Suscribir(IObserverIdioma observador)
         {
@@ -57,20 +57,36 @@ namespace Services.Observer
 
         private void CargarTraducciones()
         {
-            string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Idiomas", $"{IdiomaActual}.json");
+            // 1. Definimos dónde DEBERÍA estar la carpeta
+            string rutaDirectorio = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Idiomas");
 
+            // 2. MAGIA: Si la carpeta no existe, le decimos a C# que la cree a la fuerza
+            if (!Directory.Exists(rutaDirectorio))
+            {
+                Directory.CreateDirectory(rutaDirectorio);
+            }
+
+            // 3. Definimos la ruta del archivo
+            string rutaArchivo = Path.Combine(rutaDirectorio, $"{IdiomaActual}.json");
+
+            // 4. Intentamos leerlo
             if (File.Exists(rutaArchivo))
             {
                 string json = File.ReadAllText(rutaArchivo);
                 _traducciones = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             }
+
+
+
         }
 
+    
         public string Traducir(string clave)
         {
             if (_traducciones.ContainsKey(clave))
                 return _traducciones[clave];
             return clave;
+
         }
     }
 

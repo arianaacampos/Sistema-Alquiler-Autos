@@ -13,13 +13,12 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Seguridad
 {
-    public partial class FormLogin : Form, IObserverIdioma
+    public partial class FormLogin : Form
     {
         public FormLogin()
         {
             InitializeComponent();
-            IdiomaManager.Instancia.Suscribir(this);
-            ActualizarIdioma();
+
         }
 
         private void buttonIngresar_Click(object sender, EventArgs e)
@@ -37,13 +36,26 @@ namespace SistemaAlquiler.Seguridad
                     if (resultado == "OK")
                     {
                         BitacoraBLL gestorBitacora = new BitacoraBLL();
-                        Sesion.Instancia.UsuarioActual = usuario;
+
+                        Services.Entities.Usuario usuarioCompleto = gestorUsuario.ObtenerPorNombre(usuario);
+
+                        Sesion.Instancia.UsuarioActual = usuarioCompleto.NombreUsuario;
+
+                        string idiomaPreferencia = "es-AR";
+                        if (usuarioCompleto != null && !string.IsNullOrEmpty(usuarioCompleto.IdiomaPreferencia))
+                        {
+                            idiomaPreferencia = usuarioCompleto.IdiomaPreferencia;
+                        }
+
+                        IdiomaManager.Instancia.CambiarIdioma(idiomaPreferencia);
+
                         gestorBitacora.Registrar(usuario, "Usuario", "Login", "Baja");
 
                         FormMain menu = new FormMain();
                         menu.Show();
                         this.Hide();
                     }
+
                     else
                     {
                         MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -53,7 +65,6 @@ namespace SistemaAlquiler.Seguridad
                 {
                     MessageBox.Show("Por favor, ingrese usuario y contraseña.");
                 }
-               
             }
             catch (Exception ex)
             {
@@ -75,18 +86,10 @@ namespace SistemaAlquiler.Seguridad
             }
         }
 
-        public void ActualizarIdioma()
-        {
-            lblUsuario.Text = IdiomaManager.Instancia.Traducir("lblUsuario");
-            lblClave.Text = IdiomaManager.Instancia.Traducir("lblClave");
-            btnAceptar.Text = IdiomaManager.Instancia.Traducir("btnAceptar");
-            buttonCancelar.Text = IdiomaManager.Instancia.Traducir("buttonCancelar");
-            this.Text = IdiomaManager.Instancia.Traducir("tituloLogin");
-        }
 
         private void FormLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
-            IdiomaManager.Instancia.Desuscribir(this);
+          
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,16 +99,7 @@ namespace SistemaAlquiler.Seguridad
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text == "Ingles")
-            {
-                // Le dice al jefe que cargue en-US.json y pegue el grito
-                IdiomaManager.Instancia.CambiarIdioma("en-US");
-            }
-            else if (comboBox1.Text == "Español")
-            {
-                // Le dice al jefe que cargue es-AR.json y pegue el grito
-                IdiomaManager.Instancia.CambiarIdioma("es-AR");
-            }
+       
         }
     }
 }

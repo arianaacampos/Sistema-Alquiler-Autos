@@ -45,7 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Bitacora.cs" />
+    <Compile Include="Entities\Componente.cs" />
     <Compile Include="Entities\Criptografia.cs" />
+    <Compile Include="Entities\Familia.cs" />
+    <Compile Include="Entities\Perfil.cs" />
+    <Compile Include="Entities\Permiso.cs" />
     <Compile Include="Entities\Sesion.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Observer\IdiomaManager.cs" />

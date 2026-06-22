@@ -8,36 +8,39 @@ namespace Services.Entities
 {
     public class Sesion
     {
-        private static Sesion _instancia;
-        private static readonly object _lock = new object();
-        public string UsuarioActual { get; set; }
-        private Sesion()
-        {
-        }
+      
+            private static Sesion _instancia;
+            private static readonly object _lock = new object();
 
-        public static Sesion Instancia
-        {
-            get
+            public string UsuarioActual { get; set; }
+
+            private Sesion() { }
+
+            public static Sesion Instancia
             {
-                if (_instancia == null)
+                get
                 {
-                    lock (_lock)
+                    if (_instancia == null)
                     {
-                        if (_instancia == null)
+                        lock (_lock)
                         {
-                            _instancia = new Sesion();
+                            if (_instancia == null)
+                            {
+                                _instancia = new Sesion();
+                            }
                         }
                     }
+                    return _instancia;
                 }
-                return _instancia;
             }
-        }
-        public void FinalizarSesion()
-        {
-            lock (_lock)
+
+            public void FinalizarSesion()
             {
-                _instancia = null;
+                lock (_lock)
+                {
+                    _instancia = null;
+                    UsuarioActual = null; 
+                }
             }
         }
-    }
 }

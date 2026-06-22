@@ -47,6 +47,8 @@
             this.cambiarClaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cambiarIdiomaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.españolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarAlquilerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarDevolucionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +96,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(237, 814);
+            this.menuStrip1.Size = new System.Drawing.Size(234, 814);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -109,7 +111,7 @@
             this.digitoVerificarToolStripMenuItem});
             this.adminToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.adminToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.adminToolStripMenuItem.Text = "Admin";
             // 
             // usuariosToolStripMenuItem
@@ -143,6 +145,7 @@
             this.perfilesToolStripMenuItem.Name = "perfilesToolStripMenuItem";
             this.perfilesToolStripMenuItem.Size = new System.Drawing.Size(310, 48);
             this.perfilesToolStripMenuItem.Text = "Perfiles";
+            this.perfilesToolStripMenuItem.Click += new System.EventHandler(this.perfilesToolStripMenuItem_Click);
             // 
             // digitoVerificarToolStripMenuItem
             // 
@@ -157,7 +160,7 @@
             this.clienteToolStripMenuItem,
             this.tallerToolStripMenuItem});
             this.maestrosToolStripMenuItem.Name = "maestrosToolStripMenuItem";
-            this.maestrosToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.maestrosToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.maestrosToolStripMenuItem.Text = "Maestros";
             // 
             // vehiculoToolStripMenuItem
@@ -186,7 +189,7 @@
             this.logoutToolStripMenuItem,
             this.cambiarIdiomaToolStripMenuItem});
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
-            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.usuarioToolStripMenuItem.Text = "Usuario";
             // 
             // reLoginToolStripMenuItem
@@ -212,9 +215,26 @@
             // 
             // cambiarIdiomaToolStripMenuItem
             // 
+            this.cambiarIdiomaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inglesToolStripMenuItem,
+            this.españolToolStripMenuItem});
             this.cambiarIdiomaToolStripMenuItem.Name = "cambiarIdiomaToolStripMenuItem";
             this.cambiarIdiomaToolStripMenuItem.Size = new System.Drawing.Size(327, 48);
             this.cambiarIdiomaToolStripMenuItem.Text = "Cambiar idioma";
+            // 
+            // inglesToolStripMenuItem
+            // 
+            this.inglesToolStripMenuItem.Name = "inglesToolStripMenuItem";
+            this.inglesToolStripMenuItem.Size = new System.Drawing.Size(223, 48);
+            this.inglesToolStripMenuItem.Text = "Ingles";
+            this.inglesToolStripMenuItem.Click += new System.EventHandler(this.inglesToolStripMenuItem_Click_1);
+            // 
+            // españolToolStripMenuItem
+            // 
+            this.españolToolStripMenuItem.Name = "españolToolStripMenuItem";
+            this.españolToolStripMenuItem.Size = new System.Drawing.Size(223, 48);
+            this.españolToolStripMenuItem.Text = "Español";
+            this.españolToolStripMenuItem.Click += new System.EventHandler(this.españolToolStripMenuItem_Click);
             // 
             // operacionesToolStripMenuItem
             // 
@@ -224,7 +244,7 @@
             this.cancelarReservaToolStripMenuItem,
             this.consultarDisponibilidadToolStripMenuItem});
             this.operacionesToolStripMenuItem.Name = "operacionesToolStripMenuItem";
-            this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.operacionesToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.operacionesToolStripMenuItem.Text = "Operaciones";
             // 
             // registrarAlquilerToolStripMenuItem
@@ -257,7 +277,7 @@
             this.enviarAlTallerToolStripMenuItem,
             this.registrarServicioMecanicoToolStripMenuItem});
             this.mantenimientoToolStripMenuItem.Name = "mantenimientoToolStripMenuItem";
-            this.mantenimientoToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.mantenimientoToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.mantenimientoToolStripMenuItem.Text = "Mantenimiento";
             // 
             // enviarAlTallerToolStripMenuItem
@@ -279,7 +299,7 @@
             this.historialDeGastosPorUnidadToolStripMenuItem,
             this.estadisticaDeAlquileresMasSolicitadosToolStripMenuItem});
             this.reporteToolStripMenuItem.Name = "reporteToolStripMenuItem";
-            this.reporteToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.reporteToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.reporteToolStripMenuItem.Text = "Reporte";
             // 
             // rentabilidadPorVehiculoToolStripMenuItem
@@ -305,7 +325,7 @@
             this.ayudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manualDeUsuarioToolStripMenuItem});
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(218, 44);
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(221, 44);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // manualDeUsuarioToolStripMenuItem
@@ -327,6 +347,7 @@
             this.Name = "FormMain";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -368,6 +389,8 @@
         private System.Windows.Forms.ToolStripMenuItem estadisticaDeAlquileresMasSolicitadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualDeUsuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inglesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem españolToolStripMenuItem;
     }
 }
 

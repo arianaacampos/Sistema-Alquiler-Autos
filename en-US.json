@@ -1,0 +1,37 @@
+{
+  "lblUsuario": "User:",
+  "lblClave": "Password:",
+  "btnAceptar": "Log In",
+  "buttonCancelar": "Cancel",
+  "tituloLogin": "Login",
+
+  "Admin": "Admin",
+  "Usuarios": "Users",
+  "Perfiles": "Profiles",
+  "Backup": "Backup",
+  "Restore": "Restore",
+  "Bitacora": "Logbook",
+
+  "Maestros": "Masters",
+  "Vehiculo": "Vehicle",
+  "Cliente": "Customer",
+  "Taller": "Workshop",
+
+  "Usuario": "User",
+  "CambiarIdioma": "Change Language",
+  "CambiarClave": "Change Password",
+  "ReLogin": "Re-Login",
+  "Logout": "Logout",
+
+  "Operaciones": "Operations",
+  "RegistrarAlquiler": "Register rental",
+  "RegistrarDevolucion": "Register return",
+  "CancelarReserva": "Cancel reservation",
+
+  "Mantenimiento": "Maintenance",
+  "EnviarTaller": "Send to workshop",
+
+  "Reportes": "Reports",
+  "Ayuda": "Help",
+  "tituloMain": "Car Rental System - Main Menu"
+}

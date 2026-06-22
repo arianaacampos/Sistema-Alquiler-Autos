@@ -1,0 +1,37 @@
+{
+  "lblUsuario": "Usuario:",
+  "lblClave": "Contrase a:",
+  "btnAceptar": "Ingresar",
+  "buttonCancelar": "Cancelar",
+  "tituloLogin": "Iniciar Sesi n",
+
+  "Admin": "Admin",
+  "Usuarios": "Usuarios",
+  "Perfiles": "Perfiles",
+  "Backup": "Backup",
+  "Restore": "Restore",
+  "Bitacora": "Bit cora",
+
+  "Maestros": "Maestros",
+  "Vehiculo": "Veh culo",
+  "Cliente": "Cliente",
+  "Taller": "Taller",
+
+  "Usuario": "Usuario",
+  "CambiarIdioma": "Cambiar Idioma",
+  "CambiarClave": "Cambiar Clave",
+  "ReLogin": "Re-Login",
+  "Logout": "Cerrar Sesi n",
+
+  "Operaciones": "Operaciones",
+  "RegistrarAlquiler": "Registrar alquiler",
+  "RegistrarDevolucion": "Registrar devoluci n",
+  "CancelarReserva": "Cancelar reserva",
+
+  "Mantenimiento": "Mantenimiento",
+  "EnviarTaller": "Enviar a taller",
+
+  "Reportes": "Reporte",
+  "Ayuda": "Ayuda",
+  "tituloMain": "Sistema de Alquiler de Autos - Men  Principal"
+}

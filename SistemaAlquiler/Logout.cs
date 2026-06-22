@@ -44,5 +44,10 @@ namespace SistemaAlquiler.Seguridad
         {
             this.Close();
         }
+
+        private void Logout_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

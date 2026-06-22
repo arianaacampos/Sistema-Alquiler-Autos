@@ -93,7 +93,8 @@ namespace DAL
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT ID_Usuario, NombreUsuario, Clave, IntentosFallidos, Bloqueado, Rol, Nombre, Apellido FROM Usuarios WHERE NombreUsuario = @Usuario";
+                // 1. ACÁ AGREGUÉ 'IdiomaPreferencia' A LA CONSULTA SQL
+                string query = "SELECT ID_Usuario, NombreUsuario, Clave, IntentosFallidos, Bloqueado, Rol, Nombre, Apellido, IdiomaPreferencia FROM Usuarios WHERE NombreUsuario = @Usuario";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Usuario", nombreUsuario.Trim());
 
@@ -112,6 +113,9 @@ namespace DAL
 
                         usu.Nombre = dr["Nombre"] != DBNull.Value ? dr["Nombre"].ToString() : "";
                         usu.Apellido = dr["Apellido"] != DBNull.Value ? dr["Apellido"].ToString() : "";
+
+                        // 2. ESTA ES LA LÍNEA MÁGICA QUE FALTABA PARA QUE TENGA MEMORIA
+                        usu.IdiomaPreferencia = dr["IdiomaPreferencia"] != DBNull.Value ? dr["IdiomaPreferencia"].ToString() : "es-AR";
 
                         return usu;
                     }
@@ -147,6 +151,28 @@ namespace DAL
 
                 con.Open();
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void ActualizarIdiomaPreferencia(string nombreUsuario, string idioma)
+        {
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                string consulta = "UPDATE Usuarios SET IdiomaPreferencia = @idioma WHERE NombreUsuario = @Usuario";
+                using (SqlCommand cmd = new SqlCommand(consulta, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@idioma", idioma);
+                    cmd.Parameters.AddWithValue("@Usuario", nombreUsuario);
+                    try
+                    {
+                        conexion.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error crítico al actualizar el idioma en la base de datos: " + ex.Message);
+                    }
+                }
             }
         }
     }

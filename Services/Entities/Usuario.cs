@@ -19,6 +19,7 @@ namespace Services.Entities
         public string Rol {  get; set; }
         public string Email { get; set; }
         public bool Activo { get; set; }
+        public string IdiomaPreferencia { get; set; }
 
         public Usuario() { }
 

@@ -98,6 +98,10 @@ namespace BLL
         {
             return _usuarioDAL.ObtenerPorNombre(nombreUsuario);
         }
-
+        public void ModificarIdiomaUsuario(string nombreUsuario, string idioma)
+        {
+            DAL.UsuarioDAL gestorDatosUsuario = new DAL.UsuarioDAL();
+            gestorDatosUsuario.ActualizarIdiomaPreferencia(nombreUsuario, idioma);
+        }
     }
 }
