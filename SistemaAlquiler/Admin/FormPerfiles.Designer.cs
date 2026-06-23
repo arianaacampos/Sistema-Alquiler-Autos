@@ -34,12 +34,9 @@
             this.btnEliminarPermiso = new System.Windows.Forms.Button();
             this.tvArbol = new System.Windows.Forms.TreeView();
             this.cbFiltroArbol = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnEliminarPerfil = new System.Windows.Forms.Button();
             this.btnCrearPerfil = new System.Windows.Forms.Button();
             this.txtPerfilNombre = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnEliminarFamilia = new System.Windows.Forms.Button();
             this.btnCrearFamilia = new System.Windows.Forms.Button();
             this.txtFamiliaNombre = new System.Windows.Forms.TextBox();
@@ -69,9 +66,15 @@
             this.lstFamiliasDisponibles = new System.Windows.Forms.ListBox();
             this.dgvPerfiles = new System.Windows.Forms.DataGridView();
             this.dgvFamilias = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerfiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFamilias)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvPermisos
@@ -79,26 +82,29 @@
             this.dgvPermisos.AllowUserToAddRows = false;
             this.dgvPermisos.AllowUserToDeleteRows = false;
             this.dgvPermisos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPermisos.Location = new System.Drawing.Point(12, 63);
+            this.dgvPermisos.Location = new System.Drawing.Point(5, 18);
+            this.dgvPermisos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvPermisos.Name = "dgvPermisos";
             this.dgvPermisos.ReadOnly = true;
             this.dgvPermisos.RowHeadersWidth = 62;
             this.dgvPermisos.RowTemplate.Height = 28;
-            this.dgvPermisos.Size = new System.Drawing.Size(240, 150);
+            this.dgvPermisos.Size = new System.Drawing.Size(281, 98);
             this.dgvPermisos.TabIndex = 0;
             // 
             // txtPermisoNombre
             // 
-            this.txtPermisoNombre.Location = new System.Drawing.Point(258, 87);
+            this.txtPermisoNombre.Location = new System.Drawing.Point(5, 120);
+            this.txtPermisoNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPermisoNombre.Name = "txtPermisoNombre";
-            this.txtPermisoNombre.Size = new System.Drawing.Size(100, 26);
+            this.txtPermisoNombre.Size = new System.Drawing.Size(281, 20);
             this.txtPermisoNombre.TabIndex = 1;
             // 
             // btnCrearPermiso
             // 
-            this.btnCrearPermiso.Location = new System.Drawing.Point(258, 135);
+            this.btnCrearPermiso.Location = new System.Drawing.Point(5, 144);
+            this.btnCrearPermiso.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCrearPermiso.Name = "btnCrearPermiso";
-            this.btnCrearPermiso.Size = new System.Drawing.Size(75, 23);
+            this.btnCrearPermiso.Size = new System.Drawing.Size(138, 37);
             this.btnCrearPermiso.TabIndex = 2;
             this.btnCrearPermiso.Text = "CREAR";
             this.btnCrearPermiso.UseVisualStyleBackColor = true;
@@ -106,9 +112,10 @@
             // 
             // btnEliminarPermiso
             // 
-            this.btnEliminarPermiso.Location = new System.Drawing.Point(258, 164);
+            this.btnEliminarPermiso.Location = new System.Drawing.Point(148, 144);
+            this.btnEliminarPermiso.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEliminarPermiso.Name = "btnEliminarPermiso";
-            this.btnEliminarPermiso.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminarPermiso.Size = new System.Drawing.Size(138, 37);
             this.btnEliminarPermiso.TabIndex = 3;
             this.btnEliminarPermiso.Text = "BORRAR";
             this.btnEliminarPermiso.UseVisualStyleBackColor = true;
@@ -116,9 +123,10 @@
             // 
             // tvArbol
             // 
-            this.tvArbol.Location = new System.Drawing.Point(-4, 255);
+            this.tvArbol.Location = new System.Drawing.Point(11, 35);
+            this.tvArbol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tvArbol.Name = "tvArbol";
-            this.tvArbol.Size = new System.Drawing.Size(436, 277);
+            this.tvArbol.Size = new System.Drawing.Size(292, 181);
             this.tvArbol.TabIndex = 4;
             // 
             // cbFiltroArbol
@@ -128,26 +136,19 @@
             "Permisos",
             "Familias",
             "Perfiles"});
-            this.cbFiltroArbol.Location = new System.Drawing.Point(151, 550);
+            this.cbFiltroArbol.Location = new System.Drawing.Point(11, 7);
+            this.cbFiltroArbol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbFiltroArbol.Name = "cbFiltroArbol";
-            this.cbFiltroArbol.Size = new System.Drawing.Size(121, 28);
+            this.cbFiltroArbol.Size = new System.Drawing.Size(292, 21);
             this.cbFiltroArbol.TabIndex = 5;
             this.cbFiltroArbol.SelectedIndexChanged += new System.EventHandler(this.cbFiltroArbol_SelectedIndexChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "PERMISO";
-            // 
             // btnEliminarPerfil
             // 
-            this.btnEliminarPerfil.Location = new System.Drawing.Point(915, 150);
+            this.btnEliminarPerfil.Location = new System.Drawing.Point(148, 144);
+            this.btnEliminarPerfil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEliminarPerfil.Name = "btnEliminarPerfil";
-            this.btnEliminarPerfil.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminarPerfil.Size = new System.Drawing.Size(138, 37);
             this.btnEliminarPerfil.TabIndex = 10;
             this.btnEliminarPerfil.Text = "BORRAR";
             this.btnEliminarPerfil.UseVisualStyleBackColor = true;
@@ -155,9 +156,10 @@
             // 
             // btnCrearPerfil
             // 
-            this.btnCrearPerfil.Location = new System.Drawing.Point(915, 121);
+            this.btnCrearPerfil.Location = new System.Drawing.Point(6, 144);
+            this.btnCrearPerfil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCrearPerfil.Name = "btnCrearPerfil";
-            this.btnCrearPerfil.Size = new System.Drawing.Size(75, 23);
+            this.btnCrearPerfil.Size = new System.Drawing.Size(138, 37);
             this.btnCrearPerfil.TabIndex = 9;
             this.btnCrearPerfil.Text = "CREAR";
             this.btnCrearPerfil.UseVisualStyleBackColor = true;
@@ -165,34 +167,18 @@
             // 
             // txtPerfilNombre
             // 
-            this.txtPerfilNombre.Location = new System.Drawing.Point(915, 73);
+            this.txtPerfilNombre.Location = new System.Drawing.Point(5, 120);
+            this.txtPerfilNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPerfilNombre.Name = "txtPerfilNombre";
-            this.txtPerfilNombre.Size = new System.Drawing.Size(100, 26);
+            this.txtPerfilNombre.Size = new System.Drawing.Size(281, 20);
             this.txtPerfilNombre.TabIndex = 8;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(700, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 20);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "PERFIL";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1266, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 20);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "FAMILIAS";
             // 
             // btnEliminarFamilia
             // 
-            this.btnEliminarFamilia.Location = new System.Drawing.Point(1518, 160);
+            this.btnEliminarFamilia.Location = new System.Drawing.Point(148, 144);
+            this.btnEliminarFamilia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnEliminarFamilia.Name = "btnEliminarFamilia";
-            this.btnEliminarFamilia.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminarFamilia.Size = new System.Drawing.Size(138, 37);
             this.btnEliminarFamilia.TabIndex = 15;
             this.btnEliminarFamilia.Text = "BORRAR";
             this.btnEliminarFamilia.UseVisualStyleBackColor = true;
@@ -200,9 +186,10 @@
             // 
             // btnCrearFamilia
             // 
-            this.btnCrearFamilia.Location = new System.Drawing.Point(1518, 131);
+            this.btnCrearFamilia.Location = new System.Drawing.Point(5, 144);
+            this.btnCrearFamilia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCrearFamilia.Name = "btnCrearFamilia";
-            this.btnCrearFamilia.Size = new System.Drawing.Size(75, 23);
+            this.btnCrearFamilia.Size = new System.Drawing.Size(138, 37);
             this.btnCrearFamilia.TabIndex = 14;
             this.btnCrearFamilia.Text = "CREAR";
             this.btnCrearFamilia.UseVisualStyleBackColor = true;
@@ -210,52 +197,54 @@
             // 
             // txtFamiliaNombre
             // 
-            this.txtFamiliaNombre.Location = new System.Drawing.Point(1518, 83);
+            this.txtFamiliaNombre.Location = new System.Drawing.Point(5, 120);
+            this.txtFamiliaNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtFamiliaNombre.Name = "txtFamiliaNombre";
-            this.txtFamiliaNombre.Size = new System.Drawing.Size(100, 26);
+            this.txtFamiliaNombre.Size = new System.Drawing.Size(281, 20);
             this.txtFamiliaNombre.TabIndex = 13;
             // 
             // LstPermisosDisponiblesPerfil
             // 
             this.LstPermisosDisponiblesPerfil.FormattingEnabled = true;
-            this.LstPermisosDisponiblesPerfil.ItemHeight = 20;
-            this.LstPermisosDisponiblesPerfil.Location = new System.Drawing.Point(499, 269);
+            this.LstPermisosDisponiblesPerfil.Location = new System.Drawing.Point(651, 43);
+            this.LstPermisosDisponiblesPerfil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LstPermisosDisponiblesPerfil.Name = "LstPermisosDisponiblesPerfil";
-            this.LstPermisosDisponiblesPerfil.Size = new System.Drawing.Size(248, 124);
+            this.LstPermisosDisponiblesPerfil.Size = new System.Drawing.Size(138, 82);
             this.LstPermisosDisponiblesPerfil.TabIndex = 17;
             // 
             // lstPermisosPerfil
             // 
             this.lstPermisosPerfil.FormattingEnabled = true;
-            this.lstPermisosPerfil.ItemHeight = 20;
-            this.lstPermisosPerfil.Location = new System.Drawing.Point(489, 476);
+            this.lstPermisosPerfil.Location = new System.Drawing.Point(309, 43);
+            this.lstPermisosPerfil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstPermisosPerfil.Name = "lstPermisosPerfil";
-            this.lstPermisosPerfil.Size = new System.Drawing.Size(248, 124);
+            this.lstPermisosPerfil.Size = new System.Drawing.Size(138, 82);
             this.lstPermisosPerfil.TabIndex = 18;
             // 
             // LstFamiliasAsignadasPerfil
             // 
             this.LstFamiliasAsignadasPerfil.FormattingEnabled = true;
-            this.LstFamiliasAsignadasPerfil.ItemHeight = 20;
-            this.LstFamiliasAsignadasPerfil.Location = new System.Drawing.Point(791, 269);
+            this.LstFamiliasAsignadasPerfil.Location = new System.Drawing.Point(819, 43);
+            this.LstFamiliasAsignadasPerfil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LstFamiliasAsignadasPerfil.Name = "LstFamiliasAsignadasPerfil";
-            this.LstFamiliasAsignadasPerfil.Size = new System.Drawing.Size(248, 124);
+            this.LstFamiliasAsignadasPerfil.Size = new System.Drawing.Size(138, 82);
             this.LstFamiliasAsignadasPerfil.TabIndex = 19;
             // 
             // LstPermisosAsignadosPerfil
             // 
             this.LstPermisosAsignadosPerfil.FormattingEnabled = true;
-            this.LstPermisosAsignadosPerfil.ItemHeight = 20;
-            this.LstPermisosAsignadosPerfil.Location = new System.Drawing.Point(792, 476);
+            this.LstPermisosAsignadosPerfil.Location = new System.Drawing.Point(475, 43);
+            this.LstPermisosAsignadosPerfil.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LstPermisosAsignadosPerfil.Name = "LstPermisosAsignadosPerfil";
-            this.LstPermisosAsignadosPerfil.Size = new System.Drawing.Size(248, 124);
+            this.LstPermisosAsignadosPerfil.Size = new System.Drawing.Size(138, 82);
             this.LstPermisosAsignadosPerfil.TabIndex = 20;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(580, 399);
+            this.button7.Location = new System.Drawing.Point(651, 129);
+            this.button7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(107, 32);
+            this.button7.Size = new System.Drawing.Size(138, 37);
             this.button7.TabIndex = 21;
             this.button7.Text = "ASIGNAR";
             this.button7.UseVisualStyleBackColor = true;
@@ -263,19 +252,21 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(886, 399);
+            this.button8.Location = new System.Drawing.Point(819, 129);
+            this.button8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(106, 32);
+            this.button8.Size = new System.Drawing.Size(138, 37);
             this.button8.TabIndex = 22;
-            this.button8.Text = "BORRAR";
+            this.button8.Text = "QUITAR";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // btnAgregarUnPermiso
             // 
-            this.btnAgregarUnPermiso.Location = new System.Drawing.Point(570, 606);
+            this.btnAgregarUnPermiso.Location = new System.Drawing.Point(309, 129);
+            this.btnAgregarUnPermiso.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAgregarUnPermiso.Name = "btnAgregarUnPermiso";
-            this.btnAgregarUnPermiso.Size = new System.Drawing.Size(100, 35);
+            this.btnAgregarUnPermiso.Size = new System.Drawing.Size(138, 37);
             this.btnAgregarUnPermiso.TabIndex = 23;
             this.btnAgregarUnPermiso.Text = "ASIGNAR";
             this.btnAgregarUnPermiso.UseVisualStyleBackColor = true;
@@ -283,101 +274,112 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(876, 621);
+            this.button10.Location = new System.Drawing.Point(475, 129);
+            this.button10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(101, 29);
+            this.button10.Size = new System.Drawing.Size(138, 37);
             this.button10.TabIndex = 24;
-            this.button10.Text = "BORRAR";
+            this.button10.Text = "QUITAR";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(522, 246);
+            this.label4.Location = new System.Drawing.Point(660, 28);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(196, 20);
+            this.label4.Size = new System.Drawing.Size(129, 13);
             this.label4.TabIndex = 25;
             this.label4.Text = "FAMILIAS DISPONIBLES";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(512, 456);
+            this.label5.Location = new System.Drawing.Point(306, 28);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(206, 20);
+            this.label5.Size = new System.Drawing.Size(137, 13);
             this.label5.TabIndex = 26;
             this.label5.Text = "PERMISOS DISPONIBLES";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(823, 246);
+            this.label6.Location = new System.Drawing.Point(828, 25);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(184, 20);
+            this.label6.Size = new System.Drawing.Size(120, 13);
             this.label6.TabIndex = 27;
             this.label6.Text = "FAMILIAS ASIGNADAS";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(813, 456);
+            this.label7.Location = new System.Drawing.Point(481, 28);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(199, 20);
+            this.label7.Size = new System.Drawing.Size(132, 13);
             this.label7.TabIndex = 28;
             this.label7.Text = "PERMISOS  ASIGNADOS";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1426, 456);
+            this.label8.Location = new System.Drawing.Point(481, 18);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(199, 20);
+            this.label8.Size = new System.Drawing.Size(132, 13);
             this.label8.TabIndex = 40;
             this.label8.Text = "PERMISOS  ASIGNADOS";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1436, 246);
+            this.label9.Location = new System.Drawing.Point(487, 25);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(184, 20);
+            this.label9.Size = new System.Drawing.Size(120, 13);
             this.label9.TabIndex = 39;
             this.label9.Text = "FAMILIAS ASIGNADAS";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(1125, 456);
+            this.label10.Location = new System.Drawing.Point(306, 18);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(206, 20);
+            this.label10.Size = new System.Drawing.Size(137, 13);
             this.label10.TabIndex = 38;
             this.label10.Text = "PERMISOS DISPONIBLES";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1135, 246);
+            this.label11.Location = new System.Drawing.Point(321, 27);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(196, 20);
+            this.label11.Size = new System.Drawing.Size(129, 13);
             this.label11.TabIndex = 37;
             this.label11.Text = "FAMILIAS DISPONIBLES";
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(1489, 621);
+            this.button11.Location = new System.Drawing.Point(475, 120);
+            this.button11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(101, 29);
+            this.button11.Size = new System.Drawing.Size(138, 37);
             this.button11.TabIndex = 36;
-            this.button11.Text = "BORRAR";
+            this.button11.Text = "QUITAR";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(1183, 606);
+            this.button12.Location = new System.Drawing.Point(309, 120);
+            this.button12.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(100, 35);
+            this.button12.Size = new System.Drawing.Size(138, 37);
             this.button12.TabIndex = 35;
             this.button12.Text = "ASIGNAR";
             this.button12.UseVisualStyleBackColor = true;
@@ -385,19 +387,21 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(1499, 399);
+            this.button13.Location = new System.Drawing.Point(480, 129);
+            this.button13.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(106, 32);
+            this.button13.Size = new System.Drawing.Size(138, 37);
             this.button13.TabIndex = 34;
-            this.button13.Text = "BORRAR";
+            this.button13.Text = "QUITAR";
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(1193, 399);
+            this.button14.Location = new System.Drawing.Point(314, 129);
+            this.button14.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(107, 32);
+            this.button14.Size = new System.Drawing.Size(138, 37);
             this.button14.TabIndex = 33;
             this.button14.Text = "ASIGNAR";
             this.button14.UseVisualStyleBackColor = true;
@@ -406,37 +410,37 @@
             // lstPermisosAsignados
             // 
             this.lstPermisosAsignados.FormattingEnabled = true;
-            this.lstPermisosAsignados.ItemHeight = 20;
-            this.lstPermisosAsignados.Location = new System.Drawing.Point(1405, 476);
+            this.lstPermisosAsignados.Location = new System.Drawing.Point(475, 34);
+            this.lstPermisosAsignados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstPermisosAsignados.Name = "lstPermisosAsignados";
-            this.lstPermisosAsignados.Size = new System.Drawing.Size(248, 124);
+            this.lstPermisosAsignados.Size = new System.Drawing.Size(138, 82);
             this.lstPermisosAsignados.TabIndex = 32;
             // 
             // LstFamiliasAsignadas
             // 
             this.LstFamiliasAsignadas.FormattingEnabled = true;
-            this.LstFamiliasAsignadas.ItemHeight = 20;
-            this.LstFamiliasAsignadas.Location = new System.Drawing.Point(1404, 269);
+            this.LstFamiliasAsignadas.Location = new System.Drawing.Point(480, 43);
+            this.LstFamiliasAsignadas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LstFamiliasAsignadas.Name = "LstFamiliasAsignadas";
-            this.LstFamiliasAsignadas.Size = new System.Drawing.Size(248, 124);
+            this.LstFamiliasAsignadas.Size = new System.Drawing.Size(138, 82);
             this.LstFamiliasAsignadas.TabIndex = 31;
             // 
             // lstPermisosDisponibles
             // 
             this.lstPermisosDisponibles.FormattingEnabled = true;
-            this.lstPermisosDisponibles.ItemHeight = 20;
-            this.lstPermisosDisponibles.Location = new System.Drawing.Point(1102, 476);
+            this.lstPermisosDisponibles.Location = new System.Drawing.Point(309, 34);
+            this.lstPermisosDisponibles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstPermisosDisponibles.Name = "lstPermisosDisponibles";
-            this.lstPermisosDisponibles.Size = new System.Drawing.Size(248, 124);
+            this.lstPermisosDisponibles.Size = new System.Drawing.Size(138, 82);
             this.lstPermisosDisponibles.TabIndex = 30;
             // 
             // lstFamiliasDisponibles
             // 
             this.lstFamiliasDisponibles.FormattingEnabled = true;
-            this.lstFamiliasDisponibles.ItemHeight = 20;
-            this.lstFamiliasDisponibles.Location = new System.Drawing.Point(1112, 269);
+            this.lstFamiliasDisponibles.Location = new System.Drawing.Point(314, 43);
+            this.lstFamiliasDisponibles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstFamiliasDisponibles.Name = "lstFamiliasDisponibles";
-            this.lstFamiliasDisponibles.Size = new System.Drawing.Size(248, 124);
+            this.lstFamiliasDisponibles.Size = new System.Drawing.Size(138, 82);
             this.lstFamiliasDisponibles.TabIndex = 29;
             // 
             // dgvPerfiles
@@ -444,12 +448,13 @@
             this.dgvPerfiles.AllowUserToAddRows = false;
             this.dgvPerfiles.AllowUserToDeleteRows = false;
             this.dgvPerfiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPerfiles.Location = new System.Drawing.Point(617, 63);
+            this.dgvPerfiles.Location = new System.Drawing.Point(5, 18);
+            this.dgvPerfiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvPerfiles.Name = "dgvPerfiles";
             this.dgvPerfiles.ReadOnly = true;
             this.dgvPerfiles.RowHeadersWidth = 62;
             this.dgvPerfiles.RowTemplate.Height = 28;
-            this.dgvPerfiles.Size = new System.Drawing.Size(240, 150);
+            this.dgvPerfiles.Size = new System.Drawing.Size(281, 98);
             this.dgvPerfiles.TabIndex = 41;
             this.dgvPerfiles.SelectionChanged += new System.EventHandler(this.dgvPerfiles_SelectionChanged);
             // 
@@ -458,69 +463,103 @@
             this.dgvFamilias.AllowUserToAddRows = false;
             this.dgvFamilias.AllowUserToDeleteRows = false;
             this.dgvFamilias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFamilias.Location = new System.Drawing.Point(1183, 73);
+            this.dgvFamilias.Location = new System.Drawing.Point(5, 18);
+            this.dgvFamilias.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvFamilias.Name = "dgvFamilias";
             this.dgvFamilias.ReadOnly = true;
             this.dgvFamilias.RowHeadersWidth = 62;
             this.dgvFamilias.RowTemplate.Height = 28;
-            this.dgvFamilias.Size = new System.Drawing.Size(240, 150);
+            this.dgvFamilias.Size = new System.Drawing.Size(281, 98);
             this.dgvFamilias.TabIndex = 42;
             this.dgvFamilias.SelectionChanged += new System.EventHandler(this.dgvFamilias_SelectionChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dgvPermisos);
+            this.groupBox1.Controls.Add(this.btnAgregarUnPermiso);
+            this.groupBox1.Controls.Add(this.txtPerfilNombre);
+            this.groupBox1.Controls.Add(this.lstPermisosPerfil);
+            this.groupBox1.Controls.Add(this.btnEliminarPerfil);
+            this.groupBox1.Controls.Add(this.btnCrearPerfil);
+            this.groupBox1.Controls.Add(this.LstPermisosAsignadosPerfil);
+            this.groupBox1.Controls.Add(this.button10);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Location = new System.Drawing.Point(326, 220);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(629, 193);
+            this.groupBox1.TabIndex = 43;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Perfiles";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dgvFamilias);
+            this.groupBox2.Controls.Add(this.LstPermisosDisponiblesPerfil);
+            this.groupBox2.Controls.Add(this.button7);
+            this.groupBox2.Controls.Add(this.txtFamiliaNombre);
+            this.groupBox2.Controls.Add(this.button8);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.btnCrearFamilia);
+            this.groupBox2.Controls.Add(this.btnEliminarFamilia);
+            this.groupBox2.Controls.Add(this.LstFamiliasAsignadasPerfil);
+            this.groupBox2.Controls.Add(this.LstFamiliasAsignadas);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.lstFamiliasDisponibles);
+            this.groupBox2.Controls.Add(this.button14);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.button13);
+            this.groupBox2.Location = new System.Drawing.Point(326, 437);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(984, 193);
+            this.groupBox2.TabIndex = 44;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Familias";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtPermisoNombre);
+            this.groupBox3.Controls.Add(this.button11);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.lstPermisosAsignados);
+            this.groupBox3.Controls.Add(this.btnCrearPermiso);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.button12);
+            this.groupBox3.Controls.Add(this.dgvPerfiles);
+            this.groupBox3.Controls.Add(this.btnEliminarPermiso);
+            this.groupBox3.Controls.Add(this.lstPermisosDisponibles);
+            this.groupBox3.Location = new System.Drawing.Point(326, 7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(629, 193);
+            this.groupBox3.TabIndex = 45;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Permisos";
+            // 
             // FormPerfiles
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1686, 906);
-            this.Controls.Add(this.dgvFamilias);
-            this.Controls.Add(this.dgvPerfiles);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button13);
-            this.Controls.Add(this.button14);
-            this.Controls.Add(this.lstPermisosAsignados);
-            this.Controls.Add(this.LstFamiliasAsignadas);
-            this.Controls.Add(this.lstPermisosDisponibles);
-            this.Controls.Add(this.lstFamiliasDisponibles);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.btnAgregarUnPermiso);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.LstPermisosAsignadosPerfil);
-            this.Controls.Add(this.LstFamiliasAsignadasPerfil);
-            this.Controls.Add(this.lstPermisosPerfil);
-            this.Controls.Add(this.LstPermisosDisponiblesPerfil);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnEliminarFamilia);
-            this.Controls.Add(this.btnCrearFamilia);
-            this.Controls.Add(this.txtFamiliaNombre);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnEliminarPerfil);
-            this.Controls.Add(this.btnCrearPerfil);
-            this.Controls.Add(this.txtPerfilNombre);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1498, 772);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbFiltroArbol);
             this.Controls.Add(this.tvArbol);
-            this.Controls.Add(this.btnEliminarPermiso);
-            this.Controls.Add(this.btnCrearPermiso);
-            this.Controls.Add(this.txtPermisoNombre);
-            this.Controls.Add(this.dgvPermisos);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormPerfiles";
             this.Text = "FormPerfiles";
             this.Load += new System.EventHandler(this.FormPerfiles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerfiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFamilias)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -532,12 +571,9 @@
         private System.Windows.Forms.Button btnEliminarPermiso;
         private System.Windows.Forms.TreeView tvArbol;
         private System.Windows.Forms.ComboBox cbFiltroArbol;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnEliminarPerfil;
         private System.Windows.Forms.Button btnCrearPerfil;
         private System.Windows.Forms.TextBox txtPerfilNombre;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnEliminarFamilia;
         private System.Windows.Forms.Button btnCrearFamilia;
         private System.Windows.Forms.TextBox txtFamiliaNombre;
@@ -567,5 +603,8 @@
         private System.Windows.Forms.ListBox lstFamiliasDisponibles;
         private System.Windows.Forms.DataGridView dgvPerfiles;
         private System.Windows.Forms.DataGridView dgvFamilias;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

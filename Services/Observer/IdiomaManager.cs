@@ -57,10 +57,10 @@ namespace Services.Observer
 
         private void CargarTraducciones()
         {
-            // 1. Definimos dónde DEBERÍA estar la carpeta
+            // 1. Definimos dónde esta la carpeta
             string rutaDirectorio = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Idiomas");
 
-            // 2. MAGIA: Si la carpeta no existe, le decimos a C# que la cree a la fuerza
+            // 2. Si la carpeta no existe, le decimos a C# que la cree   
             if (!Directory.Exists(rutaDirectorio))
             {
                 Directory.CreateDirectory(rutaDirectorio);
@@ -75,11 +75,7 @@ namespace Services.Observer
                 string json = File.ReadAllText(rutaArchivo);
                 _traducciones = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             }
-
-
-
         }
-
     
         public string Traducir(string clave)
         {
@@ -90,5 +86,5 @@ namespace Services.Observer
         }
     }
 
-    }
+}
 

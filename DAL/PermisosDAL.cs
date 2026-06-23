@@ -13,7 +13,6 @@ namespace DAL
         // Usamos la misma cadena de conexión que ya tenés en tus otros DAL
         private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;";
 
-        // 1. Método para CREAR una Familia, un Perfil o un Permiso en la BD
         public void CrearComponente(Componente componente, string tipoComponente)
         {
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -35,7 +34,6 @@ namespace DAL
             }
         }
 
-        // 2. Método para ELIMINAR
         public void EliminarComponente(int idPermiso)
         {
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -73,7 +71,6 @@ namespace DAL
             }
         }
 
-        // 3. Método para OBTENER todos (sirve para llenar la grilla en la GUI)
         public List<Componente> ObtenerTodos()
         {
             List<Componente> lista = new List<Componente>();
@@ -106,7 +103,6 @@ namespace DAL
             }
             return lista;
         }
-        // 4. GUARDAR RELACIÓN (ASIGNAR)
         public void GuardarRelacion(int idPadre, int idHijo)
         {
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -122,7 +118,6 @@ namespace DAL
             }
         }
 
-        // 5. BORRAR RELACIÓN (QUITAR)
         public void BorrarRelacion(int idPadre, int idHijo)
         {
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -138,7 +133,6 @@ namespace DAL
             }
         }
 
-        // 6. OBTENER HIJOS (Traer lo que tiene asignado un Perfil/Familia)
         public List<Componente> ObtenerHijos(int idPadre)
         {
             List<Componente> lista = new List<Componente>();

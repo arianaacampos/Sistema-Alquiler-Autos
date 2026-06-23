@@ -15,7 +15,6 @@ namespace BLL
         // Instanciamos tu gestor de bitácora que ya tenés programado
         private BitacoraBLL _bitacoraBLL = new BitacoraBLL();
 
-        // 1. Método para CREAR
         public void CrearComponente(Componente componente, string tipoComponente)
         {
             // Validamos que no venga vacío (Cumple con "Verificar Creación")
@@ -32,7 +31,6 @@ namespace BLL
             _bitacoraBLL.Registrar(usuarioActivo, "Perfiles", "Se creó un/a " + tipoComponente + ": " + componente.Nombre, "Media");
         }
 
-        // 2. Método para ELIMINAR
         public void EliminarComponente(int idPermiso, string nombreComponente, string tipoComponente)
         {
             _permisosDAL.EliminarComponente(idPermiso);
@@ -42,7 +40,6 @@ namespace BLL
             _bitacoraBLL.Registrar(usuarioActivo, "Perfiles", "Se eliminó el/la " + tipoComponente + ": " + nombreComponente, "Alta");
         }
 
-        // 3. Método para LISTAR
         public List<Componente> ObtenerTodos()
         {
             return _permisosDAL.ObtenerTodos();
