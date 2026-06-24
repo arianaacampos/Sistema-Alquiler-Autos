@@ -10,8 +10,8 @@ namespace DAL
 {
     public class FamiliaDAL
     {
-        private string connectionString = "Server=.;Database=SistemaAlquiler;Trusted_Connection=True;";
-
+        
+        private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;Pooling=False;";
         public List<Componente> ObtenerTodos()
         {
             List<Componente> lista = new List<Componente>();
@@ -46,25 +46,21 @@ namespace DAL
             List<Componente> hijos = new List<Componente>();
             using (SqlConnection cx = new SqlConnection(connectionString))
             {
+                cx.Open(); 
 
+  
                 SqlCommand cmdP = new SqlCommand("SELECT p.IdPatente, p.Nombre FROM Patente p INNER JOIN Familia_Patente fp ON p.IdPatente = fp.IdPatente WHERE fp.IdFamilia = @id", cx);
                 cmdP.Parameters.AddWithValue("@id", idFamilia);
-                cx.Open();
                 using (SqlDataReader dr = cmdP.ExecuteReader())
                 {
-                    while (dr.Read())
-                        hijos.Add(new Patente { Id = Convert.ToInt32(dr["IdPatente"]), Nombre = dr["Nombre"].ToString() });
+                    while (dr.Read()) hijos.Add(new Patente { Id = Convert.ToInt32(dr["IdPatente"]), Nombre = dr["Nombre"].ToString() });
                 }
-                cx.Close();
-
 
                 SqlCommand cmdF = new SqlCommand("SELECT f.IdFamilia, f.Nombre FROM Familia f INNER JOIN Familia_Familia ff ON f.IdFamilia = ff.IdHijo WHERE ff.IdPadre = @id", cx);
                 cmdF.Parameters.AddWithValue("@id", idFamilia);
-                cx.Open();
                 using (SqlDataReader dr = cmdF.ExecuteReader())
                 {
-                    while (dr.Read())
-                        hijos.Add(new Familia { Id = Convert.ToInt32(dr["IdFamilia"]), Nombre = dr["Nombre"].ToString() });
+                    while (dr.Read()) hijos.Add(new Familia { Id = Convert.ToInt32(dr["IdFamilia"]), Nombre = dr["Nombre"].ToString() });
                 }
             }
             return hijos;

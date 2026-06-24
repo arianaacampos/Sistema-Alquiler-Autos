@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Seguridad
 {
-    public partial class FormCambiarClave : Form
+    public partial class FormCambiarClave : Form, Services.Observer.IObserverIdioma
     {
         public FormCambiarClave()
         {
@@ -76,6 +76,25 @@ namespace SistemaAlquiler.Seguridad
         {
             txtUsuario.Text = Sesion.Instancia.UsuarioActual; 
             txtUsuario.Enabled = false;
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
+        }
+
+        public void ActualizarIdioma()
+        {
+            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloCambiarClave");
+            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloCambiarClave");
+            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblClaveActual");
+            label4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNuevaClave");
+            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblConfirmarClave");
+            label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblUsuario");
+            btnAceptar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAceptar");
+            btnCancelar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("buttonCancelar");
+        }
+
+        private void FormCambiarClave_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
         }
     }
 }

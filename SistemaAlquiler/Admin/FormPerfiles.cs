@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Admin
 {
-    public partial class FormPerfiles : Form
+    public partial class FormPerfiles : Form, Services.Observer.IObserverIdioma
     {
         private PatenteBLL _patenteBLL = new PatenteBLL();
         private FamiliaBLL _familiaBLL = new FamiliaBLL();
@@ -21,7 +21,57 @@ namespace SistemaAlquiler.Admin
         {
             InitializeComponent();
         }
+        public void ActualizarIdioma()
+        {
+            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloPerfilesABMC");
 
+            btnCrearPermiso.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearPatente");
+            btnEliminarPermiso.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarPatente");
+
+
+            btnCrearFamilia.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearFamilia");
+            btnEliminarFamilia.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarFamilia");
+
+            btnCrearPerfil.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearPerfil");
+            btnEliminarPerfil.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarPerfil");
+
+            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosDisponibles");
+            label10.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosDisponibles");
+            label7.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosAsignados");
+            label8.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosAsignados");
+
+            label4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasDisponibles");
+            label11.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasDisponibles");
+            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasAsignadas");
+            label9.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasAsignadas");
+            button7.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
+            btnAgregarUnPermiso.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
+            button14.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
+            button12.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
+            button8.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
+            button10.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
+            button13.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
+            button11.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
+            groupBox3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbPatentes");
+            groupBox2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbFamilias");
+            groupBox1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbPerfiles");
+
+            int indexFiltro = cbFiltroArbol.SelectedIndex;
+            cbFiltroArbol.Items.Clear();
+            cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroPerfiles"));
+            cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroFamilias"));
+            cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroPermisos"));
+            if (indexFiltro >= 0) cbFiltroArbol.SelectedIndex = indexFiltro;
+
+            if (dgvPermisos.Columns["Nombre"] != null)
+                dgvPermisos.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colPatente");
+
+            if (dgvFamilias.Columns["Nombre"] != null)
+                dgvFamilias.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colFamilia");
+
+            if (dgvPerfiles.Columns["Nombre"] != null)
+                dgvPerfiles.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colPerfil");
+        }
         private void FormPerfiles_Load(object sender, EventArgs e)
         {
             dgvPermisos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -34,6 +84,8 @@ namespace SistemaAlquiler.Admin
 
             ActualizarGrillaPermisos();
             ActualizarGrillaPerfiles();
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
         }
         private void ActualizarGrillaPermisos()
         {
@@ -367,17 +419,17 @@ namespace SistemaAlquiler.Admin
             try
             {
                 tvArbol.Nodes.Clear();
-                if (cbFiltroArbol.SelectedItem == null) return;
+                if (cbFiltroArbol.SelectedIndex == -1) return;
 
-                string filtro = cbFiltroArbol.SelectedItem.ToString();
+
+                int filtroIndex = cbFiltroArbol.SelectedIndex;
                 var raices = new System.Collections.Generic.List<Componente>();
 
-
-                if (filtro == "Perfiles" || filtro == "Roles")
+                if (filtroIndex == 0)
                     raices = _rolBLL.ObtenerTodos();
-                else if (filtro == "Familias")
+                else if (filtroIndex == 1)
                     raices = _familiaBLL.ObtenerTodos();
-                else if (filtro == "Permisos" || filtro == "Patentes")
+                else if (filtroIndex == 2)
                     raices = _patenteBLL.ObtenerTodos();
 
                 foreach (var raiz in raices)
@@ -385,13 +437,13 @@ namespace SistemaAlquiler.Admin
                     TreeNode nodoRaiz = new TreeNode(raiz.Nombre);
                     tvArbol.Nodes.Add(nodoRaiz);
 
-                    if (filtro == "Perfiles" || filtro == "Roles")
+                    if (filtroIndex == 0)
                     {
-                        ArmarArbolRecursivo(nodoRaiz, raiz.Id, true); 
+                        ArmarArbolRecursivo(nodoRaiz, raiz.Id, true);
                     }
-                    else if (filtro == "Familias")
+                    else if (filtroIndex == 1)
                     {
-                        ArmarArbolRecursivo(nodoRaiz, raiz.Id, false); 
+                        ArmarArbolRecursivo(nodoRaiz, raiz.Id, false);
                     }
                 }
 
@@ -424,6 +476,11 @@ namespace SistemaAlquiler.Admin
         private void cbFiltroArbol_SelectedIndexChanged(object sender, EventArgs e)
         {
             MostrarArbol();
+        }
+
+        private void FormPerfiles_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
         }
     }
 }

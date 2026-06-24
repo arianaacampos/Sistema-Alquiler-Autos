@@ -461,7 +461,7 @@
             this.groupBox1.Controls.Add(this.LstFamiliasAsignadasPerfil);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Location = new System.Drawing.Point(489, 338);
+            this.groupBox1.Location = new System.Drawing.Point(459, 14);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -488,7 +488,7 @@
             this.groupBox2.Controls.Add(this.lstPermisosDisponibles);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.button13);
-            this.groupBox2.Location = new System.Drawing.Point(489, 672);
+            this.groupBox2.Location = new System.Drawing.Point(459, 348);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -503,7 +503,7 @@
             this.groupBox3.Controls.Add(this.txtPermisoNombre);
             this.groupBox3.Controls.Add(this.btnCrearPermiso);
             this.groupBox3.Controls.Add(this.btnEliminarPermiso);
-            this.groupBox3.Location = new System.Drawing.Point(489, 11);
+            this.groupBox3.Location = new System.Drawing.Point(6, 348);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -516,7 +516,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2244, 1188);
+            this.ClientSize = new System.Drawing.Size(1866, 713);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbFiltroArbol);
             this.Controls.Add(this.tvArbol);
@@ -524,6 +524,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "FormPerfiles";
             this.Text = "FormPerfiles";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPerfiles_FormClosing);
             this.Load += new System.EventHandler(this.FormPerfiles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerfiles)).EndInit();

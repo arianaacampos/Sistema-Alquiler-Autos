@@ -10,7 +10,7 @@ namespace DAL
 {
     public class PatenteDAL
     {
-        private string connectionString = "Server=.;Database=SistemaAlquiler;Trusted_Connection=True;";
+        private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;Pooling=False;";
 
         public List<Componente> ObtenerTodos()
         {
