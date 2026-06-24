@@ -14,7 +14,7 @@ using iTextSharp.text.pdf;
 
 namespace SistemaAlquiler.Seguridad
 {
-    public partial class FormBitacora : Form
+    public partial class FormBitacora : Form, Services.Observer.IObserverIdioma
     {
         private BitacoraBLL gestorBitacora = new BitacoraBLL();
         public FormBitacora()
@@ -32,6 +32,7 @@ namespace SistemaAlquiler.Seguridad
                 dataGridView1.Columns["Usuario"].HeaderText = "Login";
                 dataGridView1.Columns["FechaHora"].HeaderText = "Fecha y Hora";
                 dataGridView1.Columns["FechaHora"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+                ActualizarGrillaTítulos();
             }
             catch (Exception ex)
             {
@@ -46,12 +47,15 @@ namespace SistemaAlquiler.Seguridad
 
             button1_Click(null, null);
 
+
             comboBoxLogin.Items.Clear();
             UsuarioBLL gestorUsuario = new UsuarioBLL();
             foreach (var usu in gestorUsuario.Listar())
             {
                 comboBoxLogin.Items.Add(usu.NombreUsuario);
             }
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -83,6 +87,7 @@ namespace SistemaAlquiler.Seguridad
                     dataGridView1.Columns["FechaHora"].HeaderText = "Fecha y Hora";
                     dataGridView1.Columns["FechaHora"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
                 }
+                ActualizarGrillaTítulos();
             }
             catch (Exception ex)
             {
@@ -250,7 +255,49 @@ namespace SistemaAlquiler.Seguridad
 
         private void FormBitacora_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
+        }
 
+        public void ActualizarIdioma()
+        {
+            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloBitacora");
+
+            button1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnConsultarBitacora");
+            button2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnLimpiarBitacora");
+            button3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnImprimirPDF");
+            button4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnSalir"); 
+
+            groupBox1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbFiltros");
+            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblDesde");
+            label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblHasta");
+            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroLogin");
+            label8.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroModulo");
+            label4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroTipo");
+            label7.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroCriticidad");
+            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblApellidosBottom");
+            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNombresBottom");
+
+            ActualizarGrillaTítulos();
+        }
+        private void ActualizarGrillaTítulos()
+        {
+            if (dataGridView1.Columns.Count > 0)
+            {
+                if (dataGridView1.Columns["Usuario"] != null)
+                    dataGridView1.Columns["Usuario"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colLogin");
+
+                if (dataGridView1.Columns["FechaHora"] != null)
+                    dataGridView1.Columns["FechaHora"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colFechaHora");
+
+                if (dataGridView1.Columns["Modulo"] != null)
+                    dataGridView1.Columns["Modulo"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colModulo");
+
+                if (dataGridView1.Columns["Evento"] != null)
+                    dataGridView1.Columns["Evento"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colEvento");
+
+                if (dataGridView1.Columns["Criticidad"] != null)
+                    dataGridView1.Columns["Criticidad"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colCriticidad");
+            }
         }
     }
 }

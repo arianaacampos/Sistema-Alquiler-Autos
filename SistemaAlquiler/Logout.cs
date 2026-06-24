@@ -12,11 +12,19 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Seguridad
 {
-    public partial class Logout : Form
+    public partial class Logout : Form, Services.Observer.IObserverIdioma
     {
         public Logout()
         {
             InitializeComponent();
+        }
+
+        public void ActualizarIdioma()
+        {
+            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloLogout");
+            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblConfirmacionLogout");
+            button1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAceptarLogout");
+            button2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCancelarLogout");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,7 +55,13 @@ namespace SistemaAlquiler.Seguridad
 
         private void Logout_Load(object sender, EventArgs e)
         {
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
+        }
 
+        private void Logout_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
         }
     }
 }

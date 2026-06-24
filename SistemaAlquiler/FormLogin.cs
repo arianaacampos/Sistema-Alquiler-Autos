@@ -40,7 +40,8 @@ namespace SistemaAlquiler.Seguridad
                         Services.Entities.Usuario usuarioCompleto = gestorUsuario.ObtenerPorNombre(usuario);
 
                         Sesion.Instancia.UsuarioActual = usuarioCompleto.NombreUsuario;
-
+                        RolBLL gestorRol = new RolBLL();
+                        Sesion.Instancia.Permisos = gestorRol.ObtenerPermisosDelUsuario(usuarioCompleto.ID_Usuario);
                         string idiomaPreferencia = "es-AR";
                         if (usuarioCompleto != null && !string.IsNullOrEmpty(usuarioCompleto.IdiomaPreferencia))
                         {

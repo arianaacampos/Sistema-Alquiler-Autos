@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class Familia : Componente
+    public class Rol : Componente
     {
         private List<Componente> _hijos = new List<Componente>();
 

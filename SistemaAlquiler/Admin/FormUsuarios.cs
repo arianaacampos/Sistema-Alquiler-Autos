@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Seguridad
 {
-    public partial class FormUsuarios : Form
+    public partial class FormUsuarios : Form, Services.Observer.IObserverIdioma
     {
         private UsuarioBLL gestorUsuario = new UsuarioBLL();
 
@@ -31,11 +31,19 @@ namespace SistemaAlquiler.Seguridad
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
 
-            cbRol.Items.Clear();
-            cbRol.Items.AddRange(new string[] { "Gerente", "Recepcionista" });
+
+            RolBLL gestorRol = new RolBLL(); 
+            var listaPerfiles = gestorRol.ObtenerTodos();
+
+            cbRol.DataSource = listaPerfiles;
+            cbRol.DisplayMember = "Nombre";
+            cbRol.ValueMember = "Id";
             cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
 
             rdbActivos.Checked = true;
+
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
 
             ActualizarGrilla();
             ModoConsulta();
@@ -44,7 +52,8 @@ namespace SistemaAlquiler.Seguridad
         private void ModoConsulta()
         {
             TipoOperacion = TiposOperacion.Consulta;
-            txtMensaje.Text = "Modo Consulta";
+            txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoConsulta");
+            
 
             txtDNI.Enabled = true;
             txtApellido.Enabled = true;
@@ -227,6 +236,9 @@ namespace SistemaAlquiler.Seguridad
                         gestorUsuario.Modificar(usuario);
                         break;
                 }
+                Usuario usuGuardado = gestorUsuario.ObtenerPorNombre(usuario.NombreUsuario);
+                int idPerfilSeleccionado = Convert.ToInt32(cbRol.SelectedValue);
+                new RolBLL().AsignarPerfilAUsuario(usuGuardado.ID_Usuario, idPerfilSeleccionado);
 
                 ActualizarGrilla();
                 ModoConsulta();
@@ -322,6 +334,57 @@ namespace SistemaAlquiler.Seguridad
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public void ActualizarIdioma()
+        {
+            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloUsuariosABMC");
+
+            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblDNI");
+            label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblApellido");
+            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNombre");
+            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblEmail");
+            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblRol");
+
+            btnCrear.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAnadir");
+            btnModificar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnModificar");
+            btnDesbloquear.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnDesbloquear");
+            btnActDesact.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnActDesact");
+
+            btnAceptar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAceptar"); 
+            btnCancelar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("buttonCancelar"); 
+            btnSalir.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnSalir");
+
+            rdbActivos.Text = Services.Observer.IdiomaManager.Instancia.Traducir("rdbActivos");
+            rdbTodos.Text = Services.Observer.IdiomaManager.Instancia.Traducir("rdbTodos");
+            int indexSeleccionado = cbRol.SelectedIndex;
+
+
+            ActualizarGrilla();
+
+            switch (TipoOperacion)
+            {
+                case TiposOperacion.Consulta:
+                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoConsulta");
+                    break;
+                case TiposOperacion.Alta:
+                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoAnadir");
+                    break;
+                case TiposOperacion.Modificacion:
+                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoModificar");
+                    break;
+                case TiposOperacion.Desbloqueo:
+                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoDesbloquear");
+                    break;
+                case TiposOperacion.ActivarDesactivar:
+                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoEliminar");
+                    break;
+            }
+        }
+
+        private void FormUsuarios_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
         }
     }
 }

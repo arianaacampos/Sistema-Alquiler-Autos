@@ -6,23 +6,21 @@ using System.Threading.Tasks;
 
 namespace Services.Entities
 {
-    public class Familia : Componente
+    public class Patente : Componente
     {
-        private List<Componente> _hijos = new List<Componente>();
-
         public override void Agregar(Componente c)
         {
-            _hijos.Add(c);
+            throw new Exception("No se pueden agregar hijos a una Patente.");
         }
 
         public override void Quitar(Componente c)
         {
-            _hijos.Remove(c);
+            throw new Exception("No se pueden quitar hijos de una Patente.");
         }
 
         public override List<Componente> ObtenerHijos()
         {
-            return _hijos;
+            return new List<Componente>(); 
         }
     }
 }

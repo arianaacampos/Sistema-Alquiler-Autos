@@ -10,11 +10,9 @@ namespace Services.Entities
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Permiso { get; set; } 
 
-        public abstract void AgregarHijo(Componente c);
-        public abstract void QuitarHijo(Componente c);
-        public abstract void VaciarHijos();
-        public abstract IList<Componente> ObtenerHijos();
+        public abstract void Agregar(Componente c);
+        public abstract void Quitar(Componente c);
+        public abstract List<Componente> ObtenerHijos();
     }
 }

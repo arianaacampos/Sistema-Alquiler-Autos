@@ -12,7 +12,13 @@ namespace Services.Entities
         private static readonly object _lock = new object();
 
         public string UsuarioActual { get; set; }
+        public List<Componente> Permisos { get; set; } = new List<Componente>();
 
+        public bool TienePermiso(string nombrePermiso)
+        {
+
+            return Permisos.Any(p => p.Nombre.Trim().ToLower() == nombrePermiso.Trim().ToLower());
+        }
         private Sesion() { }
 
         public static Sesion Instancia
@@ -39,6 +45,7 @@ namespace Services.Entities
             {
                 _instancia = null;
                 UsuarioActual = null;
+                Permisos.Clear();
             }
         }
     }

@@ -14,7 +14,9 @@ namespace SistemaAlquiler.Admin
 {
     public partial class FormPerfiles : Form
     {
-        private PermisosBLL _permisosBLL = new PermisosBLL();
+        private PatenteBLL _patenteBLL = new PatenteBLL();
+        private FamiliaBLL _familiaBLL = new FamiliaBLL();
+        private RolBLL _rolBLL = new RolBLL();
         public FormPerfiles()
         {
             InitializeComponent();
@@ -37,22 +39,15 @@ namespace SistemaAlquiler.Admin
         {
             try
             {
-                var todos = _permisosBLL.ObtenerTodos();
-                var soloPermisos = todos.Where(c => c.GetType().Name == "Permiso").ToList();
-
                 dgvPermisos.DataSource = null;
-                dgvPermisos.DataSource = soloPermisos;
+                dgvPermisos.DataSource = _patenteBLL.ObtenerTodos();
 
                 if (dgvPermisos.Columns.Count > 0)
                 {
                     dgvPermisos.Columns["Id"].Visible = false;
-                    dgvPermisos.Columns["Permiso"].Visible = false; // Ocultamos el codigo del sistema
-
-                    dgvPermisos.Columns["Nombre"].HeaderText = "Permiso";
+                    dgvPermisos.Columns["Nombre"].HeaderText = "Patente (Permiso)";
                     dgvPermisos.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
-
-                // Magia para que se actualicen los ListBox
                 CargarListasPerfil();
                 CargarListasFamilia();
                 ActualizarGrillaFamilias();
@@ -64,83 +59,51 @@ namespace SistemaAlquiler.Admin
         {
             try
             {
-                // Validamos el único TextBox que tenés
-                if (string.IsNullOrWhiteSpace(txtPermisoNombre.Text))
-                {
-                    MessageBox.Show("Por favor, ingrese el nombre del permiso (Ej: Ver Bitácora).", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(txtPermisoNombre.Text)) return;
 
-                // Creamos el Permiso
-                Componente nuevoPermiso = new Permiso();
-                nuevoPermiso.Nombre = txtPermisoNombre.Text.Trim();
-                // Al interno no le ponemos nada, ya que usamos solo 1 campo.
+                Componente nuevaPatente = new Patente();
+                nuevaPatente.Nombre = txtPermisoNombre.Text.Trim();
 
-                // Guardamos en BD
-                _permisosBLL.CrearComponente(nuevoPermiso, "Permiso");
-
-                MessageBox.Show("Permiso creado con éxito.", "Creación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Limpiamos y actualizamos
+                _patenteBLL.Crear(nuevaPatente); 
+                MessageBox.Show("Patente creada.");
                 txtPermisoNombre.Text = "";
                 ActualizarGrillaPermisos();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al crear: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnEliminarPermiso_Click(object sender, EventArgs e)
         {
             try
             {
-
                 if (dgvPermisos.SelectedRows.Count > 0)
                 {
-                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar este permiso?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (respuesta == DialogResult.Yes)
+                    if (MessageBox.Show("¿Seguro que desea eliminar esta Patente?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-
                         int id = Convert.ToInt32(dgvPermisos.SelectedRows[0].Cells["Id"].Value);
-                        string nombre = dgvPermisos.SelectedRows[0].Cells["Nombre"].Value.ToString();
-
-
-                        _permisosBLL.EliminarComponente(id, nombre, "Permiso");
-
-                        MessageBox.Show("Permiso eliminado con éxito.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _patenteBLL.Eliminar(id);
+                        MessageBox.Show("Patente eliminada con éxito.");
                         ActualizarGrillaPermisos();
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione un permiso de la grilla para eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al eliminar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
         }
         private void ActualizarGrillaPerfiles()
         {
             try
             {
-                var todos = _permisosBLL.ObtenerTodos();
-                var soloPerfiles = todos.Where(c => c.GetType().Name == "Perfil").ToList();
-
                 dgvPerfiles.DataSource = null;
-                dgvPerfiles.DataSource = soloPerfiles;
+                dgvPerfiles.DataSource = _rolBLL.ObtenerTodos();
 
                 if (dgvPerfiles.Columns.Count > 0)
                 {
                     dgvPerfiles.Columns["Id"].Visible = false;
-                    dgvPerfiles.Columns["Permiso"].Visible = false; // Ocultamos el codigo del sistema
-
-                    dgvPerfiles.Columns["Nombre"].HeaderText = "Perfil";
+                    dgvPerfiles.Columns["Nombre"].HeaderText = "Rol (Perfil)";
                     dgvPerfiles.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                CargarListasPerfil();
+                CargarListasFamilia();
 
                 CargarListasPerfil();
                 CargarListasFamilia();
@@ -151,29 +114,22 @@ namespace SistemaAlquiler.Admin
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtPerfilNombre.Text))
+                if (string.IsNullOrWhiteSpace(txtPerfilNombre.Text)) return;
+                if (dgvFamilias.SelectedRows.Count == 0 && dgvPermisos.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Por favor, ingrese el nombre del Perfil (Ej: Director).", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Seleccione al menos una familia o patente inicial para el Rol.");
                     return;
                 }
 
-                // Creamos el Perfil (Patrón Composite: creamos un Compuesto)
-                Componente nuevoPerfil = new Perfil();
-                nuevoPerfil.Nombre = txtPerfilNombre.Text.Trim();
+                Componente nuevoRol = new Rol();
+                nuevoRol.Nombre = txtPerfilNombre.Text.Trim();
+                int idNuevoRol = _rolBLL.Crear(nuevoRol); 
 
-                // Guardamos en BD
-                _permisosBLL.CrearComponente(nuevoPerfil, "Perfil");
-
-                MessageBox.Show("Perfil creado con éxito.", "Creación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Limpiamos y actualizamos
+                MessageBox.Show("Rol creado con éxito.");
                 txtPerfilNombre.Text = "";
                 ActualizarGrillaPerfiles();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al crear: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnEliminarPerfil_Click(object sender, EventArgs e)
@@ -182,82 +138,55 @@ namespace SistemaAlquiler.Admin
             {
                 if (dgvPerfiles.SelectedRows.Count > 0)
                 {
-                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar este perfil?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (respuesta == DialogResult.Yes)
+                    if (MessageBox.Show("¿Seguro que desea eliminar este Rol?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         int id = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
-                        string nombre = dgvPerfiles.SelectedRows[0].Cells["Nombre"].Value.ToString();
-
-                        _permisosBLL.EliminarComponente(id, nombre, "Perfil");
-
-                        MessageBox.Show("Perfil eliminado con éxito.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _rolBLL.Eliminar(id);
+                        MessageBox.Show("Rol eliminado con éxito.");
                         ActualizarGrillaPerfiles();
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione un perfil de la grilla para eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al eliminar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
         }
         private void ActualizarGrillaFamilias()
         {
-            try
-            {
-                var todos = _permisosBLL.ObtenerTodos();
-                var soloFamilias = todos.Where(c => c.GetType().Name == "Familia").ToList();
-
-                dgvFamilias.DataSource = null;
-                dgvFamilias.DataSource = soloFamilias;
-
-                if (dgvFamilias.Columns.Count > 0)
+          
+                try
                 {
-                    dgvFamilias.Columns["Id"].Visible = false;
-                    dgvFamilias.Columns["Permiso"].Visible = false; // Ocultamos el codigo del sistema
+                    dgvFamilias.DataSource = null;
+                    dgvFamilias.DataSource = _familiaBLL.ObtenerTodos();
 
-                    dgvFamilias.Columns["Nombre"].HeaderText = "Familia";
-                    dgvFamilias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    if (dgvFamilias.Columns.Count > 0)
+                    {
+                        dgvFamilias.Columns["Id"].Visible = false;
+                        dgvFamilias.Columns["Nombre"].HeaderText = "Familia";
+                        dgvFamilias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    }
+                    CargarListasPerfil();
+                    CargarListasFamilia();
                 }
+                catch { }
 
-                CargarListasPerfil();
-                CargarListasFamilia();
-            }
-            catch { }
-           
+            
         }
+          
     
         private void btnCrearFamilia_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtFamiliaNombre.Text))
-                {
-                    MessageBox.Show("Por favor, ingrese el nombre de la Familia (Ej: Gerencia).", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(txtFamiliaNombre.Text)) return;
 
-                // Creamos la Familia (Patrón Composite: creamos un Compuesto)
                 Componente nuevaFamilia = new Familia();
                 nuevaFamilia.Nombre = txtFamiliaNombre.Text.Trim();
+                int idNuevaFamilia = _familiaBLL.Crear(nuevaFamilia); 
 
-                // Guardamos en BD
-                _permisosBLL.CrearComponente(nuevaFamilia, "Familia");
-
-                MessageBox.Show("Familia creada con éxito.", "Creación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Limpiamos y actualizamos
+                MessageBox.Show("Familia creada con éxito.");
                 txtFamiliaNombre.Text = "";
                 ActualizarGrillaFamilias();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al crear: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnEliminarFamilia_Click(object sender, EventArgs e)
@@ -266,28 +195,16 @@ namespace SistemaAlquiler.Admin
             {
                 if (dgvFamilias.SelectedRows.Count > 0)
                 {
-                    DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar esta familia?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (respuesta == DialogResult.Yes)
+                    if (MessageBox.Show("¿Seguro que desea eliminar esta Familia?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         int id = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
-                        string nombre = dgvFamilias.SelectedRows[0].Cells["Nombre"].Value.ToString();
-
-                        _permisosBLL.EliminarComponente(id, nombre, "Familia");
-
-                        MessageBox.Show("Familia eliminada con éxito.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _familiaBLL.Eliminar(id);
+                        MessageBox.Show("Familia eliminada con éxito.");
                         ActualizarGrillaFamilias();
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione una familia de la grilla para eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al eliminar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
         }
 
         private void dgvPerfiles_SelectionChanged(object sender, EventArgs e)
@@ -301,17 +218,17 @@ namespace SistemaAlquiler.Admin
             {
                 if (dgvPerfiles.SelectedRows.Count == 0) return;
 
-                int idPerfilSeleccionado = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
+                int idRolSeleccionado = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
 
-                var todosLosComponentes = _permisosBLL.ObtenerTodos();
-                var asignadosAlPerfil = _permisosBLL.ObtenerHijos(idPerfilSeleccionado);
 
-                // --- SECCIÓN FAMILIAS ---
-                var todasLasFamilias = todosLosComponentes.Where(c => c.GetType().Name == "Familia").ToList();
-                var familiasAsignadas = asignadosAlPerfil.Where(c => c.GetType().Name == "Familia").ToList();
+                var asignadosAlRol = _rolBLL.ObtenerHijos(idRolSeleccionado);
+                var todasLasFamilias = _familiaBLL.ObtenerTodos();
+                var todasLasPatentes = _patenteBLL.ObtenerTodos();
+
+
+                var familiasAsignadas = asignadosAlRol.Where(c => c.GetType().Name == "Familia").ToList();
                 var familiasDisponibles = todasLasFamilias.Where(f => !familiasAsignadas.Any(fa => fa.Id == f.Id)).ToList();
 
-                // Usando TUS nombres exactos de la foto
                 LstPermisosDisponiblesPerfil.DataSource = null;
                 LstPermisosDisponiblesPerfil.DataSource = familiasDisponibles;
                 LstPermisosDisponiblesPerfil.DisplayMember = "Nombre";
@@ -320,71 +237,54 @@ namespace SistemaAlquiler.Admin
                 LstFamiliasAsignadasPerfil.DataSource = familiasAsignadas;
                 LstFamiliasAsignadasPerfil.DisplayMember = "Nombre";
 
-                // --- SECCIÓN PERMISOS ---
-                var todosLosPermisos = todosLosComponentes.Where(c => c.GetType().Name == "Permiso").ToList();
-                var permisosAsignados = asignadosAlPerfil.Where(c => c.GetType().Name == "Permiso").ToList();
-                var permisosDisponibles = todosLosPermisos.Where(p => !permisosAsignados.Any(pa => pa.Id == p.Id)).ToList();
 
-                // Usando TUS nombres exactos de la foto
+                var patentesAsignadas = asignadosAlRol.Where(c => c.GetType().Name == "Patente").ToList();
+                var patentesDisponibles = todasLasPatentes.Where(p => !patentesAsignadas.Any(pa => pa.Id == p.Id)).ToList();
+
                 lstPermisosPerfil.DataSource = null;
-                lstPermisosPerfil.DataSource = permisosDisponibles;
+                lstPermisosPerfil.DataSource = patentesDisponibles;
                 lstPermisosPerfil.DisplayMember = "Nombre";
 
                 LstPermisosAsignadosPerfil.DataSource = null;
-                LstPermisosAsignadosPerfil.DataSource = permisosAsignados;
+                LstPermisosAsignadosPerfil.DataSource = patentesAsignadas;
                 LstPermisosAsignadosPerfil.DisplayMember = "Nombre";
             }
-            catch (Exception ex)
-            {
-                // Si falla al inicio, no mostramos error para que no moleste al abrir el form
-            }
+            catch (Exception ex) { }
         }
-        private void MoverComponente(ListBox listaOrigen, bool esAsignar)
+        private void MoverComponente(ListBox listaOrigen, bool esAsignar, bool esPatente)
         {
-            if (dgvPerfiles.SelectedRows.Count == 0) return;
-            if (listaOrigen.SelectedItem == null) return;
-
-            int idPadre = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
+            if (dgvPerfiles.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
+            int idRol = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
 
             try
             {
-                if (esAsignar)
-                {
-                    _permisosBLL.AsignarComponente(idPadre, hijoSeleccionado.Id);
-                }
-                else
-                {
-                    _permisosBLL.QuitarComponente(idPadre, hijoSeleccionado.Id);
-                }
-
-                CargarListasPerfil(); // Recargamos para ver los cambios
+                if (esAsignar) _rolBLL.AsignarComponente(idRol, hijoSeleccionado, esPatente);
+                else _rolBLL.QuitarComponente(idRol, hijoSeleccionado, esPatente);
+                CargarListasPerfil();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al actualizar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            MoverComponente(LstPermisosDisponiblesPerfil, true);
+            MoverComponente(LstPermisosDisponiblesPerfil, true, false);
         }
 
         private void btnAgregarUnPermiso_Click(object sender, EventArgs e)
         {
 
-            MoverComponente(lstPermisosPerfil, true);
+            MoverComponente(lstPermisosPerfil, true, true);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            MoverComponente(LstFamiliasAsignadasPerfil, false);
+            MoverComponente(LstFamiliasAsignadasPerfil, false, false);
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            MoverComponente(LstPermisosAsignadosPerfil, false);
+            MoverComponente(LstPermisosAsignadosPerfil, false, true);
         }
 
         private void dgvFamilias_SelectionChanged(object sender, EventArgs e)
@@ -399,14 +299,12 @@ namespace SistemaAlquiler.Admin
 
                 int idFamiliaSeleccionada = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
 
-                var todosLosComponentes = _permisosBLL.ObtenerTodos();
-                var asignadosALaFamilia = _permisosBLL.ObtenerHijos(idFamiliaSeleccionada);
+                var asignadosALaFamilia = _familiaBLL.ObtenerHijos(idFamiliaSeleccionada);
+                var todasLasFamilias = _familiaBLL.ObtenerTodos();
+                var todasLasPatentes = _patenteBLL.ObtenerTodos();
 
-                // --- SECCIÓN SUB-FAMILIAS ---
-                // (Para asignar una familia adentro de otra familia)
-                var todasLasFamilias = todosLosComponentes.Where(c => c.GetType().Name == "Familia" && c.Id != idFamiliaSeleccionada).ToList();
                 var familiasAsignadas = asignadosALaFamilia.Where(c => c.GetType().Name == "Familia").ToList();
-                var familiasDisponibles = todasLasFamilias.Where(f => !familiasAsignadas.Any(fa => fa.Id == f.Id)).ToList();
+                var familiasDisponibles = todasLasFamilias.Where(f => f.Id != idFamiliaSeleccionada && !familiasAsignadas.Any(fa => fa.Id == f.Id)).ToList();
 
                 lstFamiliasDisponibles.DataSource = null;
                 lstFamiliasDisponibles.DataSource = familiasDisponibles;
@@ -416,69 +314,53 @@ namespace SistemaAlquiler.Admin
                 LstFamiliasAsignadas.DataSource = familiasAsignadas;
                 LstFamiliasAsignadas.DisplayMember = "Nombre";
 
-                // --- SECCIÓN PERMISOS ---
-                var todosLosPermisos = todosLosComponentes.Where(c => c.GetType().Name == "Permiso").ToList();
-                var permisosAsignados = asignadosALaFamilia.Where(c => c.GetType().Name == "Permiso").ToList();
-                var permisosDisponibles = todosLosPermisos.Where(p => !permisosAsignados.Any(pa => pa.Id == p.Id)).ToList();
+  
+                var patentesAsignadas = asignadosALaFamilia.Where(c => c.GetType().Name == "Patente").ToList();
+                var patentesDisponibles = todasLasPatentes.Where(p => !patentesAsignadas.Any(pa => pa.Id == p.Id)).ToList();
 
                 lstPermisosDisponibles.DataSource = null;
-                lstPermisosDisponibles.DataSource = permisosDisponibles;
+                lstPermisosDisponibles.DataSource = patentesDisponibles;
                 lstPermisosDisponibles.DisplayMember = "Nombre";
 
                 lstPermisosAsignados.DataSource = null;
-                lstPermisosAsignados.DataSource = permisosAsignados;
+                lstPermisosAsignados.DataSource = patentesAsignadas;
                 lstPermisosAsignados.DisplayMember = "Nombre";
             }
-            catch (Exception ex)
-            {
-                // Ignoramos errores de carga inicial
-            }
+            catch (Exception ex) { }
         }
-            private void MoverComponenteFamilia(ListBox listaOrigen, bool esAsignar)
+        private void MoverComponenteFamilia(ListBox listaOrigen, bool esAsignar, bool esPatente)
         {
-            if (dgvFamilias.SelectedRows.Count == 0) return;
-            if (listaOrigen.SelectedItem == null) return;
-
+            if (dgvFamilias.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
             int idPadre = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
 
             try
             {
-                if (esAsignar)
-                {
-                    _permisosBLL.AsignarComponente(idPadre, hijoSeleccionado.Id);
-                }
-                else
-                {
-                    _permisosBLL.QuitarComponente(idPadre, hijoSeleccionado.Id);
-                }
-
-                CargarListasFamilia(); // Recargamos para ver los cambios
+                if (esAsignar) _familiaBLL.AsignarComponente(idPadre, hijoSeleccionado, esPatente);
+                else _familiaBLL.QuitarComponente(idPadre, hijoSeleccionado, esPatente);
+                CargarListasFamilia();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al actualizar la asignación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            MoverComponenteFamilia(lstFamiliasDisponibles, true);
+            MoverComponenteFamilia(lstFamiliasDisponibles, true, false);
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-            MoverComponenteFamilia(LstFamiliasAsignadas, false);
+            MoverComponenteFamilia(LstFamiliasAsignadas, false, false);
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            MoverComponenteFamilia(lstPermisosDisponibles, true);
+            MoverComponenteFamilia(lstPermisosDisponibles, true, true);
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            MoverComponenteFamilia(lstPermisosAsignados, false);
+            MoverComponenteFamilia(lstPermisosAsignados, false, true);
         }
         private void MostrarArbol()
         {
@@ -488,32 +370,31 @@ namespace SistemaAlquiler.Admin
                 if (cbFiltroArbol.SelectedItem == null) return;
 
                 string filtro = cbFiltroArbol.SelectedItem.ToString();
-                var todos = _permisosBLL.ObtenerTodos();
-
-                // 1. Definimos cuáles son las raíces (nodos principales) según lo que eligió en el combo
                 var raices = new System.Collections.Generic.List<Componente>();
 
-                if (filtro == "Perfiles")
-                    raices = todos.Where(c => c.GetType().Name == "Perfil").ToList();
-                else if (filtro == "Familias")
-                    raices = todos.Where(c => c.GetType().Name == "Familia").ToList();
-                else if (filtro == "Permisos")
-                    raices = todos.Where(c => c.GetType().Name == "Permiso").ToList();
 
-                // 2. Dibujamos las raíces en el arbolito
+                if (filtro == "Perfiles" || filtro == "Roles")
+                    raices = _rolBLL.ObtenerTodos();
+                else if (filtro == "Familias")
+                    raices = _familiaBLL.ObtenerTodos();
+                else if (filtro == "Permisos" || filtro == "Patentes")
+                    raices = _patenteBLL.ObtenerTodos();
+
                 foreach (var raiz in raices)
                 {
                     TreeNode nodoRaiz = new TreeNode(raiz.Nombre);
                     tvArbol.Nodes.Add(nodoRaiz);
 
-                    // Si es un Perfil o Familia, escarbamos adentro a ver si tiene hijos
-                    if (filtro != "Permisos")
+                    if (filtro == "Perfiles" || filtro == "Roles")
                     {
-                        ArmarArbolRecursivo(nodoRaiz, raiz.Id);
+                        ArmarArbolRecursivo(nodoRaiz, raiz.Id, true); 
+                    }
+                    else if (filtro == "Familias")
+                    {
+                        ArmarArbolRecursivo(nodoRaiz, raiz.Id, false); 
                     }
                 }
 
-                // Expandimos todo para que el profe lo vea desplegado de una
                 tvArbol.ExpandAll();
             }
             catch (Exception ex)
@@ -522,23 +403,20 @@ namespace SistemaAlquiler.Admin
             }
         }
 
-        // FUNCIÓN RECURSIVA PARA LLENAR LOS HIJOS (COMPOSITE PURA SANGRE)
-        private void ArmarArbolRecursivo(TreeNode nodoPadre, int idPadre)
+
+        private void ArmarArbolRecursivo(TreeNode nodoPadre, int idPadre, bool padreEsRol)
         {
-            // Buscamos qué hijos tiene este padre en la base de datos
-            var hijos = _permisosBLL.ObtenerHijos(idPadre);
+            var hijos = padreEsRol ? _rolBLL.ObtenerHijos(idPadre) : _familiaBLL.ObtenerHijos(idPadre);
 
             foreach (var hijo in hijos)
             {
-                // Creamos la ramita
                 TreeNode nodoHijo = new TreeNode(hijo.Nombre);
                 nodoPadre.Nodes.Add(nodoHijo);
 
-                // Si este hijo también es una Familia, volvemos a llamar a esta misma función 
-                // para ver qué tiene adentro (RECURSIVIDAD)
+  
                 if (hijo.GetType().Name == "Familia")
                 {
-                    ArmarArbolRecursivo(nodoHijo, hijo.Id);
+                    ArmarArbolRecursivo(nodoHijo, hijo.Id, false);
                 }
             }
         }

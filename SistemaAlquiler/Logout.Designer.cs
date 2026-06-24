@@ -84,6 +84,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Logout";
             this.Text = "Logout";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Logout_FormClosing);
             this.Load += new System.EventHandler(this.Logout_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -48,8 +48,8 @@
     <Compile Include="Entities\Componente.cs" />
     <Compile Include="Entities\Criptografia.cs" />
     <Compile Include="Entities\Familia.cs" />
-    <Compile Include="Entities\Perfil.cs" />
-    <Compile Include="Entities\Permiso.cs" />
+    <Compile Include="Entities\Patente.cs" />
+    <Compile Include="Entities\Rol.cs" />
     <Compile Include="Entities\Sesion.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Observer\IdiomaManager.cs" />
