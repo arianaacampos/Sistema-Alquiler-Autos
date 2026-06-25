@@ -33,8 +33,6 @@ namespace DAL
                         usuario.NombreUsuario = Convert.ToString(mDt["NombreUsuario"]);
                         usuario.Rol = Convert.ToString(mDt["Rol"] == DBNull.Value ? "" : mDt["Rol"]);
                         usuario.Email = Convert.ToString(mDt["Email"] == DBNull.Value ? "" : mDt["Email"]);
-
-                        // Convertimos el booleano solo si no es nulo
                         usuario.Bloqueado = mDt["Bloqueado"] != DBNull.Value && Convert.ToBoolean(mDt["Bloqueado"]);
                         usuario.Activo = mDt["Activo"] != DBNull.Value && Convert.ToBoolean(mDt["Activo"]);
 

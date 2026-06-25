@@ -116,7 +116,6 @@ namespace SistemaAlquiler
 
         public void ActualizarIdioma()
         {
-            // MENÚS PRINCIPALES
             adminToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Admin");
             maestrosToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Maestros");
             usuarioToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Usuario");
@@ -125,7 +124,6 @@ namespace SistemaAlquiler
             reporteToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Reportes");
             ayudaToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Ayuda");
 
-            // SUBMENÚS ADMIN
             usuariosToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Usuarios");
             perfilesToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Perfiles");
             backupToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Backup");
@@ -133,37 +131,29 @@ namespace SistemaAlquiler
             bitacoraToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Bitacora");
             digitoVerificarToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("DigitoVerificar"); 
 
-            // SUBMENÚS MAESTROS
             vehiculoToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Vehiculo");
             clienteToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Cliente");
             tallerToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Taller");
 
-            // SUBMENÚS USUARIO
             cambiarIdiomaToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("CambiarIdioma");
             cambiarClaveToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("CambiarClave");
             reLoginToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("ReLogin");
             logoutToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Logout");
-
-            // Los submenús para cambiar el idioma propiamente dichos:
             inglesToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Ingles"); 
             españolToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("Espanol"); 
 
-            // SUBMENÚS OPERACIONES
             registrarAlquilerToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("RegistrarAlquiler");
             registrarDevolucionToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("RegistrarDevolucion");
             cancelarReservaToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("CancelarReserva");
             consultarDisponibilidadToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("ConsultarDisponibilidad");
 
-            // SUBMENÚS MANTENIMIENTO
             enviarAlTallerToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("EnviarTaller");
             registrarServicioMecanicoToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("RegistrarServicioMecanico"); 
 
-            // SUBMENÚS REPORTES 
             rentabilidadPorVehiculoToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("RepAlquileres"); 
             historialDeGastosPorUnidadToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("RepVehiculos"); 
             estadisticaDeAlquileresMasSolicitadosToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("RepBitacora");
 
-            // SUBMENÚS AYUDA
             manualDeUsuarioToolStripMenuItem.Text = Services.Observer.IdiomaManager.Instancia.Traducir("ManualUsuario"); 
 
             this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloMain");

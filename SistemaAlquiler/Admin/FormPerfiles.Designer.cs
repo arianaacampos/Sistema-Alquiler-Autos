@@ -516,7 +516,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1866, 713);
+            this.ClientSize = new System.Drawing.Size(1910, 713);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbFiltroArbol);
             this.Controls.Add(this.tvArbol);

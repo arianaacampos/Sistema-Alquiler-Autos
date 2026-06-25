@@ -196,6 +196,7 @@ namespace SistemaAlquiler.Seguridad
                         usuario.Bloqueado = false;
 
                         gestorUsuario.Alta(usuario);
+                        new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el nuevo usuario: '{loginDinamico}'", "Alta");
                         MessageBox.Show($"Operación Añadir Exitosa. El usuario creado es: {loginDinamico}");
                         break;
 
@@ -209,6 +210,7 @@ namespace SistemaAlquiler.Seguridad
 
                         gestorUsuario.Modificar(usuario);
                         MessageBox.Show("Operación Modificar Exitosa.");
+                        new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se modificaron los datos del usuario: '{usuario.NombreUsuario}'", "Media");
                         break;
 
                     case TiposOperacion.Desbloqueo:
@@ -218,6 +220,7 @@ namespace SistemaAlquiler.Seguridad
 
                         gestorUsuario.Modificar(usuario);
                         MessageBox.Show("Usuario Desbloqueado con éxito.");
+                        new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se desbloqueó manualmente al usuario: '{usuario.NombreUsuario}'", "Alta");
                         break;
 
                     case TiposOperacion.ActivarDesactivar:
@@ -238,7 +241,13 @@ namespace SistemaAlquiler.Seguridad
                 }
                 Usuario usuGuardado = gestorUsuario.ObtenerPorNombre(usuario.NombreUsuario);
                 int idPerfilSeleccionado = Convert.ToInt32(cbRol.SelectedValue);
+                string nombreRolSeleccionado = cbRol.Text;
+
                 new RolBLL().AsignarPerfilAUsuario(usuGuardado.ID_Usuario, idPerfilSeleccionado);
+
+
+                string msjAuditoria = $"Se asignó el Rol '{nombreRolSeleccionado}' al usuario '{usuario.NombreUsuario}'";
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", msjAuditoria, "Alta");
 
                 ActualizarGrilla();
                 ModoConsulta();

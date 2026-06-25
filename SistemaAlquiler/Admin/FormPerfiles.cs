@@ -118,6 +118,7 @@ namespace SistemaAlquiler.Admin
 
                 _patenteBLL.Crear(nuevaPatente); 
                 MessageBox.Show("Patente creada.");
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevaPatente.Nombre}'", "Media");
                 txtPermisoNombre.Text = "";
                 ActualizarGrillaPermisos();
             }
@@ -175,9 +176,9 @@ namespace SistemaAlquiler.Admin
 
                 Componente nuevoRol = new Rol();
                 nuevoRol.Nombre = txtPerfilNombre.Text.Trim();
-                int idNuevoRol = _rolBLL.Crear(nuevoRol); 
-
+                int idNuevoRol = _rolBLL.Crear(nuevoRol);           
                 MessageBox.Show("Rol creado con éxito.");
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevoRol.Nombre}'", "Media");
                 txtPerfilNombre.Text = "";
                 ActualizarGrillaPerfiles();
             }
@@ -235,6 +236,7 @@ namespace SistemaAlquiler.Admin
                 int idNuevaFamilia = _familiaBLL.Crear(nuevaFamilia); 
 
                 MessageBox.Show("Familia creada con éxito.");
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevaFamilia.Nombre}'", "Media");
                 txtFamiliaNombre.Text = "";
                 ActualizarGrillaFamilias();
             }
@@ -307,12 +309,19 @@ namespace SistemaAlquiler.Admin
         {
             if (dgvPerfiles.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
             int idRol = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
+            string nombreRol = dgvPerfiles.SelectedRows[0].Cells["Nombre"].Value.ToString(); 
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
 
             try
             {
                 if (esAsignar) _rolBLL.AsignarComponente(idRol, hijoSeleccionado, esPatente);
                 else _rolBLL.QuitarComponente(idRol, hijoSeleccionado, esPatente);
+
+                string accion = esAsignar ? "Asignó" : "Quitó";
+                string tipo = esPatente ? "Patente" : "Familia";
+                string detalle = $"Se {accion} la {tipo} '{hijoSeleccionado.Nombre}' en el Rol '{nombreRol}'";
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Seguridad", detalle, "Media");
+
                 CargarListasPerfil();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -384,12 +393,19 @@ namespace SistemaAlquiler.Admin
         {
             if (dgvFamilias.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
             int idPadre = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
+            string nombrePadre = dgvFamilias.SelectedRows[0].Cells["Nombre"].Value.ToString(); 
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
 
             try
             {
                 if (esAsignar) _familiaBLL.AsignarComponente(idPadre, hijoSeleccionado, esPatente);
                 else _familiaBLL.QuitarComponente(idPadre, hijoSeleccionado, esPatente);
+
+                string accion = esAsignar ? "Asignó" : "Quitó";
+                string tipo = esPatente ? "Patente" : "Sub-Familia";
+                string detalle = $"Se {accion} la {tipo} '{hijoSeleccionado.Nombre}' en la Familia '{nombrePadre}'";
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", detalle, "Media");
+
                 CargarListasFamilia();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }

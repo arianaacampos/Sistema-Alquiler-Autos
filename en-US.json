@@ -4,34 +4,37 @@
   "btnAceptar": "Log In",
   "buttonCancelar": "Cancel",
   "tituloLogin": "Login",
-
   "Admin": "Admin",
   "Usuarios": "Users",
   "Perfiles": "Profiles",
   "Backup": "Backup",
   "Restore": "Restore",
   "Bitacora": "Logbook",
-
+  "DigitoVerificar": "Digit Verifier",
   "Maestros": "Masters",
   "Vehiculo": "Vehicle",
   "Cliente": "Customer",
   "Taller": "Workshop",
-
   "Usuario": "User",
   "CambiarIdioma": "Change Language",
   "CambiarClave": "Change Password",
   "ReLogin": "Re-Login",
   "Logout": "Logout",
-
+  "Ingles": "English",
+  "Espanol": "Spanish",
   "Operaciones": "Operations",
   "RegistrarAlquiler": "Register rental",
   "RegistrarDevolucion": "Register return",
   "CancelarReserva": "Cancel reservation",
-
+  "ConsultarDisponibilidad": "Check availability",
   "Mantenimiento": "Maintenance",
   "EnviarTaller": "Send to workshop",
-
+  "RegistrarServicioMecanico": "Register mechanical service",
   "Reportes": "Reports",
+  "RepAlquileres": "Vehicle Profitability",
+  "RepVehiculos": "Unit Expense History",
+  "RepBitacora": "Most Requested Rentals Statistics",
   "Ayuda": "Help",
+  "ManualUsuario": "User Manual",
   "tituloMain": "Car Rental System - Main Menu"
 }

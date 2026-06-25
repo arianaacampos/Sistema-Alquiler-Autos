@@ -57,19 +57,15 @@ namespace Services.Observer
 
         private void CargarTraducciones()
         {
-            // 1. Definimos dónde esta la carpeta
             string rutaDirectorio = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Idiomas");
 
-            // 2. Si la carpeta no existe, le decimos a C# que la cree   
             if (!Directory.Exists(rutaDirectorio))
             {
                 Directory.CreateDirectory(rutaDirectorio);
             }
 
-            // 3. Definimos la ruta del archivo
             string rutaArchivo = Path.Combine(rutaDirectorio, $"{IdiomaActual}.json");
 
-            // 4. Intentamos leerlo
             if (File.Exists(rutaArchivo))
             {
                 string json = File.ReadAllText(rutaArchivo);

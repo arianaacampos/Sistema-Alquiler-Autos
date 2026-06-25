@@ -1,37 +1,40 @@
 {
   "lblUsuario": "Usuario:",
-  "lblClave": "Contrase a:",
+  "lblClave": "Contraseña:",
   "btnAceptar": "Ingresar",
   "buttonCancelar": "Cancelar",
-  "tituloLogin": "Iniciar Sesi n",
-
+  "tituloLogin": "Iniciar Sesión",
   "Admin": "Admin",
   "Usuarios": "Usuarios",
   "Perfiles": "Perfiles",
   "Backup": "Backup",
   "Restore": "Restore",
-  "Bitacora": "Bit cora",
-
+  "Bitacora": "Bitácora",
+  "DigitoVerificar": "Dígito Verificador",
   "Maestros": "Maestros",
-  "Vehiculo": "Veh culo",
+  "Vehiculo": "Vehículo",
   "Cliente": "Cliente",
   "Taller": "Taller",
-
   "Usuario": "Usuario",
   "CambiarIdioma": "Cambiar Idioma",
   "CambiarClave": "Cambiar Clave",
   "ReLogin": "Re-Login",
-  "Logout": "Cerrar Sesi n",
-
+  "Logout": "Cerrar Sesión",
+  "Ingles": "Inglés",
+  "Espanol": "Español",
   "Operaciones": "Operaciones",
   "RegistrarAlquiler": "Registrar alquiler",
-  "RegistrarDevolucion": "Registrar devoluci n",
+  "RegistrarDevolucion": "Registrar devolución",
   "CancelarReserva": "Cancelar reserva",
-
+  "ConsultarDisponibilidad": "Consultar disponibilidad",
   "Mantenimiento": "Mantenimiento",
   "EnviarTaller": "Enviar a taller",
-
-  "Reportes": "Reporte",
+  "RegistrarServicioMecanico": "Registrar servicio mecánico",
+  "Reportes": "Reportes",
+  "RepAlquileres": "Rentabilidad por Vehículo",
+  "RepVehiculos": "Historial de Gastos por Unidad",
+  "RepBitacora": "Estadística de Alquileres Más Solicitados",
   "Ayuda": "Ayuda",
-  "tituloMain": "Sistema de Alquiler de Autos - Men  Principal"
+  "ManualUsuario": "Manual de Usuario",
+  "tituloMain": "Sistema de Alquiler de Autos - Menú Principal"
 }
