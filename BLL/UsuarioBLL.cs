@@ -34,6 +34,7 @@ namespace BLL
 
                 usu.IntentosFallidos = 0;
                 _usuarioDAL.ActualizarIntentos(usu);
+                new DvBLL().RecalcularTodo();
                 return "OK";
             }
             else
@@ -50,6 +51,7 @@ namespace BLL
 
                 _usuarioDAL.ActualizarIntentos(usu);
                 return "Contraseña incorrecta. Le quedan " + (3 - usu.IntentosFallidos) + " intentos.";
+                new DvBLL().RecalcularTodo();
             }
         }
         public List<Usuario> Listar()
@@ -63,6 +65,7 @@ namespace BLL
             _usuarioDAL.Alta(usuario);
             BitacoraBLL bitacora = new BitacoraBLL();
             bitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Alta Usuario", "Media");
+            new DvBLL().RecalcularTodo();
         }
 
         public void Modificar(Usuario usuario)
@@ -70,6 +73,7 @@ namespace BLL
             _usuarioDAL.Modificar(usuario);
             BitacoraBLL bitacora = new BitacoraBLL();
             bitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Modificación Usuario", "Media");
+            new DvBLL().RecalcularTodo();
         }
         public string CambiarClave(string nombreUsuario, string claveActual, string nuevaClave)
         {
@@ -91,7 +95,7 @@ namespace BLL
 
             BitacoraBLL bitacora = new BitacoraBLL();
             bitacora.Registrar(nombreUsuario, "Usuario", "Cambiar Clave", "Media");
-
+            new DvBLL().RecalcularTodo();
             return "OK";
         }
         public Services.Entities.Usuario ObtenerPorNombre(string nombreUsuario)
@@ -102,6 +106,7 @@ namespace BLL
         {
             DAL.UsuarioDAL gestorDatosUsuario = new DAL.UsuarioDAL();
             gestorDatosUsuario.ActualizarIdiomaPreferencia(nombreUsuario, idioma);
+            new DvBLL().RecalcularTodo();
         }
     }
 }

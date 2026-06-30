@@ -148,9 +148,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitacoraDAL.cs" />
+    <Compile Include="ConfiguradorBD.cs" />
+    <Compile Include="DvDAL.cs" />
     <Compile Include="FamiliaDAL.cs" />
     <Compile Include="PatenteDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RespaldoDAL.cs" />
     <Compile Include="RolDAL.cs" />
     <Compile Include="UsuarioDAL.cs" />
   </ItemGroup>

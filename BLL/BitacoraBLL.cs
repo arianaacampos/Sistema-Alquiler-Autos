@@ -16,6 +16,7 @@ namespace BLL
         {
             Bitacora nuevaBitacora = new Bitacora(usuario, modulo, evento, criticidad);
             dal.RegistrarEvento(nuevaBitacora);
+            new DvBLL().RecalcularTodo();
         }
 
         public List<Bitacora> Consultar()

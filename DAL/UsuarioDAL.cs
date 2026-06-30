@@ -10,7 +10,9 @@ namespace DAL
 {
     public class UsuarioDAL
     {
-        private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;";
+        private string connectionString = ConfiguradorBD.ObtenerCadena();
+
+        private string masterConnectionString = ConfiguradorBD.ObtenerCadena().Replace("DB_AlquilerAutos", "master");
 
         public List<Usuario> Listar()
         {

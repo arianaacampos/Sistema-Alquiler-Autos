@@ -10,8 +10,10 @@ namespace DAL
 {
     public class FamiliaDAL
     {
-        
-        private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;Pooling=False;";
+
+        private string connectionString = ConfiguradorBD.ObtenerCadena();
+
+        private string masterConnectionString = ConfiguradorBD.ObtenerCadena().Replace("DB_AlquilerAutos", "master");
         public List<Componente> ObtenerTodos()
         {
             List<Componente> lista = new List<Componente>();

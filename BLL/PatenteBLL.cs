@@ -12,7 +12,6 @@ namespace BLL
     {
         private PatenteDAL _dal = new PatenteDAL();
         public List<Componente> ObtenerTodos() => _dal.ObtenerTodos();
-        public void Crear(Componente p) => _dal.Insertar(p);
-        public void Eliminar(int id) => _dal.Eliminar(id);
+
     }
 }

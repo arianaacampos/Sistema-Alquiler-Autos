@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Services.Entities;
 using Services.Observer;
+using SistemaAlquiler.Admin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,20 +36,48 @@ namespace SistemaAlquiler.Seguridad
 
                     if (resultado == "OK")
                     {
-                        BitacoraBLL gestorBitacora = new BitacoraBLL();
-
                         Services.Entities.Usuario usuarioCompleto = gestorUsuario.ObtenerPorNombre(usuario);
+
+                        // =========================================================================
+                        // INTERCEPCIÓN DÍGITO VERIFICADOR (Validar Integridad de BD)
+                        // =========================================================================
+                        BLL.DvBLL gestorDV = new BLL.DvBLL();
+                        string errorIntegridad;
+
+                        if (!gestorDV.ValidarIntegridad(out errorIntegridad))
+                        {
+                            // Si detecta manipulación externa, verificamos si es jefe
+                            if (usuarioCompleto.Rol == "Administrador" || usuarioCompleto.Rol == "Gerente")
+                            {
+                                // Es Administrador: Le abrimos la pantalla de solución (CUS-020)
+                                FormDv frmDV = new FormDv(errorIntegridad);
+                                frmDV.Show();
+                                this.Hide();
+                                return; // Cortamos el login acá
+                            }
+                            else
+                            {
+                                // Es usuario común: Lo rebotamos
+                                MessageBox.Show("El sistema no se encuentra disponible en este momento. Intente más tarde.", "Falla de Integridad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return; // Cortamos el login acá
+                            }
+                        }
+                        // =========================================================================
+
+                        // Si pasó el Dígito Verificador, seguimos con el login normal:
+                        BitacoraBLL gestorBitacora = new BitacoraBLL();
 
                         Sesion.Instancia.UsuarioActual = usuarioCompleto.NombreUsuario;
                         RolBLL gestorRol = new RolBLL();
                         Sesion.Instancia.Permisos = gestorRol.ObtenerPermisosDelUsuario(usuarioCompleto.ID_Usuario);
+
                         string idiomaPreferencia = "es-AR";
                         if (usuarioCompleto != null && !string.IsNullOrEmpty(usuarioCompleto.IdiomaPreferencia))
                         {
                             idiomaPreferencia = usuarioCompleto.IdiomaPreferencia;
                         }
 
-                        IdiomaManager.Instancia.CambiarIdioma(idiomaPreferencia);
+                        Services.Observer.IdiomaManager.Instancia.CambiarIdioma(idiomaPreferencia);
 
                         gestorBitacora.Registrar(usuario, "Usuario", "Login", "Baja");
 
@@ -56,7 +85,6 @@ namespace SistemaAlquiler.Seguridad
                         menu.Show();
                         this.Hide();
                     }
-
                     else
                     {
                         MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvPermisos = new System.Windows.Forms.DataGridView();
-            this.txtPermisoNombre = new System.Windows.Forms.TextBox();
-            this.btnCrearPermiso = new System.Windows.Forms.Button();
-            this.btnEliminarPermiso = new System.Windows.Forms.Button();
             this.tvArbol = new System.Windows.Forms.TreeView();
             this.cbFiltroArbol = new System.Windows.Forms.ComboBox();
             this.btnEliminarPerfil = new System.Windows.Forms.Button();
@@ -68,60 +64,17 @@
             this.dgvFamilias = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerfiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFamilias)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dgvPermisos
-            // 
-            this.dgvPermisos.AllowUserToAddRows = false;
-            this.dgvPermisos.AllowUserToDeleteRows = false;
-            this.dgvPermisos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPermisos.Location = new System.Drawing.Point(9, 28);
-            this.dgvPermisos.Name = "dgvPermisos";
-            this.dgvPermisos.ReadOnly = true;
-            this.dgvPermisos.RowHeadersWidth = 62;
-            this.dgvPermisos.RowTemplate.Height = 28;
-            this.dgvPermisos.Size = new System.Drawing.Size(422, 151);
-            this.dgvPermisos.TabIndex = 0;
-            // 
-            // txtPermisoNombre
-            // 
-            this.txtPermisoNombre.Location = new System.Drawing.Point(8, 185);
-            this.txtPermisoNombre.Name = "txtPermisoNombre";
-            this.txtPermisoNombre.Size = new System.Drawing.Size(420, 26);
-            this.txtPermisoNombre.TabIndex = 1;
-            // 
-            // btnCrearPermiso
-            // 
-            this.btnCrearPermiso.Location = new System.Drawing.Point(8, 222);
-            this.btnCrearPermiso.Name = "btnCrearPermiso";
-            this.btnCrearPermiso.Size = new System.Drawing.Size(207, 57);
-            this.btnCrearPermiso.TabIndex = 2;
-            this.btnCrearPermiso.Text = "CREAR";
-            this.btnCrearPermiso.UseVisualStyleBackColor = true;
-            this.btnCrearPermiso.Click += new System.EventHandler(this.btnCrearPermiso_Click);
-            // 
-            // btnEliminarPermiso
-            // 
-            this.btnEliminarPermiso.Location = new System.Drawing.Point(222, 222);
-            this.btnEliminarPermiso.Name = "btnEliminarPermiso";
-            this.btnEliminarPermiso.Size = new System.Drawing.Size(207, 57);
-            this.btnEliminarPermiso.TabIndex = 3;
-            this.btnEliminarPermiso.Text = "BORRAR";
-            this.btnEliminarPermiso.UseVisualStyleBackColor = true;
-            this.btnEliminarPermiso.Click += new System.EventHandler(this.btnEliminarPermiso_Click);
             // 
             // tvArbol
             // 
             this.tvArbol.Location = new System.Drawing.Point(16, 54);
             this.tvArbol.Name = "tvArbol";
-            this.tvArbol.Size = new System.Drawing.Size(436, 276);
+            this.tvArbol.Size = new System.Drawing.Size(436, 591);
             this.tvArbol.TabIndex = 4;
             // 
             // cbFiltroArbol
@@ -427,6 +380,7 @@
             this.dgvPerfiles.RowTemplate.Height = 28;
             this.dgvPerfiles.Size = new System.Drawing.Size(422, 151);
             this.dgvPerfiles.TabIndex = 41;
+            this.dgvPerfiles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerfiles_CellContentClick);
             this.dgvPerfiles.SelectionChanged += new System.EventHandler(this.dgvPerfiles_SelectionChanged);
             // 
             // dgvFamilias
@@ -441,6 +395,7 @@
             this.dgvFamilias.RowTemplate.Height = 28;
             this.dgvFamilias.Size = new System.Drawing.Size(422, 151);
             this.dgvFamilias.TabIndex = 42;
+            this.dgvFamilias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFamilias_CellContentClick);
             this.dgvFamilias.SelectionChanged += new System.EventHandler(this.dgvFamilias_SelectionChanged);
             // 
             // groupBox1
@@ -469,6 +424,7 @@
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Perfiles";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox2
             // 
@@ -496,21 +452,7 @@
             this.groupBox2.TabIndex = 44;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Familias";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.dgvPermisos);
-            this.groupBox3.Controls.Add(this.txtPermisoNombre);
-            this.groupBox3.Controls.Add(this.btnCrearPermiso);
-            this.groupBox3.Controls.Add(this.btnEliminarPermiso);
-            this.groupBox3.Location = new System.Drawing.Point(6, 348);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Size = new System.Drawing.Size(446, 297);
-            this.groupBox3.TabIndex = 45;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Permisos";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // FormPerfiles
             // 
@@ -520,31 +462,22 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbFiltroArbol);
             this.Controls.Add(this.tvArbol);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Name = "FormPerfiles";
             this.Text = "FormPerfiles";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPerfiles_FormClosing);
             this.Load += new System.EventHandler(this.FormPerfiles_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerfiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFamilias)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgvPermisos;
-        private System.Windows.Forms.TextBox txtPermisoNombre;
-        private System.Windows.Forms.Button btnCrearPermiso;
-        private System.Windows.Forms.Button btnEliminarPermiso;
         private System.Windows.Forms.TreeView tvArbol;
         private System.Windows.Forms.ComboBox cbFiltroArbol;
         private System.Windows.Forms.Button btnEliminarPerfil;
@@ -581,6 +514,5 @@
         private System.Windows.Forms.DataGridView dgvFamilias;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

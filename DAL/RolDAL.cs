@@ -10,7 +10,9 @@ namespace DAL
 {
     public class RolDAL
     {
-        private string connectionString = "Data Source=.;Initial Catalog=DB_AlquilerAutos;Integrated Security=True;Pooling=False;";
+        private string connectionString = ConfiguradorBD.ObtenerCadena();
+
+        private string masterConnectionString = ConfiguradorBD.ObtenerCadena().Replace("DB_AlquilerAutos", "master");
 
         public List<Componente> ObtenerTodos()
         {

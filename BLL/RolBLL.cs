@@ -13,25 +13,36 @@ namespace BLL
         private RolDAL _dal = new RolDAL();
 
         public List<Componente> ObtenerTodos() => _dal.ObtenerTodos();
-        public void Eliminar(int id) => _dal.Eliminar(id);
-        public int Crear(Componente r) => _dal.Insertar(r);
+        public void Eliminar(int id)
+        {
+            _dal.Eliminar(id);
+            new DvBLL().RecalcularTodo();
+        }
+        public int Crear(Componente r) {
+            int id = _dal.Insertar(r);
+            new DvBLL().RecalcularTodo();
+            return id;
+        }
         public List<Componente> ObtenerHijos(int id) => _dal.ObtenerHijos(id);
 
         public void AsignarComponente(int idRol, Componente hijo, bool esPatente)
         {
             if (esPatente) _dal.AsignarPatente(idRol, hijo.Id);
             else _dal.AsignarFamilia(idRol, hijo.Id);
+            new DvBLL().RecalcularTodo();
         }
 
         public void QuitarComponente(int idRol, Componente hijo, bool esPatente)
         {
             if (esPatente) _dal.QuitarPatente(idRol, hijo.Id);
             else _dal.QuitarFamilia(idRol, hijo.Id);
+            new DvBLL().RecalcularTodo();
         }
 
         public void AsignarPerfilAUsuario(int idUsuario, int idRol)
         {
             _dal.AsignarPerfilAUsuario(idUsuario, idRol);
+            new DvBLL().RecalcularTodo();
         }
 
         public List<Componente> ObtenerPermisosDelUsuario(int idUsuario)

@@ -167,5 +167,21 @@ namespace SistemaAlquiler
             perfil.ShowDialog();
             this.Show();
         }
+
+        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormRespaldos formRespaldos = new FormRespaldos();
+            this.Hide();
+            formRespaldos.ShowDialog();
+            this.Show();
+        }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormRespaldos formRespaldos = new FormRespaldos();
+            this.Hide();
+            formRespaldos.ShowDialog();
+            this.Show();
+        }
     }
 }

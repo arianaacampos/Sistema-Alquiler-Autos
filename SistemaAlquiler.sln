@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{F5D91FD6-F519-3AC5-2EF1-6ADD62B256F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,8 @@ Global
 		{9C4E7590-EBBF-4B2A-BDEE-921C473E9448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C4E7590-EBBF-4B2A-BDEE-921C473E9448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C4E7590-EBBF-4B2A-BDEE-921C473E9448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D91FD6-F519-3AC5-2EF1-6ADD62B256F6}.Debug|Any CPU.ActiveCfg = Debug
+		{F5D91FD6-F519-3AC5-2EF1-6ADD62B256F6}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

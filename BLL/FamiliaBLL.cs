@@ -13,7 +13,12 @@ namespace BLL
         private FamiliaDAL _dal = new FamiliaDAL();
 
         public List<Componente> ObtenerTodos() => _dal.ObtenerTodos();
-        public int Crear(Componente f) => _dal.Insertar(f);
+        public int Crear(Componente f)
+        {
+            int id = _dal.Insertar(f);
+            new DvBLL().RecalcularTodo();
+            return id;
+        }
         public List<Componente> ObtenerHijos(int id) => _dal.ObtenerHijos(id);
 
         public void AsignarComponente(int idPadre, Componente hijo, bool esPatente)
@@ -22,14 +27,20 @@ namespace BLL
 
             if (esPatente) _dal.AsignarPatente(idPadre, hijo.Id);
             else _dal.AsignarSubFamilia(idPadre, hijo.Id);
+            new DvBLL().RecalcularTodo();
         }
 
         public void QuitarComponente(int idPadre, Componente hijo, bool esPatente)
         {
             if (esPatente) _dal.QuitarPatente(idPadre, hijo.Id);
             else _dal.QuitarSubFamilia(idPadre, hijo.Id);
+            new DvBLL().RecalcularTodo();
         }
 
-        public void Eliminar(int id) => _dal.Eliminar(id);
+        public void Eliminar(int id)
+        {
+            _dal.Eliminar(id);
+            new DvBLL().RecalcularTodo();
+        }
     }
 }

@@ -52,11 +52,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\FormDv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\FormDv.Designer.cs">
+      <DependentUpon>FormDv.cs</DependentUpon>
+    </Compile>
     <Compile Include="Admin\FormPerfiles.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Admin\FormPerfiles.Designer.cs">
       <DependentUpon>FormPerfiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FormRespaldos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\FormRespaldos.Designer.cs">
+      <DependentUpon>FormRespaldos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormConfigurarServidor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConfigurarServidor.Designer.cs">
+      <DependentUpon>FormConfigurarServidor.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -96,8 +114,17 @@
     <Compile Include="Logout.Designer.cs">
       <DependentUpon>Logout.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Admin\FormDv.resx">
+      <DependentUpon>FormDv.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Admin\FormPerfiles.resx">
       <DependentUpon>FormPerfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\FormRespaldos.resx">
+      <DependentUpon>FormRespaldos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfigurarServidor.resx">
+      <DependentUpon>FormConfigurarServidor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

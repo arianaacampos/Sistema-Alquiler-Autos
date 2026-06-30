@@ -25,10 +25,6 @@ namespace SistemaAlquiler.Admin
         {
             this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloPerfilesABMC");
 
-            btnCrearPermiso.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearPatente");
-            btnEliminarPermiso.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarPatente");
-
-
             btnCrearFamilia.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearFamilia");
             btnEliminarFamilia.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarFamilia");
 
@@ -52,7 +48,6 @@ namespace SistemaAlquiler.Admin
             button10.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
             button13.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
             button11.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
-            groupBox3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbPatentes");
             groupBox2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbFamilias");
             groupBox1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbPerfiles");
 
@@ -63,9 +58,6 @@ namespace SistemaAlquiler.Admin
             cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroPermisos"));
             if (indexFiltro >= 0) cbFiltroArbol.SelectedIndex = indexFiltro;
 
-            if (dgvPermisos.Columns["Nombre"] != null)
-                dgvPermisos.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colPatente");
-
             if (dgvFamilias.Columns["Nombre"] != null)
                 dgvFamilias.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colFamilia");
 
@@ -74,74 +66,41 @@ namespace SistemaAlquiler.Admin
         }
         private void FormPerfiles_Load(object sender, EventArgs e)
         {
-            dgvPermisos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPermisos.MultiSelect = false;
-            dgvPermisos.ReadOnly = true;
 
             dgvPerfiles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPerfiles.MultiSelect = false;
             dgvPerfiles.ReadOnly = true;
 
-            ActualizarGrillaPermisos();
             ActualizarGrillaPerfiles();
             Services.Observer.IdiomaManager.Instancia.Suscribir(this);
             ActualizarIdioma();
         }
-        private void ActualizarGrillaPermisos()
-        {
-            try
-            {
-                dgvPermisos.DataSource = null;
-                dgvPermisos.DataSource = _patenteBLL.ObtenerTodos();
 
-                if (dgvPermisos.Columns.Count > 0)
+        private bool YaTieneElComponente(int idPadre, int idComponenteBuscado, bool padreEsRol, bool buscadoEsPatente)
+        {
+            var hijos = padreEsRol ? _rolBLL.ObtenerHijos(idPadre) : _familiaBLL.ObtenerHijos(idPadre);
+
+            foreach (var hijo in hijos)
+            {
+                bool hijoEsPatente = hijo.GetType().Name == "Patente";
+                if (hijo.Id == idComponenteBuscado && hijoEsPatente == buscadoEsPatente)
                 {
-                    dgvPermisos.Columns["Id"].Visible = false;
-                    dgvPermisos.Columns["Nombre"].HeaderText = "Patente (Permiso)";
-                    dgvPermisos.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    return true; 
                 }
-                CargarListasPerfil();
-                CargarListasFamilia();
-                ActualizarGrillaFamilias();
-            }
-            catch { }
-        }
 
-        private void btnCrearPermiso_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(txtPermisoNombre.Text)) return;
-
-                Componente nuevaPatente = new Patente();
-                nuevaPatente.Nombre = txtPermisoNombre.Text.Trim();
-
-                _patenteBLL.Crear(nuevaPatente); 
-                MessageBox.Show("Patente creada.");
-                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevaPatente.Nombre}'", "Media");
-                txtPermisoNombre.Text = "";
-                ActualizarGrillaPermisos();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-
-        private void btnEliminarPermiso_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvPermisos.SelectedRows.Count > 0)
+                if (!hijoEsPatente)
                 {
-                    if (MessageBox.Show("¿Seguro que desea eliminar esta Patente?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (YaTieneElComponente(hijo.Id, idComponenteBuscado, false, buscadoEsPatente))
                     {
-                        int id = Convert.ToInt32(dgvPermisos.SelectedRows[0].Cells["Id"].Value);
-                        _patenteBLL.Eliminar(id);
-                        MessageBox.Show("Patente eliminada con éxito.");
-                        ActualizarGrillaPermisos();
+                        return true; 
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+            return false; 
         }
+
+
+
         private void ActualizarGrillaPerfiles()
         {
             try
@@ -155,6 +114,7 @@ namespace SistemaAlquiler.Admin
                     dgvPerfiles.Columns["Nombre"].HeaderText = "Rol (Perfil)";
                     dgvPerfiles.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                dgvPerfiles.ClearSelection();
                 CargarListasPerfil();
                 CargarListasFamilia();
 
@@ -168,18 +128,25 @@ namespace SistemaAlquiler.Admin
             try
             {
                 if (string.IsNullOrWhiteSpace(txtPerfilNombre.Text)) return;
-                if (dgvFamilias.SelectedRows.Count == 0 && dgvPermisos.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Seleccione al menos una familia o patente inicial para el Rol.");
-                    return;
-                }
 
                 Componente nuevoRol = new Rol();
                 nuevoRol.Nombre = txtPerfilNombre.Text.Trim();
-                int idNuevoRol = _rolBLL.Crear(nuevoRol);           
+                int idNuevoRol = _rolBLL.Crear(nuevoRol);
+
+                var todasLasPatentes = _patenteBLL.ObtenerTodos();
+                if (todasLasPatentes.Count > 0)
+                {
+                    Random rnd = new Random();
+                    int indiceAlAzar = rnd.Next(todasLasPatentes.Count);
+                    Componente patenteRandom = todasLasPatentes[indiceAlAzar];
+                    _rolBLL.AsignarComponente(idNuevoRol, patenteRandom, true);
+                }
+
                 MessageBox.Show("Rol creado con éxito.");
-                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevoRol.Nombre}'", "Media");
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevoRol.Nombre}'", "Alta");
+
                 txtPerfilNombre.Text = "";
+                dgvFamilias.ClearSelection();
                 ActualizarGrillaPerfiles();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -216,7 +183,8 @@ namespace SistemaAlquiler.Admin
                         dgvFamilias.Columns["Nombre"].HeaderText = "Familia";
                         dgvFamilias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     }
-                    CargarListasPerfil();
+                dgvFamilias.ClearSelection();
+                CargarListasPerfil();
                     CargarListasFamilia();
                 }
                 catch { }
@@ -233,11 +201,22 @@ namespace SistemaAlquiler.Admin
 
                 Componente nuevaFamilia = new Familia();
                 nuevaFamilia.Nombre = txtFamiliaNombre.Text.Trim();
-                int idNuevaFamilia = _familiaBLL.Crear(nuevaFamilia); 
+                int idNuevaFamilia = _familiaBLL.Crear(nuevaFamilia);
+
+                var todasLasPatentes = _patenteBLL.ObtenerTodos();
+                if (todasLasPatentes.Count > 0)
+                {
+                    Random rnd = new Random();
+                    int indiceAlAzar = rnd.Next(todasLasPatentes.Count);
+                    Componente patenteRandom = todasLasPatentes[indiceAlAzar];
+                    _familiaBLL.AsignarComponente(idNuevaFamilia, patenteRandom, true);
+                }
 
                 MessageBox.Show("Familia creada con éxito.");
-                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevaFamilia.Nombre}'", "Media");
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó la Familia '{nuevaFamilia.Nombre}'", "Media");
+
                 txtFamiliaNombre.Text = "";
+                dgvFamilias.ClearSelection();
                 ActualizarGrillaFamilias();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -270,6 +249,7 @@ namespace SistemaAlquiler.Admin
         {
             try
             {
+                
                 if (dgvPerfiles.SelectedRows.Count == 0) return;
 
                 int idRolSeleccionado = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
@@ -309,18 +289,30 @@ namespace SistemaAlquiler.Admin
         {
             if (dgvPerfiles.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
             int idRol = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
-            string nombreRol = dgvPerfiles.SelectedRows[0].Cells["Nombre"].Value.ToString(); 
+            string nombreRol = dgvPerfiles.SelectedRows[0].Cells["Nombre"].Value.ToString();
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
 
             try
             {
-                if (esAsignar) _rolBLL.AsignarComponente(idRol, hijoSeleccionado, esPatente);
-                else _rolBLL.QuitarComponente(idRol, hijoSeleccionado, esPatente);
+                if (esAsignar)
+                {
+                    if (YaTieneElComponente(idRol, hijoSeleccionado.Id, true, esPatente))
+                    {
+                        MessageBox.Show($"El Rol '{nombreRol}' ya contiene este elemento .", "Duplicado Detectado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; 
+                    }
+
+                    _rolBLL.AsignarComponente(idRol, hijoSeleccionado, esPatente);
+                }
+                else
+                {
+                    _rolBLL.QuitarComponente(idRol, hijoSeleccionado, esPatente);
+                }
 
                 string accion = esAsignar ? "Asignó" : "Quitó";
                 string tipo = esPatente ? "Patente" : "Familia";
                 string detalle = $"Se {accion} la {tipo} '{hijoSeleccionado.Nombre}' en el Rol '{nombreRol}'";
-                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Seguridad", detalle, "Media");
+                new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", detalle, "Media");
 
                 CargarListasPerfil();
             }
@@ -393,13 +385,37 @@ namespace SistemaAlquiler.Admin
         {
             if (dgvFamilias.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
             int idPadre = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
-            string nombrePadre = dgvFamilias.SelectedRows[0].Cells["Nombre"].Value.ToString(); 
+            string nombrePadre = dgvFamilias.SelectedRows[0].Cells["Nombre"].Value.ToString();
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
 
             try
             {
-                if (esAsignar) _familiaBLL.AsignarComponente(idPadre, hijoSeleccionado, esPatente);
-                else _familiaBLL.QuitarComponente(idPadre, hijoSeleccionado, esPatente);
+                if (esAsignar)
+                {
+                    if (!esPatente && idPadre == hijoSeleccionado.Id)
+                    {
+                        MessageBox.Show("No puede asignar una familia dentro de si misma.", "Error de Recursividad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (!esPatente && YaTieneElComponente(hijoSeleccionado.Id, idPadre, false, false))
+                    {
+                        MessageBox.Show("La familia que intenta agregar ya contiene a esta familia destino.", "Bucle Infinito Detectado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    if (YaTieneElComponente(idPadre, hijoSeleccionado.Id, false, esPatente))
+                    {
+                        MessageBox.Show($"La Familia '{nombrePadre}' ya contiene este elemento.", "Duplicado Detectado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    _familiaBLL.AsignarComponente(idPadre, hijoSeleccionado, esPatente);
+                }
+                else
+                {
+                    _familiaBLL.QuitarComponente(idPadre, hijoSeleccionado, esPatente);
+                }
 
                 string accion = esAsignar ? "Asignó" : "Quitó";
                 string tipo = esPatente ? "Patente" : "Sub-Familia";
@@ -497,6 +513,26 @@ namespace SistemaAlquiler.Admin
         private void FormPerfiles_FormClosing(object sender, FormClosingEventArgs e)
         {
             Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
+        }
+
+        private void dgvFamilias_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvPerfiles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
