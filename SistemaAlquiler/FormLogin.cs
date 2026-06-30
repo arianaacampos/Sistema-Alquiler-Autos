@@ -38,33 +38,25 @@ namespace SistemaAlquiler.Seguridad
                     {
                         Services.Entities.Usuario usuarioCompleto = gestorUsuario.ObtenerPorNombre(usuario);
 
-                        // =========================================================================
-                        // INTERCEPCIÓN DÍGITO VERIFICADOR (Validar Integridad de BD)
-                        // =========================================================================
                         BLL.DvBLL gestorDV = new BLL.DvBLL();
                         string errorIntegridad;
 
                         if (!gestorDV.ValidarIntegridad(out errorIntegridad))
                         {
-                            // Si detecta manipulación externa, verificamos si es jefe
                             if (usuarioCompleto.Rol == "Administrador" || usuarioCompleto.Rol == "Gerente")
                             {
-                                // Es Administrador: Le abrimos la pantalla de solución (CUS-020)
                                 FormDv frmDV = new FormDv(errorIntegridad);
                                 frmDV.Show();
                                 this.Hide();
-                                return; // Cortamos el login acá
+                                return;
                             }
                             else
                             {
-                                // Es usuario común: Lo rebotamos
                                 MessageBox.Show("El sistema no se encuentra disponible en este momento. Intente más tarde.", "Falla de Integridad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return; // Cortamos el login acá
+                                return; 
                             }
                         }
-                        // =========================================================================
 
-                        // Si pasó el Dígito Verificador, seguimos con el login normal:
                         BitacoraBLL gestorBitacora = new BitacoraBLL();
 
                         Sesion.Instancia.UsuarioActual = usuarioCompleto.NombreUsuario;

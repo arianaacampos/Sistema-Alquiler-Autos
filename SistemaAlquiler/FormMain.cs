@@ -111,7 +111,6 @@ namespace SistemaAlquiler
         private void españolToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CambiarYGuardarIdioma("es-AR");
-         
         }
 
         public void ActualizarIdioma()

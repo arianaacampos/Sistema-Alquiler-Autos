@@ -13,8 +13,6 @@ namespace BLL
         {
             ConfiguradorBD.GuardarInstancia(nuevaInstancia);
         }
-
-        // Prueba si la conexión que está guardada funciona
         public bool ProbarConexionActual()
         {
             try
@@ -22,16 +20,15 @@ namespace BLL
                 using (SqlConnection cx = new SqlConnection(ConfiguradorBD.ObtenerCadena()))
                 {
                     cx.Open();
-                    return true; // Funciona perfecto
+                    return true; 
                 }
             }
             catch
             {
-                return false; // Está rota o no existe
+                return false; 
             }
         }
 
-        // Prueba la nueva conexión que el usuario elige en el ComboBox
         public bool ProbarNuevaConexion(string instancia)
         {
             string cadenaPrueba = $"Data Source={instancia};Initial Catalog=DB_AlquilerAutos;Integrated Security=True;";

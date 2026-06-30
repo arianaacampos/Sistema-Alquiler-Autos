@@ -13,7 +13,7 @@ namespace DAL
 
         public static string ObtenerCadena()
         {
-            string instancia = "."; // Por defecto usa el punto local
+            string instancia = ".";
 
             if (File.Exists(archivoConfig))
             {

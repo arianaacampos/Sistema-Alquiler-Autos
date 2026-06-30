@@ -33,7 +33,6 @@ namespace SistemaAlquiler
                 cbInstancias.Items.Add(".");
                 cbInstancias.Items.Add(".\\SQLEXPRESS");
 
-                // Busca instancias de SQL en la red
                 DataTable servidores = SqlDataSourceEnumerator.Instance.GetDataSources();
                 foreach (DataRow row in servidores.Rows)
                 {
@@ -65,10 +64,9 @@ namespace SistemaAlquiler
 
             this.Cursor = Cursors.WaitCursor;
 
-            // Le preguntamos a la BLL si la conexión funciona
             if (gestorConfig.ProbarNuevaConexion(instanciaElegida))
             {
-                gestorConfig.GuardarInstancia(instanciaElegida); // Guardamos
+                gestorConfig.GuardarInstancia(instanciaElegida);
                 this.Cursor = Cursors.Default;
 
                 MessageBox.Show("Conexión establecida con éxito. El sistema se iniciará.", "Conectado", MessageBoxButtons.OK, MessageBoxIcon.Information);

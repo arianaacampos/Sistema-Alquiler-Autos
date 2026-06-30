@@ -64,6 +64,7 @@ namespace SistemaAlquiler.Admin
             if (dgvPerfiles.Columns["Nombre"] != null)
                 dgvPerfiles.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colPerfil");
         }
+
         private void FormPerfiles_Load(object sender, EventArgs e)
         {
 
@@ -98,8 +99,6 @@ namespace SistemaAlquiler.Admin
             }
             return false; 
         }
-
-
 
         private void ActualizarGrillaPerfiles()
         {
@@ -169,6 +168,7 @@ namespace SistemaAlquiler.Admin
             }
             catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
         }
+
         private void ActualizarGrillaFamilias()
         {
           
@@ -190,8 +190,7 @@ namespace SistemaAlquiler.Admin
                 catch { }
 
             
-        }
-          
+        } 
     
         private void btnCrearFamilia_Click(object sender, EventArgs e)
         {
@@ -486,7 +485,6 @@ namespace SistemaAlquiler.Admin
                 MessageBox.Show("Error al cargar el árbol: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void ArmarArbolRecursivo(TreeNode nodoPadre, int idPadre, bool padreEsRol)
         {

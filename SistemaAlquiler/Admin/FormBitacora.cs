@@ -111,10 +111,7 @@ namespace SistemaAlquiler.Seguridad
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
- 
-
-                CargarDatosUsuarioSeleccionado();
-           
+            CargarDatosUsuarioSeleccionado();  
         }
         private void CargarDatosUsuarioSeleccionado()
         {

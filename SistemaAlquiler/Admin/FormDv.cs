@@ -25,7 +25,6 @@ namespace SistemaAlquiler.Admin
         {
             MessageBox.Show("¡ALERTA CRÍTICA DE SEGURIDAD! La integridad de la Base de Datos está comprometida.", "Falla de DV", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            // Llenamos el ListBox con los detalles del error
             lstDetalles.Items.Add("--- REPORTE DE INCONSISTENCIA ---");
             lstDetalles.Items.Add(_detalleFalla);
             lstDetalles.Items.Add("Por favor, seleccione una acción correctiva.");
@@ -36,21 +35,16 @@ namespace SistemaAlquiler.Admin
             DialogResult r = MessageBox.Show("¿Está seguro de forzar el recálculo? El sistema asumirá que los datos actuales son los válidos.", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (r == DialogResult.Yes)
             {
-                // Llama al motor dinámico que armamos para recalcular todas las tablas
                 new DvBLL().RecalcularTodo();
 
-                // OJO - Reportar en Bitácora con un usuario de emergencia porque el login no terminó
                 string usu = Sesion.Instancia.UsuarioActual ?? "Admin_DV";
                 new BitacoraBLL().Registrar(usu, "Base de Datos", "Recálculo forzado de DV por inconsistencia en BD.", "Alta");
 
                 MessageBox.Show("Dígitos Verificadores recalculados con éxito. El sistema se reiniciará para que intente ingresar nuevamente.");
-                Application.Restart(); // Reinicia la app para volver al Login
+                Application.Restart(); 
             }
         }
 
-        // ===============================================
-        // BOTÓN 2: RESTORE BD
-        // ===============================================
         private void btnRestore_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -64,7 +58,6 @@ namespace SistemaAlquiler.Admin
                     {
                         this.Cursor = Cursors.WaitCursor;
 
-                        // Llama a tu clase de respaldos para pisar la base de datos corrupta
                         new RespaldoBLL().RealizarRestore(ofd.FileName);
 
                         string usu = Sesion.Instancia.UsuarioActual ?? "Admin_DV";
@@ -72,7 +65,7 @@ namespace SistemaAlquiler.Admin
 
                         this.Cursor = Cursors.Default;
                         MessageBox.Show("Restore exitoso. La base de datos ha sido recuperada. El sistema se reiniciará.");
-                        Application.Restart(); // Reinicia la app
+                        Application.Restart(); 
                     }
                     catch (Exception ex)
                     {
@@ -83,13 +76,10 @@ namespace SistemaAlquiler.Admin
             }
         }
 
-        // ===============================================
-        // BOTÓN 3: SALIR / CANCELAR
-        // ===============================================
         private void btnSalir_Click(object sender, EventArgs e)
         {
             MessageBox.Show("El sistema se cerrará por seguridad. La base de datos sigue en estado inconsistente.", "Cierre de Emergencia", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            Application.Exit(); // Cierra el programa por completo
+            Application.Exit(); 
         }
     }
 }

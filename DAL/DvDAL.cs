@@ -41,7 +41,6 @@ namespace DAL
                 cmd.ExecuteNonQuery();
             }
         }
-
  
         public void ActualizarDVV(string tabla, string dvv)
         {

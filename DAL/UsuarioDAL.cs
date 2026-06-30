@@ -88,7 +88,6 @@ namespace DAL
             }
         }
 
-
         public Usuario ObtenerPorNombre(string nombreUsuario)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -121,7 +120,6 @@ namespace DAL
                 }
             }
         }
-        
 
         public void ActualizarIntentos(Usuario usu)
         {

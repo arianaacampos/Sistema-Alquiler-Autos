@@ -12,6 +12,5 @@ namespace BLL
     {
         private PatenteDAL _dal = new PatenteDAL();
         public List<Componente> ObtenerTodos() => _dal.ObtenerTodos();
-
     }
 }
