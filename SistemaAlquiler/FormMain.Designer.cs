@@ -154,6 +154,7 @@
             this.digitoVerificarToolStripMenuItem.Name = "digitoVerificarToolStripMenuItem";
             this.digitoVerificarToolStripMenuItem.Size = new System.Drawing.Size(310, 48);
             this.digitoVerificarToolStripMenuItem.Text = "Digito verificar";
+            this.digitoVerificarToolStripMenuItem.Click += new System.EventHandler(this.digitoVerificarToolStripMenuItem_Click);
             // 
             // maestrosToolStripMenuItem
             // 

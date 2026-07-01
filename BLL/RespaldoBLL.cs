@@ -26,8 +26,10 @@ namespace BLL
         public void RealizarRestore(string rutaArchivoBak)
         {
             _dal.RealizarRestore(rutaArchivoBak);
+            string usuarioActivo = string.IsNullOrEmpty(Sesion.Instancia.UsuarioActual) ? "Sistema_Emergencia" : Sesion.Instancia.UsuarioActual;
 
-            new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Restore exitoso ejecutado desde: {rutaArchivoBak}", "Alta");
+            new BitacoraBLL().Registrar(usuarioActivo, "Admin", $"Restore exitoso ejecutado desde: {rutaArchivoBak}", "Alta");
+            new DvBLL().RecalcularTodo();
         }
     }
 }

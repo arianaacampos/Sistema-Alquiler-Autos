@@ -29,62 +29,63 @@ namespace SistemaAlquiler.Seguridad
                 string usuario = textBoxUsuario.Text;
                 string clave = textBoxPassword.Text;
 
-                if (!string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(clave))
+                if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(clave))
                 {
-                    UsuarioBLL gestorUsuario = new UsuarioBLL();
-                    string resultado = gestorUsuario.ValidarLogin(usuario, clave);
+                    MessageBox.Show("Por favor, ingrese usuario y contraseña.");
+                    return;
+                }
 
-                    if (resultado == "OK")
+                UsuarioBLL gestorUsuario = new UsuarioBLL();
+                Services.Entities.Usuario usuarioCompleto = gestorUsuario.ObtenerPorNombre(usuario);
+
+                if (usuarioCompleto != null) 
+                {
+                    BLL.DvBLL gestorDV = new BLL.DvBLL();
+                    string errorIntegridad;
+
+                    if (!gestorDV.ValidarIntegridad(out errorIntegridad))
                     {
-                        Services.Entities.Usuario usuarioCompleto = gestorUsuario.ObtenerPorNombre(usuario);
-
-                        BLL.DvBLL gestorDV = new BLL.DvBLL();
-                        string errorIntegridad;
-
-                        if (!gestorDV.ValidarIntegridad(out errorIntegridad))
+                        if (usuarioCompleto.Rol == "Administrador")
                         {
-                            if (usuarioCompleto.Rol == "Administrador" || usuarioCompleto.Rol == "Gerente")
-                            {
-                                FormDv frmDV = new FormDv(errorIntegridad);
-                                frmDV.Show();
-                                this.Hide();
-                                return;
-                            }
-                            else
-                            {
-                                MessageBox.Show("El sistema no se encuentra disponible en este momento. Intente más tarde.", "Falla de Integridad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return; 
-                            }
+                            FormDv frmDV = new FormDv(errorIntegridad);
+                            frmDV.Show();
+                            this.Hide();
+                            return;
                         }
-
-                        BitacoraBLL gestorBitacora = new BitacoraBLL();
-
-                        Sesion.Instancia.UsuarioActual = usuarioCompleto.NombreUsuario;
-                        RolBLL gestorRol = new RolBLL();
-                        Sesion.Instancia.Permisos = gestorRol.ObtenerPermisosDelUsuario(usuarioCompleto.ID_Usuario);
-
-                        string idiomaPreferencia = "es-AR";
-                        if (usuarioCompleto != null && !string.IsNullOrEmpty(usuarioCompleto.IdiomaPreferencia))
+                        else
                         {
-                            idiomaPreferencia = usuarioCompleto.IdiomaPreferencia;
+                            MessageBox.Show("El sistema no se encuentra disponible en este momento. Intente más tarde.", "Falla de Integridad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return; 
                         }
-
-                        Services.Observer.IdiomaManager.Instancia.CambiarIdioma(idiomaPreferencia);
-
-                        gestorBitacora.Registrar(usuario, "Usuario", "Login", "Baja");
-
-                        FormMain menu = new FormMain();
-                        menu.Show();
-                        this.Hide();
                     }
-                    else
+                }
+
+                string resultado = gestorUsuario.ValidarLogin(usuario, clave);
+
+                if (resultado == "OK")
+                {
+                    BitacoraBLL gestorBitacora = new BitacoraBLL();
+
+                    Sesion.Instancia.UsuarioActual = usuarioCompleto.NombreUsuario;
+                    RolBLL gestorRol = new RolBLL();
+                    Sesion.Instancia.Permisos = gestorRol.ObtenerPermisosDelUsuario(usuarioCompleto.ID_Usuario);
+
+                    string idiomaPreferencia = "es-AR";
+                    if (usuarioCompleto != null && !string.IsNullOrEmpty(usuarioCompleto.IdiomaPreferencia))
                     {
-                        MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        idiomaPreferencia = usuarioCompleto.IdiomaPreferencia;
                     }
+
+                    Services.Observer.IdiomaManager.Instancia.CambiarIdioma(idiomaPreferencia);
+                    gestorBitacora.Registrar(usuario, "Usuario", "Login", "Baja");
+
+                    FormMain menu = new FormMain();
+                    menu.Show();
+                    this.Hide();
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, ingrese usuario y contraseña.");
+                    MessageBox.Show(resultado, "Error de Ingreso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)

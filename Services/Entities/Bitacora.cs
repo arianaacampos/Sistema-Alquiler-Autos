@@ -19,8 +19,8 @@ namespace Services.Entities
 
         public Bitacora(string usuario, string modulo, string evento, string criticidad)
         {
-            this.FechaHora = DateTime.Now; 
-            this.Usuario = usuario;
+            this.FechaHora = DateTime.Now;
+            this.Usuario = string.IsNullOrEmpty(usuario) ? "Sistema" : usuario;
             this.Modulo = modulo;
             this.Evento = evento;
             this.Criticidad = criticidad;

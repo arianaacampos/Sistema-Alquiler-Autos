@@ -78,8 +78,13 @@ namespace SistemaAlquiler.Admin
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void btnSalir_Click_1(object sender, EventArgs e)
+        {
             MessageBox.Show("El sistema se cerrará por seguridad. La base de datos sigue en estado inconsistente.", "Cierre de Emergencia", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            Application.Exit(); 
+            Application.Exit();
         }
     }
 }

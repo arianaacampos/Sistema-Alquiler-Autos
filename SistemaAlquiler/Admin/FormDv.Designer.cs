@@ -37,18 +37,17 @@
             // lstDetalles
             // 
             this.lstDetalles.FormattingEnabled = true;
-            this.lstDetalles.Location = new System.Drawing.Point(25, 36);
-            this.lstDetalles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstDetalles.ItemHeight = 20;
+            this.lstDetalles.Location = new System.Drawing.Point(38, 55);
             this.lstDetalles.Name = "lstDetalles";
-            this.lstDetalles.Size = new System.Drawing.Size(146, 212);
+            this.lstDetalles.Size = new System.Drawing.Size(567, 324);
             this.lstDetalles.TabIndex = 0;
             // 
             // btnRecalcular
             // 
-            this.btnRecalcular.Location = new System.Drawing.Point(181, 117);
-            this.btnRecalcular.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRecalcular.Location = new System.Drawing.Point(611, 183);
             this.btnRecalcular.Name = "btnRecalcular";
-            this.btnRecalcular.Size = new System.Drawing.Size(107, 41);
+            this.btnRecalcular.Size = new System.Drawing.Size(160, 63);
             this.btnRecalcular.TabIndex = 1;
             this.btnRecalcular.Text = "RECALCULAR";
             this.btnRecalcular.UseVisualStyleBackColor = true;
@@ -56,10 +55,9 @@
             // 
             // btnRestore
             // 
-            this.btnRestore.Location = new System.Drawing.Point(181, 162);
-            this.btnRestore.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRestore.Location = new System.Drawing.Point(611, 252);
             this.btnRestore.Name = "btnRestore";
-            this.btnRestore.Size = new System.Drawing.Size(107, 41);
+            this.btnRestore.Size = new System.Drawing.Size(160, 63);
             this.btnRestore.TabIndex = 2;
             this.btnRestore.Text = "RESTORE";
             this.btnRestore.UseVisualStyleBackColor = true;
@@ -67,25 +65,24 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(181, 207);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSalir.Location = new System.Drawing.Point(611, 321);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(107, 41);
+            this.btnSalir.Size = new System.Drawing.Size(160, 63);
             this.btnSalir.TabIndex = 3;
             this.btnSalir.Text = "CANCELAR";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.ForeColorChanged += new System.EventHandler(this.btnSalir_Click);
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click_1);
             // 
             // FormDv
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 292);
+            this.ClientSize = new System.Drawing.Size(800, 449);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.btnRecalcular);
             this.Controls.Add(this.lstDetalles);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormDv";
             this.Text = "FormDv";
             this.Load += new System.EventHandler(this.FormDv_Load);

@@ -349,10 +349,10 @@ namespace SistemaAlquiler.Seguridad
         {
             this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloUsuariosABMC");
 
-            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblDNI");
+            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblDNI");
             label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblApellido");
             label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNombre");
-            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblEmail");
+            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblEmail");
             label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblRol");
 
             btnCrear.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAnadir");

@@ -182,5 +182,10 @@ namespace SistemaAlquiler
             formRespaldos.ShowDialog();
             this.Show();
         }
+
+        private void digitoVerificarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
