@@ -25,13 +25,17 @@ namespace SistemaAlquiler.Seguridad
             label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblConfirmacionLogout");
             button1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAceptarLogout");
             button2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCancelarLogout");
+        
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
-                MessageBox.Show("Se cerro la sesion de: " + Sesion.Instancia.UsuarioActual , "Sesión Finalizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string mensaje = string.Format(idioma.Traducir("msg_SesionCerrada"), Sesion.Instancia.UsuarioActual);
+
+                MessageBox.Show(mensaje, idioma.Traducir("tit_SesionFinalizada"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 BitacoraBLL gestorBitacora = new BitacoraBLL();
                 gestorBitacora.Registrar(Sesion.Instancia.UsuarioActual, "Usuario", "Logout", "Baja");
@@ -44,7 +48,7 @@ namespace SistemaAlquiler.Seguridad
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cerrar sesión: " + ex.Message);
+                MessageBox.Show(idioma.Traducir("msg_ErrorCerrarSesion") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

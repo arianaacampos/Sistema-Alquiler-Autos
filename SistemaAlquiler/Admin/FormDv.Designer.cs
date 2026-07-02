@@ -85,6 +85,7 @@
             this.Controls.Add(this.lstDetalles);
             this.Name = "FormDv";
             this.Text = "FormDv";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDv_FormClosed);
             this.Load += new System.EventHandler(this.FormDv_Load);
             this.ResumeLayout(false);
 

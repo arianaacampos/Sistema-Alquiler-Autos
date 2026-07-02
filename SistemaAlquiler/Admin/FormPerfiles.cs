@@ -21,48 +21,64 @@ namespace SistemaAlquiler.Admin
         {
             InitializeComponent();
         }
+        private List<Componente> TraducirComponentes(List<Componente> lista)
+        {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+            foreach (var comp in lista)
+            {
+                comp.Nombre = idioma.Traducir(comp.Nombre);
+            }
+            return lista;
+        }
         public void ActualizarIdioma()
         {
-            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloPerfilesABMC");
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+            this.Text = idioma.Traducir("tituloPerfilesABMC");
 
-            btnCrearFamilia.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearFamilia");
-            btnEliminarFamilia.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarFamilia");
+            btnCrearFamilia.Text = idioma.Traducir("btnCrearFamilia");
+            btnEliminarFamilia.Text = idioma.Traducir("btnEliminarFamilia");
 
-            btnCrearPerfil.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnCrearPerfil");
-            btnEliminarPerfil.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnEliminarPerfil");
+            btnCrearPerfil.Text = idioma.Traducir("btnCrearPerfil");
+            btnEliminarPerfil.Text = idioma.Traducir("btnEliminarPerfil");
 
-            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosDisponibles");
-            label10.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosDisponibles");
-            label7.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosAsignados");
-            label8.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblPermisosAsignados");
+            label5.Text = idioma.Traducir("lblPermisosDisponibles");
+            label10.Text = idioma.Traducir("lblPermisosDisponibles");
+            label7.Text = idioma.Traducir("lblPermisosAsignados");
+            label8.Text = idioma.Traducir("lblPermisosAsignados");
 
-            label4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasDisponibles");
-            label11.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasDisponibles");
-            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasAsignadas");
-            label9.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFamiliasAsignadas");
-            button7.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
-            btnAgregarUnPermiso.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
-            button14.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
-            button12.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAsignar");
-            button8.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
-            button10.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
-            button13.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
-            button11.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnQuitar");
-            groupBox2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbFamilias");
-            groupBox1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbPerfiles");
+            label4.Text = idioma.Traducir("lblFamiliasDisponibles");
+            label11.Text = idioma.Traducir("lblFamiliasDisponibles");
+            label6.Text = idioma.Traducir("lblFamiliasAsignadas");
+            label9.Text = idioma.Traducir("lblFamiliasAsignadas");
+
+            button7.Text = idioma.Traducir("btnAsignar");
+            btnAgregarUnPermiso.Text = idioma.Traducir("btnAsignar");
+            button14.Text = idioma.Traducir("btnAsignar");
+            button12.Text = idioma.Traducir("btnAsignar");
+            button8.Text = idioma.Traducir("btnQuitar");
+            button10.Text = idioma.Traducir("btnQuitar");
+            button13.Text = idioma.Traducir("btnQuitar");
+            button11.Text = idioma.Traducir("btnQuitar");
+
+            groupBox2.Text = idioma.Traducir("gbFamilias");
+            groupBox1.Text = idioma.Traducir("gbPerfiles");
 
             int indexFiltro = cbFiltroArbol.SelectedIndex;
             cbFiltroArbol.Items.Clear();
-            cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroPerfiles"));
-            cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroFamilias"));
-            cbFiltroArbol.Items.Add(Services.Observer.IdiomaManager.Instancia.Traducir("filtroPermisos"));
+            cbFiltroArbol.Items.Add(idioma.Traducir("filtroPerfiles"));
+            cbFiltroArbol.Items.Add(idioma.Traducir("filtroFamilias"));
+            cbFiltroArbol.Items.Add(idioma.Traducir("filtroPermisos"));
             if (indexFiltro >= 0) cbFiltroArbol.SelectedIndex = indexFiltro;
 
             if (dgvFamilias.Columns["Nombre"] != null)
-                dgvFamilias.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colFamilia");
+                dgvFamilias.Columns["Nombre"].HeaderText = idioma.Traducir("colFamilia");
 
             if (dgvPerfiles.Columns["Nombre"] != null)
-                dgvPerfiles.Columns["Nombre"].HeaderText = Services.Observer.IdiomaManager.Instancia.Traducir("colPerfil");
+                dgvPerfiles.Columns["Nombre"].HeaderText = idioma.Traducir("colPerfil");
+
+            ActualizarGrillaPerfiles();
+            ActualizarGrillaFamilias();
+            MostrarArbol();
         }
 
         private void FormPerfiles_Load(object sender, EventArgs e)
@@ -105,7 +121,8 @@ namespace SistemaAlquiler.Admin
             try
             {
                 dgvPerfiles.DataSource = null;
-                dgvPerfiles.DataSource = _rolBLL.ObtenerTodos();
+                var perfiles = TraducirComponentes(_rolBLL.ObtenerTodos());
+                dgvPerfiles.DataSource = perfiles;
 
                 if (dgvPerfiles.Columns.Count > 0)
                 {
@@ -116,14 +133,12 @@ namespace SistemaAlquiler.Admin
                 dgvPerfiles.ClearSelection();
                 CargarListasPerfil();
                 CargarListasFamilia();
-
-                CargarListasPerfil();
-                CargarListasFamilia();
             }
             catch { }
         }
         private void btnCrearPerfil_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 if (string.IsNullOrWhiteSpace(txtPerfilNombre.Text)) return;
@@ -141,7 +156,7 @@ namespace SistemaAlquiler.Admin
                     _rolBLL.AsignarComponente(idNuevoRol, patenteRandom, true);
                 }
 
-                MessageBox.Show("Rol creado con éxito.");
+                MessageBox.Show(idioma.Traducir("msg_RolCreadoExito"));
                 new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el Rol '{nuevoRol.Nombre}'", "Alta");
 
                 txtPerfilNombre.Text = "";
@@ -153,15 +168,16 @@ namespace SistemaAlquiler.Admin
 
         private void btnEliminarPerfil_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 if (dgvPerfiles.SelectedRows.Count > 0)
                 {
-                    if (MessageBox.Show("¿Seguro que desea eliminar este Rol?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show(idioma.Traducir("msg_ConfirmarEliminarRol"), idioma.Traducir("tit_Confirmar"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         int id = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
                         _rolBLL.Eliminar(id);
-                        MessageBox.Show("Rol eliminado con éxito.");
+                        MessageBox.Show(idioma.Traducir("msg_RolEliminadoExito"));
                         ActualizarGrillaPerfiles();
                     }
                 }
@@ -171,29 +187,28 @@ namespace SistemaAlquiler.Admin
 
         private void ActualizarGrillaFamilias()
         {
-          
-                try
-                {
-                    dgvFamilias.DataSource = null;
-                    dgvFamilias.DataSource = _familiaBLL.ObtenerTodos();
+            try
+            {
+                dgvFamilias.DataSource = null;
+                var familias = TraducirComponentes(_familiaBLL.ObtenerTodos());
+                dgvFamilias.DataSource = familias;
 
-                    if (dgvFamilias.Columns.Count > 0)
-                    {
-                        dgvFamilias.Columns["Id"].Visible = false;
-                        dgvFamilias.Columns["Nombre"].HeaderText = "Familia";
-                        dgvFamilias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    }
+                if (dgvFamilias.Columns.Count > 0)
+                {
+                    dgvFamilias.Columns["Id"].Visible = false;
+                    dgvFamilias.Columns["Nombre"].HeaderText = "Familia";
+                    dgvFamilias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
                 dgvFamilias.ClearSelection();
                 CargarListasPerfil();
-                    CargarListasFamilia();
-                }
-                catch { }
-
-            
+                CargarListasFamilia();
+            }
+            catch { }
         } 
     
         private void btnCrearFamilia_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 if (string.IsNullOrWhiteSpace(txtFamiliaNombre.Text)) return;
@@ -211,7 +226,7 @@ namespace SistemaAlquiler.Admin
                     _familiaBLL.AsignarComponente(idNuevaFamilia, patenteRandom, true);
                 }
 
-                MessageBox.Show("Familia creada con éxito.");
+                MessageBox.Show(idioma.Traducir("msg_FamiliaCreadaExito"));
                 new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó la Familia '{nuevaFamilia.Nombre}'", "Media");
 
                 txtFamiliaNombre.Text = "";
@@ -223,15 +238,16 @@ namespace SistemaAlquiler.Admin
 
         private void btnEliminarFamilia_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 if (dgvFamilias.SelectedRows.Count > 0)
                 {
-                    if (MessageBox.Show("¿Seguro que desea eliminar esta Familia?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show(idioma.Traducir("msg_ConfirmarEliminarFamilia"), idioma.Traducir("tit_Confirmar"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         int id = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
                         _familiaBLL.Eliminar(id);
-                        MessageBox.Show("Familia eliminada con éxito.");
+                        MessageBox.Show(idioma.Traducir("msg_FamiliaEliminadaExito"));
                         ActualizarGrillaFamilias();
                     }
                 }
@@ -248,19 +264,15 @@ namespace SistemaAlquiler.Admin
         {
             try
             {
-                
                 if (dgvPerfiles.SelectedRows.Count == 0) return;
-
                 int idRolSeleccionado = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
-
 
                 var asignadosAlRol = _rolBLL.ObtenerHijos(idRolSeleccionado);
                 var todasLasFamilias = _familiaBLL.ObtenerTodos();
                 var todasLasPatentes = _patenteBLL.ObtenerTodos();
 
-
-                var familiasAsignadas = asignadosAlRol.Where(c => c.GetType().Name == "Familia").ToList();
-                var familiasDisponibles = todasLasFamilias.Where(f => !familiasAsignadas.Any(fa => fa.Id == f.Id)).ToList();
+                var familiasAsignadas = TraducirComponentes(asignadosAlRol.Where(c => c.GetType().Name == "Familia").ToList());
+                var familiasDisponibles = TraducirComponentes(todasLasFamilias.Where(f => !asignadosAlRol.Any(fa => fa.Id == f.Id)).ToList());
 
                 LstPermisosDisponiblesPerfil.DataSource = null;
                 LstPermisosDisponiblesPerfil.DataSource = familiasDisponibles;
@@ -270,9 +282,8 @@ namespace SistemaAlquiler.Admin
                 LstFamiliasAsignadasPerfil.DataSource = familiasAsignadas;
                 LstFamiliasAsignadasPerfil.DisplayMember = "Nombre";
 
-
-                var patentesAsignadas = asignadosAlRol.Where(c => c.GetType().Name == "Patente").ToList();
-                var patentesDisponibles = todasLasPatentes.Where(p => !patentesAsignadas.Any(pa => pa.Id == p.Id)).ToList();
+                var patentesAsignadas = TraducirComponentes(asignadosAlRol.Where(c => c.GetType().Name == "Patente").ToList());
+                var patentesDisponibles = TraducirComponentes(todasLasPatentes.Where(p => !asignadosAlRol.Any(pa => pa.Id == p.Id)).ToList());
 
                 lstPermisosPerfil.DataSource = null;
                 lstPermisosPerfil.DataSource = patentesDisponibles;
@@ -286,7 +297,9 @@ namespace SistemaAlquiler.Admin
         }
         private void MoverComponente(ListBox listaOrigen, bool esAsignar, bool esPatente)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             if (dgvPerfiles.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
+
             int idRol = Convert.ToInt32(dgvPerfiles.SelectedRows[0].Cells["Id"].Value);
             string nombreRol = dgvPerfiles.SelectedRows[0].Cells["Nombre"].Value.ToString();
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
@@ -297,10 +310,9 @@ namespace SistemaAlquiler.Admin
                 {
                     if (YaTieneElComponente(idRol, hijoSeleccionado.Id, true, esPatente))
                     {
-                        MessageBox.Show($"El Rol '{nombreRol}' ya contiene este elemento .", "Duplicado Detectado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return; 
+                        MessageBox.Show(string.Format(idioma.Traducir("msg_RolYaContiene"), nombreRol), idioma.Traducir("tit_Duplicado"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
-
                     _rolBLL.AsignarComponente(idRol, hijoSeleccionado, esPatente);
                 }
                 else
@@ -355,8 +367,8 @@ namespace SistemaAlquiler.Admin
                 var todasLasFamilias = _familiaBLL.ObtenerTodos();
                 var todasLasPatentes = _patenteBLL.ObtenerTodos();
 
-                var familiasAsignadas = asignadosALaFamilia.Where(c => c.GetType().Name == "Familia").ToList();
-                var familiasDisponibles = todasLasFamilias.Where(f => f.Id != idFamiliaSeleccionada && !familiasAsignadas.Any(fa => fa.Id == f.Id)).ToList();
+                var familiasAsignadas = TraducirComponentes(asignadosALaFamilia.Where(c => c.GetType().Name == "Familia").ToList());
+                var familiasDisponibles = TraducirComponentes(todasLasFamilias.Where(f => f.Id != idFamiliaSeleccionada && !asignadosALaFamilia.Any(fa => fa.Id == f.Id)).ToList());
 
                 lstFamiliasDisponibles.DataSource = null;
                 lstFamiliasDisponibles.DataSource = familiasDisponibles;
@@ -366,9 +378,8 @@ namespace SistemaAlquiler.Admin
                 LstFamiliasAsignadas.DataSource = familiasAsignadas;
                 LstFamiliasAsignadas.DisplayMember = "Nombre";
 
-  
-                var patentesAsignadas = asignadosALaFamilia.Where(c => c.GetType().Name == "Patente").ToList();
-                var patentesDisponibles = todasLasPatentes.Where(p => !patentesAsignadas.Any(pa => pa.Id == p.Id)).ToList();
+                var patentesAsignadas = TraducirComponentes(asignadosALaFamilia.Where(c => c.GetType().Name == "Patente").ToList());
+                var patentesDisponibles = TraducirComponentes(todasLasPatentes.Where(p => !asignadosALaFamilia.Any(pa => pa.Id == p.Id)).ToList());
 
                 lstPermisosDisponibles.DataSource = null;
                 lstPermisosDisponibles.DataSource = patentesDisponibles;
@@ -382,7 +393,9 @@ namespace SistemaAlquiler.Admin
         }
         private void MoverComponenteFamilia(ListBox listaOrigen, bool esAsignar, bool esPatente)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             if (dgvFamilias.SelectedRows.Count == 0 || listaOrigen.SelectedItem == null) return;
+
             int idPadre = Convert.ToInt32(dgvFamilias.SelectedRows[0].Cells["Id"].Value);
             string nombrePadre = dgvFamilias.SelectedRows[0].Cells["Nombre"].Value.ToString();
             Componente hijoSeleccionado = (Componente)listaOrigen.SelectedItem;
@@ -393,19 +406,19 @@ namespace SistemaAlquiler.Admin
                 {
                     if (!esPatente && idPadre == hijoSeleccionado.Id)
                     {
-                        MessageBox.Show("No puede asignar una familia dentro de si misma.", "Error de Recursividad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(idioma.Traducir("msg_ErrorRecursividad"), idioma.Traducir("tit_ErrorRecursividad"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     if (!esPatente && YaTieneElComponente(hijoSeleccionado.Id, idPadre, false, false))
                     {
-                        MessageBox.Show("La familia que intenta agregar ya contiene a esta familia destino.", "Bucle Infinito Detectado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show(idioma.Traducir("msg_BucleInfinito"), idioma.Traducir("tit_BucleInfinito"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         return;
                     }
 
                     if (YaTieneElComponente(idPadre, hijoSeleccionado.Id, false, esPatente))
                     {
-                        MessageBox.Show($"La Familia '{nombrePadre}' ya contiene este elemento.", "Duplicado Detectado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(string.Format(idioma.Traducir("msg_FamiliaYaContiene"), nombrePadre), idioma.Traducir("tit_Duplicado"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -447,21 +460,21 @@ namespace SistemaAlquiler.Admin
         }
         private void MostrarArbol()
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 tvArbol.Nodes.Clear();
                 if (cbFiltroArbol.SelectedIndex == -1) return;
 
-
                 int filtroIndex = cbFiltroArbol.SelectedIndex;
                 var raices = new System.Collections.Generic.List<Componente>();
 
                 if (filtroIndex == 0)
-                    raices = _rolBLL.ObtenerTodos();
+                    raices = TraducirComponentes(_rolBLL.ObtenerTodos());
                 else if (filtroIndex == 1)
-                    raices = _familiaBLL.ObtenerTodos();
+                    raices = TraducirComponentes(_familiaBLL.ObtenerTodos());
                 else if (filtroIndex == 2)
-                    raices = _patenteBLL.ObtenerTodos();
+                    raices = TraducirComponentes(_patenteBLL.ObtenerTodos());
 
                 foreach (var raiz in raices)
                 {
@@ -482,20 +495,19 @@ namespace SistemaAlquiler.Admin
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el árbol: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(idioma.Traducir("msg_ErrorCargarArbol") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ArmarArbolRecursivo(TreeNode nodoPadre, int idPadre, bool padreEsRol)
         {
-            var hijos = padreEsRol ? _rolBLL.ObtenerHijos(idPadre) : _familiaBLL.ObtenerHijos(idPadre);
+            var hijos = padreEsRol ? TraducirComponentes(_rolBLL.ObtenerHijos(idPadre)) : TraducirComponentes(_familiaBLL.ObtenerHijos(idPadre));
 
             foreach (var hijo in hijos)
             {
                 TreeNode nodoHijo = new TreeNode(hijo.Nombre);
                 nodoPadre.Nodes.Add(nodoHijo);
 
-  
                 if (hijo.GetType().Name == "Familia")
                 {
                     ArmarArbolRecursivo(nodoHijo, hijo.Id, false);

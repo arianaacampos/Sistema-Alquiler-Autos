@@ -31,14 +31,7 @@ namespace SistemaAlquiler.Seguridad
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ReadOnly = true;
 
-
-            RolBLL gestorRol = new RolBLL(); 
-            var listaPerfiles = gestorRol.ObtenerTodos();
-
-            cbRol.DataSource = listaPerfiles;
-            cbRol.DisplayMember = "Nombre";
-            cbRol.ValueMember = "Id";
-            cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
+            CargarRolesComboBox();
 
             rdbActivos.Checked = true;
 
@@ -48,12 +41,28 @@ namespace SistemaAlquiler.Seguridad
             ActualizarGrilla();
             ModoConsulta();
         }
+        private void CargarRolesComboBox()
+        {
+            RolBLL gestorRol = new RolBLL();
+            var listaPerfiles = gestorRol.ObtenerTodos();
+
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+            foreach (var perfil in listaPerfiles)
+            {
+                perfil.Nombre = idioma.Traducir(perfil.Nombre);
+            }
+
+            cbRol.DataSource = null;
+            cbRol.DataSource = listaPerfiles;
+            cbRol.DisplayMember = "Nombre";
+            cbRol.ValueMember = "Id";
+            cbRol.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
 
         private void ModoConsulta()
         {
             TipoOperacion = TiposOperacion.Consulta;
             txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoConsulta");
-            
 
             txtDNI.Enabled = true;
             txtApellido.Enabled = true;
@@ -76,10 +85,10 @@ namespace SistemaAlquiler.Seguridad
             Limpiar();
         }
 
-        private void PrepararOperacion(TiposOperacion tipoOp, string mensaje, bool habilitarCajas)
+        private void PrepararOperacion(TiposOperacion tipoOp, string claveMensaje, bool habilitarCajas)
         {
             TipoOperacion = tipoOp;
-            txtMensaje.Text = mensaje;
+            txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir(claveMensaje);
 
             txtDNI.Enabled = habilitarCajas;
             txtApellido.Enabled = habilitarCajas;
@@ -111,19 +120,19 @@ namespace SistemaAlquiler.Seguridad
         private void btnCrear_Click(object sender, EventArgs e)
         {
             Limpiar();
-            PrepararOperacion(TiposOperacion.Alta, "Modo Añadir", true);
+            PrepararOperacion(TiposOperacion.Alta, "modoAnadir", true);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                PrepararOperacion(TiposOperacion.Modificacion, "Modo Modificar", true);
+                PrepararOperacion(TiposOperacion.Modificacion, "modoModificar", true);
                 CargarDatosEnCajas();
             }
             else
             {
-                MessageBox.Show("Seleccione un registro desde la grilla superior.");
+                MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_SeleccioneRegistro"));
             }
         }
 
@@ -131,12 +140,12 @@ namespace SistemaAlquiler.Seguridad
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                PrepararOperacion(TiposOperacion.Desbloqueo, "Modo Desbloquear", false);
+                PrepararOperacion(TiposOperacion.Desbloqueo, "modoDesbloquear", false);
                 CargarDatosEnCajas();
             }
             else
             {
-                MessageBox.Show("Seleccione un registro desde la grilla superior.");
+                MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_SeleccioneRegistro"));
             }
         }
 
@@ -144,12 +153,12 @@ namespace SistemaAlquiler.Seguridad
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                PrepararOperacion(TiposOperacion.ActivarDesactivar, "Modo Eliminar", false);
+                PrepararOperacion(TiposOperacion.ActivarDesactivar, "modoEliminar", false);
                 CargarDatosEnCajas();
             }
             else
             {
-                MessageBox.Show("Seleccione un registro desde la grilla superior.");
+                MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_SeleccioneRegistro"));
             }
         }
 
@@ -160,6 +169,7 @@ namespace SistemaAlquiler.Seguridad
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 Usuario usuario = new Usuario();
@@ -178,8 +188,8 @@ namespace SistemaAlquiler.Seguridad
 
                         if (dniRepetido)
                         {
-                            MessageBox.Show("Error: El DNI ya se encuentra registrado en el sistema.", "DNI Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return; 
+                            MessageBox.Show(idioma.Traducir("msg_DNIDuplicado"), idioma.Traducir("tit_DNIDuplicado"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
                         }
 
                         usuario.DNI = txtDNI.Text.Trim();
@@ -197,7 +207,8 @@ namespace SistemaAlquiler.Seguridad
 
                         gestorUsuario.Alta(usuario);
                         new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se creó el nuevo usuario: '{loginDinamico}'", "Alta");
-                        MessageBox.Show($"Operación Añadir Exitosa. El usuario creado es: {loginDinamico}");
+
+                        MessageBox.Show(string.Format(idioma.Traducir("msg_AnadirExito"), loginDinamico));
                         break;
 
                     case TiposOperacion.Modificacion:
@@ -209,7 +220,7 @@ namespace SistemaAlquiler.Seguridad
                         usuario.Rol = cbRol.Text;
 
                         gestorUsuario.Modificar(usuario);
-                        MessageBox.Show("Operación Modificar Exitosa.");
+                        MessageBox.Show(idioma.Traducir("msg_ModificarExito"));
                         new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se modificaron los datos del usuario: '{usuario.NombreUsuario}'", "Media");
                         break;
 
@@ -219,7 +230,7 @@ namespace SistemaAlquiler.Seguridad
                         usuario.IntentosFallidos = 0;
 
                         gestorUsuario.Modificar(usuario);
-                        MessageBox.Show("Usuario Desbloqueado con éxito.");
+                        MessageBox.Show(idioma.Traducir("msg_DesbloqueoExito"));
                         new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", $"Se desbloqueó manualmente al usuario: '{usuario.NombreUsuario}'", "Alta");
                         break;
 
@@ -228,23 +239,23 @@ namespace SistemaAlquiler.Seguridad
                         if (usuario.Activo == true)
                         {
                             usuario.Activo = false;
-                            MessageBox.Show("Usuario Desactivado.");
+                            MessageBox.Show(idioma.Traducir("msg_UsuarioDesactivado"));
                         }
                         else
                         {
                             usuario.Activo = true;
-                            MessageBox.Show("Usuario Activado.");
+                            MessageBox.Show(idioma.Traducir("msg_UsuarioActivado"));
                         }
 
                         gestorUsuario.Modificar(usuario);
                         break;
                 }
+
                 Usuario usuGuardado = gestorUsuario.ObtenerPorNombre(usuario.NombreUsuario);
                 int idPerfilSeleccionado = Convert.ToInt32(cbRol.SelectedValue);
                 string nombreRolSeleccionado = cbRol.Text;
 
                 new RolBLL().AsignarPerfilAUsuario(usuGuardado.ID_Usuario, idPerfilSeleccionado);
-
 
                 string msjAuditoria = $"Se asignó el Rol '{nombreRolSeleccionado}' al usuario '{usuario.NombreUsuario}'";
                 new BitacoraBLL().Registrar(Sesion.Instancia.UsuarioActual, "Admin", msjAuditoria, "Alta");
@@ -252,11 +263,12 @@ namespace SistemaAlquiler.Seguridad
                 ActualizarGrilla();
                 ModoConsulta();
             }
-            catch (Exception ex) { MessageBox.Show("Error al Aplicar: " + ex.Message);}
+            catch (Exception ex) { MessageBox.Show(idioma.Traducir("msg_ErrorAplicar") + ex.Message); }
         }
 
         private void ActualizarGrilla()
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 List<Usuario> listaCompleta = gestorUsuario.Listar();
@@ -278,13 +290,15 @@ namespace SistemaAlquiler.Seguridad
                     dataGridView1.Columns["Bloqueado"].Visible = false;
                     dataGridView1.Columns["Activo"].Visible = false;
                     dataGridView1.Columns["Email"].Visible = false;
+                    if (dataGridView1.Columns.Contains("IdiomaPreferencia"))
+                        dataGridView1.Columns["IdiomaPreferencia"].Visible = false;
 
-                    dataGridView1.Columns["Apellido"].HeaderText = "Apellidos";
-                    dataGridView1.Columns["Nombre"].HeaderText = "Nombres";
-                    dataGridView1.Columns["NombreUsuario"].HeaderText = "Login";
+                    dataGridView1.Columns["Apellido"].HeaderText = idioma.Traducir("col_Apellidos");
+                    dataGridView1.Columns["Nombre"].HeaderText = idioma.Traducir("col_Nombres");
+                    dataGridView1.Columns["NombreUsuario"].HeaderText = idioma.Traducir("col_Login");
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Error de BD: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show(idioma.Traducir("msg_ErrorBD") + ex.Message); }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -347,46 +361,50 @@ namespace SistemaAlquiler.Seguridad
 
         public void ActualizarIdioma()
         {
-            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloUsuariosABMC");
+            var idioma = Services.Observer.IdiomaManager.Instancia;
 
-            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblDNI");
-            label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblApellido");
-            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNombre");
-            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblEmail");
-            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblRol");
+            this.Text = idioma.Traducir("tituloUsuariosABMC");
 
-            btnCrear.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAnadir");
-            btnModificar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnModificar");
-            btnDesbloquear.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnDesbloquear");
-            btnActDesact.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnActDesact");
+            label6.Text = idioma.Traducir("lblDNI");
+            label2.Text = idioma.Traducir("lblApellido");
+            label1.Text = idioma.Traducir("lblNombre");
+            label3.Text = idioma.Traducir("lblEmail");
+            label5.Text = idioma.Traducir("lblRol");
 
-            btnAceptar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAceptar"); 
-            btnCancelar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("buttonCancelar"); 
-            btnSalir.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnSalir");
+            btnCrear.Text = idioma.Traducir("btnAnadir");
+            btnModificar.Text = idioma.Traducir("btnModificar");
+            btnDesbloquear.Text = idioma.Traducir("btnDesbloquear");
+            btnActDesact.Text = idioma.Traducir("btnActDesact");
 
-            rdbActivos.Text = Services.Observer.IdiomaManager.Instancia.Traducir("rdbActivos");
-            rdbTodos.Text = Services.Observer.IdiomaManager.Instancia.Traducir("rdbTodos");
+            btnAceptar.Text = idioma.Traducir("btnAceptar");
+            btnCancelar.Text = idioma.Traducir("buttonCancelar");
+            btnSalir.Text = idioma.Traducir("btnSalir");
+
+            rdbActivos.Text = idioma.Traducir("rdbActivos");
+            rdbTodos.Text = idioma.Traducir("rdbTodos");
+
             int indexSeleccionado = cbRol.SelectedIndex;
-
+            CargarRolesComboBox();
+            cbRol.SelectedIndex = indexSeleccionado;
 
             ActualizarGrilla();
 
             switch (TipoOperacion)
             {
                 case TiposOperacion.Consulta:
-                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoConsulta");
+                    txtMensaje.Text = idioma.Traducir("modoConsulta");
                     break;
                 case TiposOperacion.Alta:
-                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoAnadir");
+                    txtMensaje.Text = idioma.Traducir("modoAnadir");
                     break;
                 case TiposOperacion.Modificacion:
-                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoModificar");
+                    txtMensaje.Text = idioma.Traducir("modoModificar");
                     break;
                 case TiposOperacion.Desbloqueo:
-                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoDesbloquear");
+                    txtMensaje.Text = idioma.Traducir("modoDesbloquear");
                     break;
                 case TiposOperacion.ActivarDesactivar:
-                    txtMensaje.Text = Services.Observer.IdiomaManager.Instancia.Traducir("modoEliminar");
+                    txtMensaje.Text = idioma.Traducir("modoEliminar");
                     break;
             }
         }

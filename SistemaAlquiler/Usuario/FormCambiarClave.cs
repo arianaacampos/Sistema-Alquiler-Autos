@@ -21,6 +21,7 @@ namespace SistemaAlquiler.Seguridad
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
             try
             {
                 string claveActual = txtClaveActual.Text;
@@ -29,17 +30,17 @@ namespace SistemaAlquiler.Seguridad
 
                 if (string.IsNullOrWhiteSpace(claveActual) || string.IsNullOrWhiteSpace(nuevaClave) || string.IsNullOrWhiteSpace(confirmar))
                 {
-                    MessageBox.Show("Completa todos los campos", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(idioma.Traducir("msg_CamposVacios"), idioma.Traducir("tit_Atencion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (nuevaClave != confirmar)
                 {
-                    MessageBox.Show("Las contraseñas no coinciden", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(idioma.Traducir("msg_ClavesNoCoinciden"), idioma.Traducir("tit_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                DialogResult respuesta = MessageBox.Show("¿Desea confirmar?","Confirmar cambio",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                DialogResult respuesta = MessageBox.Show(idioma.Traducir("msg_ConfirmarCambioClave"), idioma.Traducir("tit_ConfirmarCambio"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (respuesta == DialogResult.No)
                 {
@@ -53,17 +54,17 @@ namespace SistemaAlquiler.Seguridad
 
                 if (resultado == "OK")
                 {
-                    MessageBox.Show("Contraseña cambiada con exito", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(idioma.Traducir("msg_ClaveCambiadaExito"), idioma.Traducir("tit_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show(resultado, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(idioma.Traducir(resultado), idioma.Traducir("tit_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error del sistema: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(idioma.Traducir("msg_ErrorSistema") + ex.Message, idioma.Traducir("tit_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -74,22 +75,26 @@ namespace SistemaAlquiler.Seguridad
 
         private void FormCambiarClave_Load(object sender, EventArgs e)
         {
-            txtUsuario.Text = Sesion.Instancia.UsuarioActual; 
+            txtUsuario.Text = Sesion.Instancia.UsuarioActual;
             txtUsuario.Enabled = false;
+
             Services.Observer.IdiomaManager.Instancia.Suscribir(this);
             ActualizarIdioma();
         }
 
         public void ActualizarIdioma()
         {
-            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloCambiarClave");
-            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloCambiarClave");
-            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblClaveActual");
-            label4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNuevaClave");
-            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblConfirmarClave");
-            label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblUsuario");
-            btnAceptar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnAceptar");
-            btnCancelar.Text = Services.Observer.IdiomaManager.Instancia.Traducir("buttonCancelar");
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
+            this.Text = idioma.Traducir("tituloCambiarClave");
+            label1.Text = idioma.Traducir("tituloCambiarClave");
+            label5.Text = idioma.Traducir("lblClaveActual");
+            label4.Text = idioma.Traducir("lblNuevaClave");
+            label3.Text = idioma.Traducir("lblConfirmarClave");
+            label2.Text = idioma.Traducir("lblUsuario");
+
+            btnAceptar.Text = idioma.Traducir("btnAceptar");
+            btnCancelar.Text = idioma.Traducir("buttonCancelar");
         }
 
         private void FormCambiarClave_FormClosing(object sender, FormClosingEventArgs e)

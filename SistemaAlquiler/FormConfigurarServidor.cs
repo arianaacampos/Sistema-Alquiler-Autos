@@ -64,19 +64,23 @@ namespace SistemaAlquiler
 
             this.Cursor = Cursors.WaitCursor;
 
-            if (gestorConfig.ProbarNuevaConexion(instanciaElegida))
+            string resultadoConexion = gestorConfig.ProbarNuevaConexion(instanciaElegida);
+
+
+            if (resultadoConexion == "OK")
             {
                 gestorConfig.GuardarInstancia(instanciaElegida);
                 this.Cursor = Cursors.Default;
 
-                MessageBox.Show("Conexión establecida con éxito. El sistema se iniciará.", "Conectado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Conexión establecida y base de datos configurada con éxito. El sistema se iniciará.", "Conectado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
             {
+
                 this.Cursor = Cursors.Default;
-                MessageBox.Show("No se pudo conectar a la base de datos en esa instancia. Verifique que el servicio SQL esté corriendo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(resultadoConexion, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

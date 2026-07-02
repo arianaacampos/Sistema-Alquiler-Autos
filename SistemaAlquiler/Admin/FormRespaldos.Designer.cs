@@ -127,6 +127,8 @@
             this.Controls.Add(this.txtRutaRestore);
             this.Name = "FormRespaldos";
             this.Text = "FormRespaldos";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRespaldos_FormClosed);
+            this.Load += new System.EventHandler(this.FormRespaldos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

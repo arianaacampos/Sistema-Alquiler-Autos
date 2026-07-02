@@ -36,7 +36,7 @@ namespace SistemaAlquiler.Seguridad
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al traer los datos: " + ex.Message);
+                MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_ErrorTraerDatos") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -75,10 +75,8 @@ namespace SistemaAlquiler.Seguridad
                 string evento = comboBoxTipo.Text.Trim();
                 string criticidad = comboBoxCriticidad.Text.Trim();
 
-
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = gestorBitacora.ConsultarFiltrado(desde, hasta, usuario, modulo, evento, criticidad);
-
 
                 if (dataGridView1.Columns.Count > 0)
                 {
@@ -91,7 +89,7 @@ namespace SistemaAlquiler.Seguridad
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error en Filtro: " + ex.Message);
+                MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_ErrorFiltro") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -129,7 +127,7 @@ namespace SistemaAlquiler.Seguridad
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_ErrorGeneral") + ex.Message); }
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -151,7 +149,7 @@ namespace SistemaAlquiler.Seguridad
                         catch (IOException ex)
                         {
                             fileError = true;
-                            MessageBox.Show("No se puede reemplazar el archivo. Puede que este abierto. " + ex.Message);
+                            MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_ErrorReemplazarArchivo") + ex.Message);
                         }
                     }
 
@@ -172,7 +170,7 @@ namespace SistemaAlquiler.Seguridad
 
                             foreach (DataGridViewRow row in dataGridView1.Rows)
                             {
-                                if (!row.IsNewRow) 
+                                if (!row.IsNewRow)
                                 {
                                     foreach (DataGridViewCell cell in row.Cells)
                                     {
@@ -187,25 +185,25 @@ namespace SistemaAlquiler.Seguridad
                                 PdfWriter.GetInstance(pdfDoc, stream);
                                 pdfDoc.Open();
 
-                                pdfDoc.Add(new Paragraph("Reporte de Auditoria\n\n"));
+                                pdfDoc.Add(new Paragraph(Services.Observer.IdiomaManager.Instancia.Traducir("pdf_TituloReporte") + "\n\n"));
                                 pdfDoc.Add(pdfTable);
 
                                 pdfDoc.Close();
                                 stream.Close();
                             }
 
-                            MessageBox.Show("Reporte exportado exitosamente!", "Exportacion PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_ExitoPDF"), Services.Observer.IdiomaManager.Instancia.Traducir("tit_ExportacionPDF"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocurrio un error al crear el PDF: " + ex.Message);
+                            MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_ErrorCrearPDF") + ex.Message);
                         }
                     }
                 }
             }
             else
             {
-                MessageBox.Show("La grilla está vacia, no hay nada para exportar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Services.Observer.IdiomaManager.Instancia.Traducir("msg_GrillaVacia"), Services.Observer.IdiomaManager.Instancia.Traducir("tit_Atencion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -219,28 +217,29 @@ namespace SistemaAlquiler.Seguridad
             comboBoxTipo.Items.Clear();
             comboBoxTipo.Text = "";
 
-            switch (comboBoxModulo.Text)
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+            switch (comboBoxModulo.SelectedIndex)
             {
-                case "Admin":
-                    comboBoxTipo.Items.AddRange(new string[] { "Usuarios", "Perfiles", "Backup", "Restore", "BitacoraEventos", "Digito verificador" });
+                case 0: // Admin
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Admin_Usuarios"), idioma.Traducir("cbx_Admin_Perfiles"), idioma.Traducir("cbx_Admin_Backup"), idioma.Traducir("cbx_Admin_Restore"), idioma.Traducir("cbx_Admin_Bitacora"), idioma.Traducir("cbx_Admin_DV") });
                     break;
-                case "Maestros":
-                    comboBoxTipo.Items.AddRange(new string[] { "Vehiculo", "Cliente", "Taller" });
+                case 1: // Maestros
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Mae_Vehiculo"), idioma.Traducir("cbx_Mae_Cliente"), idioma.Traducir("cbx_Mae_Taller") });
                     break;
-                case "Usuario":
-                    comboBoxTipo.Items.AddRange(new string[] { "Login", "ReLogin", "Cambiar clave", "Logout", "Cambiar idioma" });
+                case 2: // Usuario
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Usu_Login"), idioma.Traducir("cbx_Usu_ReLogin"), idioma.Traducir("cbx_Usu_Clave"), idioma.Traducir("cbx_Usu_Logout"), idioma.Traducir("cbx_Usu_Idioma") });
                     break;
-                case "Operaciones":
-                    comboBoxTipo.Items.AddRange(new string[] { "Registrar alquiler", "Registrar devolución", "Cancelar reserva", "Consultar disponibilidad" });
+                case 3: // Operaciones
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Ope_Alquiler"), idioma.Traducir("cbx_Ope_Devolucion"), idioma.Traducir("cbx_Ope_Cancelar"), idioma.Traducir("cbx_Ope_Disp") });
                     break;
-                case "Mantenimiento":
-                    comboBoxTipo.Items.AddRange(new string[] { "Enviar a taller", "Registrar servicio mecánico" });
+                case 4: // Mantenimiento
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Man_Enviar"), idioma.Traducir("cbx_Man_Servicio") });
                     break;
-                case "Reporte":
-                    comboBoxTipo.Items.AddRange(new string[] { "Rentabilidad por vehiculo", "Historial de gastos por unidad", "Estadísticas de alquileres" });
+                case 5: // Reporte
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Rep_Rentabilidad"), idioma.Traducir("cbx_Rep_Historial"), idioma.Traducir("cbx_Rep_Estadisticas") });
                     break;
-                case "Ayuda":
-                    comboBoxTipo.Items.AddRange(new string[] { "Manual de usuario" });
+                case 6: // Ayuda
+                    comboBoxTipo.Items.AddRange(new string[] { idioma.Traducir("cbx_Ayu_Manual") });
                     break;
             }
         }
@@ -257,22 +256,36 @@ namespace SistemaAlquiler.Seguridad
 
         public void ActualizarIdioma()
         {
-            this.Text = Services.Observer.IdiomaManager.Instancia.Traducir("tituloBitacora");
+            var idioma = Services.Observer.IdiomaManager.Instancia;
 
-            button1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnConsultarBitacora");
-            button2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnLimpiarBitacora");
-            button3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnImprimirPDF");
-            button4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("btnSalir"); 
+            this.Text = idioma.Traducir("tituloBitacora");
 
-            groupBox1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("gbFiltros");
-            label1.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblDesde");
-            label2.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblHasta");
-            label3.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroLogin");
-            label8.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroModulo");
-            label4.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroTipo");
-            label7.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblFiltroCriticidad");
-            label5.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblApellidosBottom");
-            label6.Text = Services.Observer.IdiomaManager.Instancia.Traducir("lblNombresBottom");
+            button1.Text = idioma.Traducir("btnConsultarBitacora");
+            button2.Text = idioma.Traducir("btnLimpiarBitacora");
+            button3.Text = idioma.Traducir("btnImprimirPDF");
+            button4.Text = idioma.Traducir("btnSalir");
+
+            groupBox1.Text = idioma.Traducir("gbFiltros");
+            label1.Text = idioma.Traducir("lblDesde");
+            label2.Text = idioma.Traducir("lblHasta");
+            label3.Text = idioma.Traducir("lblFiltroLogin");
+            label8.Text = idioma.Traducir("lblFiltroModulo");
+            label4.Text = idioma.Traducir("lblFiltroTipo");
+            label7.Text = idioma.Traducir("lblFiltroCriticidad");
+            label5.Text = idioma.Traducir("lblApellidosBottom");
+            label6.Text = idioma.Traducir("lblNombresBottom");
+
+            int idxMod = comboBoxModulo.SelectedIndex;
+            int idxCrit = comboBoxCriticidad.SelectedIndex;
+
+            comboBoxModulo.Items.Clear();
+            comboBoxModulo.Items.AddRange(new string[] { idioma.Traducir("cbx_Mod_Admin"), idioma.Traducir("cbx_Mod_Maestros"), idioma.Traducir("cbx_Mod_Usuario"), idioma.Traducir("cbx_Mod_Operaciones"), idioma.Traducir("cbx_Mod_Mantenimiento"), idioma.Traducir("cbx_Mod_Reporte"), idioma.Traducir("cbx_Mod_Ayuda") });
+
+            comboBoxCriticidad.Items.Clear();
+            comboBoxCriticidad.Items.AddRange(new string[] { idioma.Traducir("cbx_Crit_Alta"), idioma.Traducir("cbx_Crit_Media"), idioma.Traducir("cbx_Crit_Baja") });
+
+            comboBoxModulo.SelectedIndex = idxMod;
+            comboBoxCriticidad.SelectedIndex = idxCrit;
 
             ActualizarGrillaTítulos();
         }

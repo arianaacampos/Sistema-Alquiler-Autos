@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Admin
 {
-    public partial class FormDv : Form
+    public partial class FormDv : Form, Services.Observer.IObserverIdioma
     {
         private string _detalleFalla;
         public FormDv(string detalleFalla)
@@ -23,16 +23,24 @@ namespace SistemaAlquiler.Admin
 
         private void FormDv_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("¡ALERTA CRÍTICA DE SEGURIDAD! La integridad de la Base de Datos está comprometida.", "Falla de DV", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
 
-            lstDetalles.Items.Add("--- REPORTE DE INCONSISTENCIA ---");
-            lstDetalles.Items.Add(_detalleFalla);
-            lstDetalles.Items.Add("Por favor, seleccione una acción correctiva.");
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
+            MessageBox.Show(idioma.Traducir("msg_AlertaCriticaDV"), idioma.Traducir("tit_FallaDV"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            lstDetalles.Items.Add(idioma.Traducir("lst_ReporteInconsistencia"));
+            lstDetalles.Items.Add(_detalleFalla); 
+            lstDetalles.Items.Add(idioma.Traducir("lst_SeleccioneAccion"));
 
         }
         private void btnRecalcular_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("¿Está seguro de forzar el recálculo? El sistema asumirá que los datos actuales son los válidos.", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
+            DialogResult r = MessageBox.Show(idioma.Traducir("msg_AvisoRecalculo"), idioma.Traducir("tit_Aviso"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
             if (r == DialogResult.Yes)
             {
                 new DvBLL().RecalcularTodo();
@@ -40,17 +48,21 @@ namespace SistemaAlquiler.Admin
                 string usu = Sesion.Instancia.UsuarioActual ?? "Admin_DV";
                 new BitacoraBLL().Registrar(usu, "Base de Datos", "Recálculo forzado de DV por inconsistencia en BD.", "Alta");
 
-                MessageBox.Show("Dígitos Verificadores recalculados con éxito. El sistema se reiniciará para que intente ingresar nuevamente.");
-                Application.Restart(); 
+                MessageBox.Show(idioma.Traducir("msg_ExitoRecalculo"));
+
+                Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
+                Application.Restart();
             }
         }
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = "Archivos de Backup (*.bak)|*.bak";
-                ofd.Title = "Seleccione el Backup para reparar el sistema";
+                ofd.Title = idioma.Traducir("ofd_TituloRestore"); // ¡Traducción de la ventanita de Windows!
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -64,17 +76,20 @@ namespace SistemaAlquiler.Admin
                         new BitacoraBLL().Registrar(usu, "Base de Datos", "Restore ejecutado por falla de integridad.", "Alta");
 
                         this.Cursor = Cursors.Default;
-                        MessageBox.Show("Restore exitoso. La base de datos ha sido recuperada. El sistema se reiniciará.");
-                        Application.Restart(); 
+                        MessageBox.Show(idioma.Traducir("msg_ExitoRestoreDV"));
+
+                        Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
+                        Application.Restart();
                     }
                     catch (Exception ex)
                     {
                         this.Cursor = Cursors.Default;
-                        MessageBox.Show("Error crítico al intentar el Restore: " + ex.Message);
+                        MessageBox.Show(idioma.Traducir("msg_ErrorCriticoRestore") + ex.Message);
                     }
                 }
             }
         }
+        
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -83,8 +98,27 @@ namespace SistemaAlquiler.Admin
 
         private void btnSalir_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("El sistema se cerrará por seguridad. La base de datos sigue en estado inconsistente.", "Cierre de Emergencia", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
+            MessageBox.Show(idioma.Traducir("msg_CierreSeguridad"), idioma.Traducir("tit_CierreEmergencia"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
             Application.Exit();
+        }
+
+        public void ActualizarIdioma()
+        {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
+            this.Text = idioma.Traducir("tit_FormDV");
+            btnRecalcular.Text = idioma.Traducir("btnRecalcular");
+            btnRestore.Text = idioma.Traducir("btnRestore");
+            btnSalir.Text = idioma.Traducir("btnSalir");
+        }
+
+        private void FormDv_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
         }
     }
 }

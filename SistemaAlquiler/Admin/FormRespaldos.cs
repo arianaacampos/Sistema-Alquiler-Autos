@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace SistemaAlquiler.Admin
 {
-    public partial class FormRespaldos : Form
+    public partial class FormRespaldos : Form, Services.Observer.IObserverIdioma
     {
         public FormRespaldos()
         {
@@ -22,7 +22,7 @@ namespace SistemaAlquiler.Admin
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                fbd.Description = "Seleccione la carpeta para guardar el Backup";
+                fbd.Description = Services.Observer.IdiomaManager.Instancia.Traducir("fbd_DescBackup");
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     txtRutaBackup.Text = fbd.SelectedPath;
@@ -32,9 +32,11 @@ namespace SistemaAlquiler.Admin
 
         private void btnGenerarBackup_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
             if (string.IsNullOrWhiteSpace(txtRutaBackup.Text))
             {
-                MessageBox.Show("Por favor, seleccione un directorio de destino usando el botón Examinar.");
+                MessageBox.Show(idioma.Traducir("msg_SeleccioneDirectorio"));
                 return;
             }
 
@@ -45,13 +47,13 @@ namespace SistemaAlquiler.Admin
                 new RespaldoBLL().RealizarBackup(txtRutaBackup.Text);
 
                 this.Cursor = Cursors.Default;
-                MessageBox.Show("¡Backup generado y guardado correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(idioma.Traducir("msg_ExitoBackup"), idioma.Traducir("tit_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtRutaBackup.Text = "";
             }
             catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
-                MessageBox.Show("Error al generar el Backup: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(idioma.Traducir("msg_ErrorGenerarBackup") + ex.Message, idioma.Traducir("tit_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -60,7 +62,7 @@ namespace SistemaAlquiler.Admin
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
                 ofd.Filter = "Archivos de Backup SQL (*.bak)|*.bak";
-                ofd.Title = "Seleccione el archivo de Backup a restaurar";
+                ofd.Title = Services.Observer.IdiomaManager.Instancia.Traducir("ofd_TituloRestoreBack");
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     txtRutaRestore.Text = ofd.FileName;
@@ -70,13 +72,15 @@ namespace SistemaAlquiler.Admin
 
         private void btnEjecutarRestore_Click(object sender, EventArgs e)
         {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
             if (string.IsNullOrWhiteSpace(txtRutaRestore.Text))
             {
-                MessageBox.Show("Por favor, seleccione el archivo .bak a restaurar.");
+                MessageBox.Show(idioma.Traducir("msg_SeleccioneBak"));
                 return;
             }
 
-            DialogResult confirmacion = MessageBox.Show("¿Está seguro que desea sobrescribir la base de datos actual? Se perderán todos los datos que no estén en este respaldo. El sistema se cerrará tras finalizar.", "Advertencia Crítica", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult confirmacion = MessageBox.Show(idioma.Traducir("msg_AdvertenciaRestore"), idioma.Traducir("tit_AdvertenciaCritica"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirmacion == DialogResult.Yes)
             {
@@ -87,16 +91,38 @@ namespace SistemaAlquiler.Admin
                     new RespaldoBLL().RealizarRestore(txtRutaRestore.Text);
 
                     this.Cursor = Cursors.Default;
-                    MessageBox.Show("¡Restore ejecutado correctamente! El sistema se reiniciará por seguridad.", "Restauración Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    MessageBox.Show(idioma.Traducir("msg_ExitoRestoreApp"), idioma.Traducir("tit_RestauracionExitosa"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
                     Application.Restart();
                 }
                 catch (Exception ex)
                 {
                     this.Cursor = Cursors.Default;
-                    MessageBox.Show("Error al restaurar la base de datos: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(idioma.Traducir("msg_ErrorRestore") + ex.Message, idioma.Traducir("tit_ErrorCritico"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void FormRespaldos_Load(object sender, EventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Suscribir(this);
+            ActualizarIdioma();
+        }
+
+        public void ActualizarIdioma()
+        {
+            var idioma = Services.Observer.IdiomaManager.Instancia;
+
+            this.Text = idioma.Traducir("tit_FormRespaldos");
+            btnExaminarBackup.Text = idioma.Traducir("btnExaminarBackup");
+            btnGenerarBackup.Text = idioma.Traducir("btnGenerarBackup");
+            btnExaminarRestore.Text = idioma.Traducir("btnExaminarRestore");
+            btnEjecutarRestore.Text = idioma.Traducir("btnEjecutarRestore");
+        }
+
+        private void FormRespaldos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Services.Observer.IdiomaManager.Instancia.Desuscribir(this);
         }
     }
 }
