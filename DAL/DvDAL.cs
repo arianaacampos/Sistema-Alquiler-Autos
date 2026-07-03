@@ -70,5 +70,27 @@ namespace DAL
                 return result != null ? result.ToString() : "";
             }
         }
+        public DataTable ObtenerHistorialDV()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cx = new SqlConnection(connectionString))
+            {
+                string query = "SELECT FechaHora, Usuario, Modulo, Evento, Criticidad FROM Bitacora " +
+                               "WHERE Modulo = 'Base de Datos' " +
+                               "   OR Evento LIKE '%DV%' " +
+                               "   OR Evento LIKE '%inconsistencia%' " +
+                               "   OR Evento LIKE '%Integridad%' " +
+                               "   OR Evento LIKE '%Recálculo%' " +
+                               "ORDER BY FechaHora DESC";
+
+                SqlCommand cmd = new SqlCommand(query, cx);
+                cx.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    dt.Load(dr);
+                }
+            }
+            return dt;
+        }
     }
 }

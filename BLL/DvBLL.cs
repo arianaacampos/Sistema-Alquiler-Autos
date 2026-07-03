@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
+    public class DetalleFalla
+    {
+        public string Tabla { get; set; }
+        public string FilaID { get; set; }
+        public string Error { get; set; }
+        public string Columnas { get; set; }
+    }
     public class DvBLL
     {
         private DvDAL _dal = new DvDAL();
@@ -40,7 +47,7 @@ namespace BLL
 
                     foreach (DataColumn col in dt.Columns)
                     {
-                        if (col.ColumnName == "DVH") continue; 
+                        if (col.ColumnName == "DVH") continue;
                         filaConcatenada += row[col].ToString();
                     }
 
@@ -99,6 +106,78 @@ namespace BLL
             }
 
             return true;
+        }
+        public List<DetalleFalla> EscanearFallas()
+        {
+            List<DetalleFalla> fallas = new List<DetalleFalla>();
+
+            foreach (var item in TablasCriticas)
+            {
+                string nombreTabla = item.Key;
+                string pkColumna = item.Value;
+
+                DataTable dt = _dal.LeerTabla(nombreTabla);
+                string dvvAlmacenado = _dal.ObtenerDVV(nombreTabla);
+                StringBuilder sbDvv = new StringBuilder();
+
+                List<string> listaColumnas = new List<string>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    if (col.ColumnName != "DVH") listaColumnas.Add(col.ColumnName);
+                }
+                string stringColumnas = string.Join(", ", listaColumnas);
+
+                bool fallaEnFila = false;
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    string filaConcatenada = "";
+                    string idFila = row[pkColumna].ToString();
+                    string dvhGuardado = row["DVH"] != DBNull.Value ? row["DVH"].ToString() : "";
+
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        if (col.ColumnName == "DVH") continue;
+                        filaConcatenada += row[col].ToString();
+                    }
+
+                    string dvhCalculado = Criptografia.EncriptarHash(filaConcatenada);
+                    sbDvv.Append(dvhCalculado);
+
+                    if (dvhCalculado != dvhGuardado)
+                    {
+                        fallaEnFila = true; 
+                        fallas.Add(new DetalleFalla
+                        {
+                            Tabla = nombreTabla,
+                            FilaID = idFila,
+                            Columnas = stringColumnas,
+                            Error = "Falla DVH: Registro alterado externamente en SQL."
+                        });
+                    }
+                }
+
+                string dvvCalculado = Criptografia.EncriptarHash(sbDvv.ToString());
+
+                if (dvvCalculado != dvvAlmacenado && !fallaEnFila)
+                {
+                    fallas.Add(new DetalleFalla
+                    {
+                        Tabla = nombreTabla,
+                        FilaID = "N/A (Afecta a la cantidad de filas)",
+                        Columnas = "Todas",
+                        Error = "Falla DVV: Se insertaron o eliminaron registros directamente en SQL."
+                    });
+                }
+            }
+            return fallas;
+        }
+
+              
+        
+        public DataTable ObtenerHistorialLog()
+        {
+            return _dal.ObtenerHistorialDV();
         }
     }
 }
